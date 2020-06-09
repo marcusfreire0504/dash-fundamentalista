@@ -106,3 +106,32 @@ def get_companies(index_name='IBRA'):
     df['TIPO'] = df['TIPO'].str[:2]
     df = df.merge(numshares, on=['BTICKER', 'TIPO'])
     return df.reset_index(drop=True)
+
+
+def get_cvm_zip(year, doc_type):
+    #
+    fn = f'{doc_type.lower()}_cia_aberta_{year}'
+    url = 'http://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/'
+    if doc_type.lower() != 'itr':
+        url = url + 'DFP/'
+    url = url + doc_type.upper() + '/DADOS/' + fn + '.zip'
+    #
+    filehandle, _ = ur.urlretrieve(url)
+    with ZipFile(filehandle, 'r') as zf:
+        flist = zf.namelist()
+        if fn + '.csv' in flist:
+            flist.remove(fn + '.csv')
+        df = pd.concat([
+            pd.read_csv(io.BytesIO(zf.read(fn)), delimiter=';',
+                        encoding='latin1')
+            for fn in flist
+        ])
+    #
+    df['VL_CONTA'] = df['VL_CONTA'] * 10 ** \
+        np.where(df['ESCALA_MOEDA'] == 'UNIDADE', 1, 3)
+    #
+    cols = df.columns
+    cols = cols[cols.isin(['DT_REFER', 'VERSAO', 'CD_CVM',
+                           'DT_INI_EXERC', 'DT_FIM_EXERC', 'CD_CONTA',
+                           'DS_CONTA', 'VL_CONTA', 'COLUNA_DF'])]
+    return df[cols]
