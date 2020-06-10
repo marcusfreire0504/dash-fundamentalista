@@ -108,7 +108,7 @@ def get_companies(index_name='IBRA'):
     return df.reset_index(drop=True)
 
 
-def get_cvm_zip(year, doc_type):
+def get_cvm_zip(year, doc_type, accounts=None, companies=None):
     #
     fn = f'{doc_type.lower()}_cia_aberta_{year}'
     url = 'http://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/'
@@ -126,6 +126,11 @@ def get_cvm_zip(year, doc_type):
                         encoding='latin1')
             for fn in flist
         ])
+    #
+    if companies is not None:
+        df = df[df['CD_CVM'].isin(companies)]
+    if accounts is not None:
+        df = df[df['CD_CONTA'].isin(accounts)]
     #
     df['VL_CONTA'] = df['VL_CONTA'] * 10 ** \
         np.where(df['ESCALA_MOEDA'] == 'UNIDADE', 1, 3)
