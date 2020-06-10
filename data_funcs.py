@@ -108,9 +108,10 @@ def get_companies(index_name='IBRA'):
     return df.reset_index(drop=True)
 
 
-def get_cvm_zip(year, doc_type, accounts=None, companies=None):
+def get_cvm_zip(year, doc_type, accounts=None, companies=None, rmzero=True):
     #
     fn = f'{doc_type.lower()}_cia_aberta_{year}'
+    print('Downloading ' + fn)
     url = 'http://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/'
     if doc_type.lower() != 'itr':
         url = url + 'DFP/'
@@ -119,6 +120,7 @@ def get_cvm_zip(year, doc_type, accounts=None, companies=None):
     filehandle, _ = ur.urlretrieve(url)
     with ZipFile(filehandle, 'r') as zf:
         flist = zf.namelist()
+        flist = [f for f in flist if 'con' in f]
         if fn + '.csv' in flist:
             flist.remove(fn + '.csv')
         df = pd.concat([
@@ -131,6 +133,8 @@ def get_cvm_zip(year, doc_type, accounts=None, companies=None):
         df = df[df['CD_CVM'].isin(companies)]
     if accounts is not None:
         df = df[df['CD_CONTA'].isin(accounts)]
+    if rmzero:
+        df = df[df['VL_CONTA'] != 0]
     #
     df['VL_CONTA'] = df['VL_CONTA'] * 10 ** \
         np.where(df['ESCALA_MOEDA'] == 'UNIDADE', 1, 3)
@@ -139,4 +143,29 @@ def get_cvm_zip(year, doc_type, accounts=None, companies=None):
     cols = cols[cols.isin(['DT_REFER', 'VERSAO', 'CD_CVM',
                            'DT_INI_EXERC', 'DT_FIM_EXERC', 'CD_CONTA',
                            'DS_CONTA', 'VL_CONTA', 'COLUNA_DF'])]
-    return df[cols]
+    return df[cols].reset_index(drop=True)
+
+
+def get_cvm_all(years, doc_types=['dre', 'bpa', 'bpp'],
+                accounts=None, companies=None):
+    doc_types.append('itr')
+    df = (
+        pd.concat([
+            get_cvm_zip(year, doc_type, accounts, companies)
+            for doc_type in doc_types
+            for year in years
+        ])
+        .sort_values(['CD_CVM', 'CD_CONTA', 'DT_FIM_EXERC', 'DT_REFER',
+                      'VERSAO'])
+        .drop_duplicates(['CD_CVM', 'CD_CONTA', 'DT_FIM_EXERC'], keep='last')
+        .assign(VL_CONTA=lambda x: x['VL_CONTA'] / 1000000)
+        .rename(columns={'VL_CONTA': 'VL_CONTA_YTD'})
+    )
+    df['VL_CONTA'] = np.where(
+        df['CD_CONTA'].str[:1].isin(['1', '2']),
+        df['VL_CONTA_YTD'],
+        df['VL_CONTA_YTD'] -
+            (df.groupby(['CD_CVM', 'CD_CONTA', 'DT_INI_EXERC'])['VL_CONTA_YTD']
+            .shift(fill_value=0))
+    )
+    return df.reset_index(drop=True)
