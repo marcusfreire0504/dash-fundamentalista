@@ -15,7 +15,7 @@ fin_stmts.to_csv('data/fin_stmts_long.csv', index=False)
 
 
 accounts = accounts.melt('CD_CONTA', var_name='BANCO', value_name='VARNAME')
-accounts = accounts[accounts['VARNAME'].isna() is False]
+accounts = accounts[accounts['VARNAME'].isna() == False]
 
 bancos = companies['CD_CVM'][companies['SEGMENTO'] == 'Bancos']
 fin_stmts['BANCO'] = \
