@@ -179,14 +179,20 @@ def toggle_search_modal(n1, n2, is_open, ticker, data, rows):
 
 
 @app.callback(
-    Output('stmts_store', 'data'),
+    [Output('stmts_store', 'data'),
+     Output('company_name', 'children')],
     [Input('ticker', 'children')]
 )
 def update_stmts_data(ticker):
-    cvm_id = screener['CD_CVM'][screener['TICKER'] == ticker].iloc[0]
+    row = screener[screener['TICKER'] == ticker]
+    cvm_id = row['CD_CVM'].iloc[0]
+    company_name = row['NM_PREGAO'].iloc[0]
+
     df = fin_stmts[fin_stmts['CD_CVM'] == cvm_id]
+    df = df.reset_index()
+    df = df[1:]
     df = calc_kpis(df)
-    return df.to_dict('records')
+    return df.to_dict('records'), company_name
 
 
 @app.callback(
