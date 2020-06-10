@@ -152,6 +152,7 @@ app.layout = html.Div([
     navbar,
     html.Div([
         html.H2('', id='company_name'),
+        html.Ol([], id='sectors', className='breadcrumb', style={'background': 'none'}),
         tabs
     ], className='container-fluid'),
     screener_modal,
@@ -180,19 +181,25 @@ def toggle_search_modal(n1, n2, is_open, ticker, data, rows):
 
 @app.callback(
     [Output('stmts_store', 'data'),
-     Output('company_name', 'children')],
+     Output('company_name', 'children'),
+     Output('sectors', 'children')],
     [Input('ticker', 'children')]
 )
 def update_stmts_data(ticker):
     row = screener[screener['TICKER'] == ticker]
     cvm_id = row['CD_CVM'].iloc[0]
     company_name = row['NM_PREGAO'].iloc[0]
+    sectors = [
+        html.Li(row[s].iloc[0], className='breadcrumb-item')
+        for s in ['SETOR', 'SUBSETOR', 'SEGMENTO']
+    ]
 
     df = fin_stmts[fin_stmts['CD_CVM'] == cvm_id]
     df = df.reset_index()
     df = df[1:]
     df = calc_kpis(df)
-    return df.to_dict('records'), company_name
+
+    return df.to_dict('records'), company_name, sectors
 
 
 @app.callback(
