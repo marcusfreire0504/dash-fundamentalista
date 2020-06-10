@@ -13,6 +13,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
 import plotly.figure_factory as ff
+from plotly.subplots import make_subplots
 
 
 pio.templates["custom"] = go.layout.Template(
@@ -63,7 +64,7 @@ def calc_kpis(df):
 
 screener = calc_kpis(screener)
 screener = companies.merge(screener, on='CD_CVM')
-screener = screener.sort_values('Revenue', ascending=False)
+screener = screener.sort_values('PESO', ascending=False)
 
 #
 app = dash.Dash(
@@ -71,7 +72,7 @@ app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP]
 )
 server = app.server
-app.title = 'Portfolio'
+app.title = 'Análise Fundamentalista'
 
 #
 navbar = dbc.NavbarSimple(
@@ -117,11 +118,44 @@ screener_modal = dbc.Modal([
 ], id='screener_modal', size="xl", scrollable=True)
 
 
+#
+def grid(rows):
+    return html.Div([
+        dbc.Row([dbc.Col(col, width=12/len(row)) for col in row])
+        for row in rows
+    ])
+
+
+# TABS
+tabs = dbc.Tabs([
+    dbc.Tab([
+        grid([
+            [
+                dcc.Graph(id='ov_revenue_plot'),
+                dcc.Graph(id='ov_profit_plot')
+            ],
+            [
+                dcc.Graph(id='ov_margins_plot'),
+                dcc.Graph(id='ov_returns_plot')
+            ]
+        ])
+    ], label="Visão Geral")
+])
+
+
+#
+stores = html.Div([dcc.Store(id=f"{s}_store") for s in ['stmts']])
+
 
 # LAYOUT
 app.layout = html.Div([
     navbar,
-    screener_modal
+    html.Div([
+        html.H2('', id='company_name'),
+        tabs
+    ], className='container-fluid'),
+    screener_modal,
+    stores
 ])
 
 
@@ -142,6 +176,51 @@ def toggle_search_modal(n1, n2, is_open, ticker, data, rows):
             ticker = pd.DataFrame(data)['TICKER'].iloc[rows[0]]
         return not is_open, ticker
     return is_open, ticker
+
+
+@app.callback(
+    Output('stmts_store', 'data'),
+    [Input('ticker', 'children')]
+)
+def update_stmts_data(ticker):
+    cvm_id = screener['CD_CVM'][screener['TICKER'] == ticker].iloc[0]
+    df = fin_stmts[fin_stmts['CD_CVM'] == cvm_id]
+    df = calc_kpis(df)
+    return df.to_dict('records')
+
+
+@app.callback(
+    [Output('ov_revenue_plot', 'figure'),
+     Output('ov_profit_plot', 'figure'),
+     Output('ov_margins_plot', 'figure'),
+     Output('ov_returns_plot', 'figure')],
+    [Input('stmts_store', 'data')]
+)
+def update_overview_plot(data):
+    df = pd.DataFrame(data)
+    labs = {'value': '', 'DT_FIM_EXERC': '', 'variable': ''}
+    revenue_fig = px.bar(
+        df[['DT_FIM_EXERC', 'Revenue', 'GrossProfit']].melt('DT_FIM_EXERC'),
+        x='DT_FIM_EXERC', y='value', color='variable', barmode='group',
+        title='Receita e Lucro Bruto', labels=labs
+    )
+    profit_fig = px.bar(
+        df[['DT_FIM_EXERC', 'EBIT', 'NetIncome']].melt('DT_FIM_EXERC'),
+        x='DT_FIM_EXERC', y='value', color='variable', barmode='group',
+        title='Lucro', labels=labs
+    )
+    margins_fig = px.line(
+        df[['DT_FIM_EXERC', 'EBITMargin', 'NetMargin', 'GrossMargin']]
+            .melt('DT_FIM_EXERC'),
+        x='DT_FIM_EXERC', y='value', color='variable',
+        title='Margens', labels=labs
+    )
+    returns_fig = px.line(
+        df[['DT_FIM_EXERC', 'ROIC', 'ROE']].melt('DT_FIM_EXERC'),
+        x='DT_FIM_EXERC', y='value', color='variable',
+        title='Rentabilidade', labels=labs
+    )
+    return revenue_fig, profit_fig, margins_fig, returns_fig
 
 
 #
