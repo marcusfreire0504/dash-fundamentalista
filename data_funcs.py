@@ -154,12 +154,13 @@ def get_cvm_all(years, doc_types=['dre', 'bpa', 'bpp'],
             get_cvm_zip(year, doc_type, accounts, companies)
             for doc_type in doc_types
             for year in years
-        ])
+        ], ignore_index=True)
         .sort_values(['CD_CVM', 'CD_CONTA', 'DT_FIM_EXERC', 'DT_REFER',
                       'VERSAO'])
         .drop_duplicates(['CD_CVM', 'CD_CONTA', 'DT_FIM_EXERC'], keep='last')
         .assign(VL_CONTA=lambda x: x['VL_CONTA'] / 1000000)
         .rename(columns={'VL_CONTA': 'VL_CONTA_YTD'})
+        .reset_index(drop=True)
     )
     df['VL_CONTA'] = np.where(
         df['CD_CONTA'].str[:1].isin(['1', '2']),
@@ -168,4 +169,4 @@ def get_cvm_all(years, doc_types=['dre', 'bpa', 'bpp'],
             (df.groupby(['CD_CVM', 'CD_CONTA', 'DT_INI_EXERC'])['VL_CONTA_YTD']
             .shift(fill_value=0))
     )
-    return df.reset_index(drop=True)
+    return df
