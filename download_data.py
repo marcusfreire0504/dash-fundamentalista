@@ -30,4 +30,4 @@ fin_stmts_wide = (
                  columns='VARNAME', values='VL_CONTA')
     .reset_index()
 )
-fin_stmts_wide.to_csv('data/fin_stmts_wide.csv')
+fin_stmts_wide.to_csv('data/fin_stmts_wide.csv', index=False)
