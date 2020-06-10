@@ -15,10 +15,11 @@ fin_stmts.to_csv('data/fin_stmts_long.csv', index=False)
 
 
 accounts = accounts.melt('CD_CONTA', var_name='BANCO', value_name='VARNAME')
-accounts = accounts[accounts['VARNAME'].isna() == False]
+accounts = accounts[accounts['VARNAME'].isna() is False]
 
 bancos = companies['CD_CVM'][companies['SEGMENTO'] == 'Bancos']
-fin_stmts['BANCO'] = np.where(fin_stmts['CD_CVM'].isin(bancos), 'BANCO', 'OUTRA')
+fin_stmts['BANCO'] = \
+    np.where(fin_stmts['CD_CVM'].isin(bancos), 'BANCO', 'OUTRA')
 
 fin_stmts_wide = (
     fin_stmts
