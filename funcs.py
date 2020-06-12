@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 
 def calc_kpis(df, quarterly=True):
     df.sort_values('DT_FIM_EXERC', inplace=True)
+    df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
         df['StakeholderEquity'] - df['MinorityInterests'].fillna(0)
     df['NetDebt'] = df['Debt'].fillna(0) - df['Cash']

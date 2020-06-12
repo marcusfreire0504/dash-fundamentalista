@@ -184,7 +184,6 @@ def plot_revenue_forecast(data):
 )
 def plot_opex_scatter(data):
     df = pd.DataFrame(data)
-    df['Opex'] = df['Revenue'] - df['EBIT']
     df['Quarter'] = pd.to_datetime(df['DT_FIM_EXERC']).dt.quarter.astype(str) \
         + 'Q'
     fig = px.scatter(df, x='Revenue', y='Opex', color='Quarter')
