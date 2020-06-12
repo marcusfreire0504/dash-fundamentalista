@@ -234,7 +234,7 @@ def plot_opex_forecast(historicals, forecasts):
     df['iteration'] = df['iteration'].fillna('')
 
     fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
-        facet_row='variable', line_group='iteration')
+        facet_col='variable', facet_col_wrap=1, line_group='iteration')
     fig.update_yaxes(matches=None)
 
     return fig
