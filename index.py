@@ -8,6 +8,8 @@ import screener
 import company
 
 
+server = app.server
+
 #
 navbar = dbc.NavbarSimple(
     children=[],
