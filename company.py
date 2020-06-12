@@ -36,6 +36,7 @@ def layout(ticker):
     #
     return html.Div([
         dcc.Store(id='stmts_store', data=data.to_dict('records')),
+        dcc.Store(id='rev_forecast_store', data={}),
         html.H2(company_name),
         html.Ol(sectors, className='breadcrumb',
             style={'background': 'none'}),
@@ -119,9 +120,10 @@ def update_overview_plot(data):
 
 
 @app.callback(
-    Output('rev_forecast_plot', 'figure'),
+    Output('rev_forecast_store', 'data'),
     [Input('stmts_store', 'data'),
      Input('rev_forecast_method', 'value')]
+
 )
 def update_revenue_forecast(data, method):
     data = pd.DataFrame(data)
@@ -156,6 +158,15 @@ def update_revenue_forecast(data, method):
         simulations
         ])
     df['iteration'] = df['iteration'].fillna('')
+    return df.to_dict('records')
+
+
+@app.callback(
+    Output('rev_forecast_plot', 'figure'),
+    [Input('rev_forecast_store', 'data')]
+)
+def plot_revenue_forecast(data):
+    df = pd.DataFrame(data)
     fig = px.line(df,
         x='DT_FIM_EXERC', y=['Revenue', 'Simulation', 'Forecast'],
         line_group='iteration')
