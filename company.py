@@ -183,7 +183,8 @@ def plot_revenue_forecast(historicals, forecasts):
 )
 def plot_opex_scatter(data):
     df = pd.DataFrame(data)
-    fig = px.scatter(df, x='Revenue', y='Opex', color='Quarter')
+    fig = px.scatter(
+        df, x='Revenue', y='Opex', color='Quarter', size='EBITMargin')
     return fig
 
 
