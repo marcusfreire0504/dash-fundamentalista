@@ -30,6 +30,7 @@ def calc_kpis(df, quarterly=True):
     df['DebtToCapital'] = df['Debt'] / df['InvestedCapital']
 
     if quarterly:
+        df['RevenueGrowth'] = 100 * (df['Revenue'] / df['Revenue'].shift(4) -1)
         df['LTM_NetIncome'] = df['NetIncome'].rolling(4).sum()
         df['LTM_EBIT'] = df['EBIT'].rolling(4).sum()
         df['LTM_ShareholderEquity'] = df['ShareholderEquity'].rolling(4).mean()

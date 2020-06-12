@@ -154,6 +154,8 @@ def update_revenue_forecast(data, method):
         .drop(columns='variable_0')
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
     )
+    simulations['RevenueGrowth'] = 100 * (simulations['Revenue'] /
+            simulations.groupby('iteration')['Revenue'].shift(4) - 1)
     simulations = add_quarters(simulations)
     return simulations.to_dict('records')
 
@@ -166,14 +168,13 @@ def update_revenue_forecast(data, method):
 def plot_revenue_forecast(historicals, forecasts):
     historicals = pd.DataFrame(historicals)
     forecasts = pd.DataFrame(forecasts)
-    df = pd.concat([
-        historicals,
-        forecasts.rename(columns={'Revenue': 'Simulation'})
-    ])
+    df = pd.concat([historicals, forecasts])
     df['iteration'] = df['iteration'].fillna('')
     fig = px.line(df,
-        x='DT_FIM_EXERC', y=['Revenue', 'Simulation'],
-        line_group='iteration')
+        x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
+        line_group='iteration',
+        facet_col='variable', facet_col_wrap=1)
+    fig.update_yaxes(matches=None)
     return fig
 
 
