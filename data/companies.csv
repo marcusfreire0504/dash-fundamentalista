@@ -1,143 +1,408 @@
-CD_CVM,NM_PREGAO,TICKER,TIPO,QTDE,PESO,BTICKER,SETOR,SUBSETOR,SEGMENTO,CD_GOVERN,QT_ACOES
-22357,ALIANSCSONAE,ALSO3,ON,127.374.163,0.19699999999999998,ALSO,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,265772778
-10456,ALPARGATAS,ALPA4,PN,187.007.704,0.275,ALPA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,N1             ,286051533
-23264,AMBEV S/A,ABEV3,ON,4.354.228.928,3.2119999999999997,ABEV,Consumo não Cíclico,Bebidas,Cervejas e Refrigerantes,,15735117965
-23248,ANIMA,ANIM3,ON,72.891.620,0.1,ANIM,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,111122935
-22349,AREZZO CO,ARZZ3,ON,44.066.233,0.105,ARZZ,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,90954280
-24171,CARREFOUR BR,CRFB3,ON,384.888.219,0.358,CRFB,Consumo não Cíclico,Comércio e Distribuição,Alimentos,NM             ,1985019050
-24112,AZUL,AZUL4,PN,317.471.474,0.439,AZUL,Bens Industriais,Transporte,Transporte Aéreo,N2             ,329703517
-20990,B2W DIGITAL,BTOW3,ON,194.807.150,0.915,BTOW,Consumo Cíclico,Comércio,Produtos Diversos,NM             ,523229262
-21610,B3,B3SA3,ON,2.046.021.644,5.347,B3SA,Financeiro,Serviços Financeiros Diversos,Serviços Financeiros Diversos,NM             ,2059138490
-24406,BANCO INTER,BIDI4,PN,27.878.033,0.018000000000000002,BIDI,Financeiro,Intermediários Financeiros,Bancos,N2             ,341119102
-23159,BBSEGURIDADE,BBSE3,ON,671.601.167,0.9640000000000001,BBSE,Financeiro,Previdência e Seguros,Seguradoras,NM             ,2000000000
-20958,ABC BRASIL,ABCB4,PN,73.265.872,0.055999999999999994,ABCB,Financeiro,Intermediários Financeiros,Bancos,N2             ,108862625
-906,BRADESCO,BBDC4,PN,4.261.649.634,5.053999999999999,BBDC,Financeiro,Intermediários Financeiros,Bancos,N1             ,4435106111
-906,BRADESCO,BBDC3,ON,1.253.093.907,1.357,BBDC,Financeiro,Intermediários Financeiros,Bancos,N1             ,4435106575
-1023,BRASIL,BBAS3,ON,1.418.466.803,2.608,BBAS,Financeiro,Intermediários Financeiros,Bancos,NM             ,2865417020
-1210,BANRISUL,BRSR6,PN,202.531.540,0.157,BRSR,Financeiro,Intermediários Financeiros,Bancos,N1             ,203909636
-21199,BANCO PAN,BPAN4,PN,315.644.002,0.147,BPAN,Financeiro,Intermediários Financeiros,Bancos,N1             ,547495486
-24317,BK BRASIL,BKBR3,ON,224.816.907,0.158,BKBR,Consumo Cíclico,Hoteis e Restaurantes,Restaurante e Similares,NM             ,228105447
-19909,BR MALLS PAR,BRML3,ON,843.313.591,0.488,BRML,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,873141333
-19925,BR PROPERT,BRPR3,ON,202.188.430,0.1,BRPR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,491510283
-18724,BRADESPAR,BRAP4,PN,222.089.397,0.4,BRAP,Materiais Básicos,Mineração,Minerais Metálicos,N1             ,225862596
-4820,BRASKEM,BRKM5,PN,264.632.416,0.368,BRKM,Materiais Básicos,Químicos,Petroquímicos,N1             ,345549902
-16292,BRF SA,BRFS3,ON,811.416.229,0.9540000000000001,BRFS,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,812473246
-24228,CAMIL,CAML3,ON,120.834.497,0.067,CAML,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,NM             ,370000000
-18821,CCR SA,CCRO3,ON,1.115.695.556,0.8420000000000001,CCRO,Bens Industriais,Transporte,Exploração de Rodovias,NM             ,2020000000
-24848,CEA MODAS,CEAB3,ON,106.349.614,0.069,CEAB,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,308245068
-2437,ELETROBRAS,ELET3,ON,358.028.908,0.573,ELET,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,1288842596
-2437,ELETROBRAS,ELET6,PN,240.022.548,0.397,ELET,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,280088314
-2577,CESP,CESP6,PN,182.017.689,0.268,CESP,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,218334872
-14826,P.ACUCAR-CBD,PCAR3,ON,156.575.731,0.53,PCAR,Consumo não Cíclico,Comércio e Distribuição,Alimentos,N1             ,268049496
-2453,CEMIG,CMIG4,PN,966.005.862,0.586,CMIG,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,971138388
-2453,CEMIG,CMIG3,ON,239.077.295,0.151,CMIG,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,487614213
-14761,CIA HERING,HGTX3,ON,126.302.831,0.107,HGTX,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Vestuário,NM             ,162533937
-22691,LOCAMERICA,LCAM3,ON,313.436.726,0.276,LCAM,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,508729411
-14311,COPEL,CPLE6,PN,128.297.147,0.441,CPLE,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,128624295
-14311,COPEL,CPLE3,ON,60.002.482,0.193,CPLE,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,145031080
-14443,SABESP,SBSP3,ON,339.982.576,0.943,SBSP,Utilidade Pública,Água e Saneamento,Água e Saneamento,NM             ,683509869
-19445,COPASA,CSMG3,ON,62.969.736,0.18600000000000003,CSMG,Utilidade Pública,Água e Saneamento,Água e Saneamento,NM             ,126751023
-18627,SANEPAR,SAPR4,PN,203.503.821,0.062,SAPR,Utilidade Pública,Água e Saneamento,Água e Saneamento,N2             ,1007470260
-4030,SID NACIONAL,CSNA3,ON,642.387.288,0.40399999999999997,CSNA,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,,1387524047
-21733,CIELO,CIEL3,ON,1.118.386.806,0.262,CIEL,Financeiro,Serviços Financeiros Diversos,Serviços Financeiros Diversos,NM             ,2716815061
-17973,COGNA ON,COGN3,ON,1.829.322.117,0.638,COGN,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,1876606210
-21148,TENDA,TEND3,ON,96.310.946,0.14300000000000002,TEND,Consumo Cíclico,Construção Civil,Incorporações,NM             ,104344246
-23485,COSAN LOG,RLOG3,ON,125.570.897,0.124,RLOG,Bens Industriais,Transporte,Transporte Ferroviário,NM             ,463224241
-19836,COSAN,CSAN3,ON,153.417.832,0.537,CSAN,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,394210000
-18660,CPFL ENERGIA,CPFE3,ON,170.209.781,0.28600000000000003,CPFE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1152254440
-18376,TRAN PAULIST,TRPL4,PN,395.797.044,0.41200000000000003,TRPL,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,400945572
-23310,CVC BRASIL,CVCB3,ON,145.617.442,0.16899999999999998,CVCB,Consumo Cíclico,Viagens e Lazer,Viagens e Turismo,NM             ,149328579
-14460,CYRELA REALT,CYRE3,ON,281.154.098,0.315,CYRE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,399742799
-21350,DIRECIONAL,DIRR3,ON,81.507.613,0.051,DIRR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,153398749
-23493,DOMMO,DMMO3,ON,269.968.506,0.021,DMMO,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",,270040228
-21091,DURATEX,DTEX3,ON,273.622.865,0.192,DTEX,Materiais Básicos,Madeira e Papel,Madeira,NM             ,691784501
-19453,ECORODOVIAS,ECOR3,ON,171.079.276,0.125,ECOR,Bens Industriais,Transporte,Exploração de Rodovias,NM             ,558699080
-19763,ENERGIAS BR,ENBR3,ON,295.402.225,0.273,ENBR,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,606850394
-20087,EMBRAER,EMBR3,ON,736.171.905,0.39799999999999996,EMBR,Bens Industriais,Material de Transporte,Material Aeronáutico e de Defesa,NM             ,740465044
-22365,ENAUTA PART,ENAT3,ON,75.630.071,0.043,ENAT,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,265806905
-21237,ENEVA,ENEV3,ON,315.006.451,0.633,ENEV,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,315767683
-17329,ENGIE BRASIL,EGIE3,ON,254.813.401,0.563,EGIE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,815927740
-20010,EQUATORIAL,EQTL3,ON,1.010.186.085,1.1,EQTL,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1010286085
-20524,EVEN,EVEN3,ON,205.280.287,0.10400000000000001,EVEN,Consumo Cíclico,Construção Civil,Incorporações,NM             ,212000000
-20770,EZTEC,EZTC3,ON,95.629.772,0.19399999999999998,EZTC,Consumo Cíclico,Construção Civil,Incorporações,NM             ,227000000
-21881,FLEURY,FLRY3,ON,305.126.422,0.402,FLRY,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,316788210
-16101,GAFISA,GFSA3,ON,67.798.040,0.019,GFSA,Consumo Cíclico,Construção Civil,Incorporações,NM             ,120000000
-3980,GERDAU,GGBR4,PN,1.031.246.473,0.8079999999999999,GGBR,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,1146031245
-19569,GOL,GOLL4,PN,134.613.917,0.163,GOLL,Bens Industriais,Transporte,Transporte Aéreo,N2             ,273879123
-19615,GRENDENE,GRND3,ON,271.290.545,0.114,GRND,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,NM             ,902160000
-24694,CENTAURO,CNTO3,ON,56.408.109,0.1,CNTO,Consumo Cíclico,Comércio,Produtos Diversos,NM             ,241015279
-4669,GUARARAPES,GUAR3,ON,86.112.560,0.076,GUAR,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",,499200000
-24392,HAPVIDA,HAPV3,ON,217.060.254,0.67,HAPV,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,742985906
-20877,HELBOR,HBOR3,ON,326.312.863,0.043,HBOR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,669255362
-21431,HYPERA,HYPE3,ON,407.518.048,0.713,HYPE,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,NM             ,632238060
-20494,IGUATEMI,IGTA3,ON,86.913.923,0.162,IGTA,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,176611578
-24090,IHPARDINI,PARD3,ON,45.161.696,0.052000000000000005,PARD,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,130978595
-23574,IMC S/A,MEAL3,ON,169.040.156,0.038,MEAL,Consumo Cíclico,Hoteis e Restaurantes,Restaurante e Similares,NM             ,195919530
-11932,IOCHP-MAXION,MYPK3,ON,139.973.015,0.114,MYPK,Consumo Cíclico,Automóveis e Motocicletas,Automóveis e Motocicletas,NM             ,153719601
-24180,IRBBRASIL RE,IRBR3,ON,923.377.994,0.5479999999999999,IRBR,Financeiro,Previdência e Seguros,Seguradoras,NM             ,936000000
-19348,ITAUUNIBANCO,ITUB4,PN,4.738.562.684,6.79,ITUB,Financeiro,Intermediários Financeiros,Bancos,N1             ,4845844989
-19348,ITAUUNIBANCO,ITUB3,ON,387.553.550,0.515,ITUB,Financeiro,Intermediários Financeiros,Bancos,N1             ,4958290359
-7617,ITAUSA,ITSA4,PN,4.494.029.326,2.362,ITSA,Financeiro,Intermediários Financeiros,Bancos,N1             ,5520977160
-20575,JBS,JBSS3,ON,1.620.646.499,1.7930000000000001,JBSS,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,2728747412
-20605,JHSF PART,JHSF3,ON,248.100.816,0.079,JHSF,Consumo Cíclico,Construção Civil,Incorporações,NM             ,641241829
-22020,JSL,JSLG3,ON,55.040.438,0.068,JSLG,Bens Industriais,Transporte,Transporte Rodoviário,NM             ,207692383
-19879,LIGHT S/A,LIGT3,ON,303.934.060,0.265,LIGT,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,303934060
-23035,LINX,LINX3,ON,160.913.029,0.16899999999999998,LINX,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,189408960
-19739,LOCALIZA,RENT3,ON,593.233.155,1.295,RENT,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,758466670
-23272,LOG COM PROP,LOGG3,ON,60.322.071,0.087,LOGG,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,102159154
-20710,LOG-IN,LOGN3,ON,100.931.707,0.08900000000000001,LOGN,Bens Industriais,Transporte,Transporte Hidroviário,NM             ,105489191
-8087,LOJAS AMERIC,LAME4,PN,696.190.451,1.0490000000000002,LAME,Consumo Cíclico,Comércio,Produtos Diversos,N1             ,1075694696
-8087,LOJAS AMERIC,LAME3,ON,201.042.500,0.248,LAME,Consumo Cíclico,Comércio,Produtos Diversos,N1             ,545154656
-8133,LOJAS RENNER,LREN3,ON,785.308.019,1.834,LREN,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,795589562
-20338,M.DIASBRANCO,MDIA3,ON,83.613.641,0.17,MDIA,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,NM             ,339000000
-22470,MAGAZ LUIZA,MGLU3,ON,661.834.080,2.086,MGLU,Consumo Cíclico,Comércio,Eletrodomésticos,NM             ,1624731712
-8575,METAL LEVE,LEVE3,ON,38.492.519,0.040999999999999995,LEVE,Consumo Cíclico,Automóveis e Motocicletas,Automóveis e Motocicletas,NM             ,128308500
-8451,MARCOPOLO,POMO4,PN,573.840.089,0.10099999999999999,POMO,Bens Industriais,Material de Transporte,Material Rodoviário,N2             ,605267138
-20788,MARFRIG,MRFG3,ON,423.143.092,0.275,MRFG,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,711369913
-22055,LOJAS MARISA,AMAR3,ON,109.374.720,0.051,AMAR,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,261666739
-8656,GERDAU MET,GOAU4,PN,662.644.908,0.242,GOAU,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,722132003
-22012,MILLS,MILS3,ON,114.647.292,0.036000000000000004,MILS,Bens Industriais,Construção e Engenharia,Serviços Diversos,NM             ,251907480
-20931,MINERVA,BEEF3,ON,259.260.688,0.171,BEEF,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,485622891
-23825,MOVIDA,MOVI3,ON,132.725.200,0.1,MOVI,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,298921014
-20915,MRV,MRVE3,ON,294.706.737,0.268,MRVE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,481953895
-20982,MULTIPLAN,MULT3,ON,270.279.854,0.312,MULT,Financeiro,Exploração de Imóveis,Exploração de Imóveis,N2             ,565185834
-24783,GRUPO NATURA,NTCO3,ON,706.484.775,1.474,NTCO,Consumo não Cíclico,Produtos de Uso Pessoal e de Limpeza,Produtos de Uso Pessoal,NM             ,1188807771
-15539,NEOENERGIA,NEOE3,ON,239.251.040,0.239,NEOE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1213797248
-24384,INTERMEDICA,GNDI3,ON,458.380.483,1.4880000000000002,GNDI,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,603693182
-20125,ODONTOPREV,ODPV3,ON,262.949.268,0.196,ODPV,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,531294792
-23426,OMEGA GER,OMGE3,ON,78.558.516,0.136,OMGE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,170132930
-22187,PETRORIO,PRIO3,ON,126.730.759,0.239,PRIO,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,144685660
-24295,PETROBRAS BR,BRDT3,ON,728.125.000,0.883,BRDT,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,1165000000
-9512,PETROBRAS,PETR4,PN,4.520.185.835,5.146,PETR,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",N2,5602042788
-9512,PETROBRAS,PETR3,ON,2.949.857.480,3.48,PETR,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",N2,7442454142
-16659,PORTO SEGURO,PSSA3,ON,94.159.042,0.248,PSSA,Financeiro,Previdência e Seguros,Seguradoras,NM             ,323293030
-20362,POSITIVO TEC,POSI3,ON,78.616.498,0.025,POSI,Tecnologia da Informação,Computadores e Equipamentos,Computadores e Equipamentos,NM             ,141800000
-22497,QUALICORP,QUAL3,ON,281.558.308,0.396,QUAL,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,284014325
-5258,RAIADROGASIL,RADL3,ON,213.553.757,1.194,RADL,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,NM             ,330386000
-14109,RANDON PART,RAPT4,PN,176.269.235,0.099,RAPT,Bens Industriais,Material de Transporte,Material Rodoviário,N1             ,229260282
-17450,RUMO S.A.,RAIL3,ON,1.053.753.059,1.287,RAIL,Bens Industriais,Transporte,Transporte Ferroviário,NM             ,1559015898
-17892,SANTOS BRP,STBP3,ON,664.998.779,0.195,STBP,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,N2             ,669798378
-20516,SAO MARTINHO,SMTO3,ON,147.017.773,0.154,SMTO,Consumo não Cíclico,Alimentos Processados,Açucar e Alcool,NM             ,354011329
-23221,SER EDUCA,SEER3,ON,54.338.507,0.052000000000000005,SEER,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,128721560
-22799,SINQIA,SQIA3,ON,58.960.436,0.06,SQIA,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,70548812
-20745,SLC AGRICOLA,SLCE3,ON,85.085.106,0.10300000000000001,SLCE,Consumo não Cíclico,Agropecuária,Agricultura,NM             ,190595000
-24252,SMILES,SMLS3,ON,58.842.428,0.057999999999999996,SMLS,Consumo Cíclico,Diversos,Programas de Fidelização,NM             ,124158953
-13986,SUZANO S.A.,SUZB3,ON,725.859.318,1.4,SUZB,Materiais Básicos,Madeira e Papel,Papel e Celulose,NM             ,1361263584
-20435,TECNISA,TCSA3,ON,54.778.381,0.032,TCSA,Consumo Cíclico,Construção Civil,Incorporações,NM             ,73619230
-20800,TEGMA,TGMA3,ON,32.006.778,0.039,TGMA,Bens Industriais,Transporte,Transporte Rodoviário,NM             ,66002915
-17671,TELEF BRASIL,VIVT4,PN,415.131.868,1.018,VIVT,Comunicações,Telecomunicações,Telecomunicações,,1119340706
-17639,TIM PART S/A,TIMP3,ON,807.711.660,0.589,TIMP,Comunicações,Telecomunicações,Telecomunicações,NM             ,2421032479
-19992,TOTVS,TOTS3,ON,403.397.655,0.429,TOTS,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,577913181
-21130,TRISUL,TRIS3,ON,79.617.212,0.044000000000000004,TRIS,Consumo Cíclico,Construção Civil,Incorporações,NM             ,186617538
-6343,TUPY,TUPY3,ON,65.947.515,0.065,TUPY,Bens Industriais,Material de Transporte,Material Rodoviário,NM             ,144177500
-18465,ULTRAPAR,UGPA3,ON,1.086.422.872,1.05,UGPA,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,1114918734
-11592,UNIPAR,UNIP6,PN,45.658.398,0.061,UNIP,Materiais Básicos,Químicos,Químicos Diversos,,63356402
-14320,USIMINAS,USIM5,PN,513.781.576,0.193,USIM,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,547818424
-4170,VALE,VALE3,ON,3.292.010.807,9.112,VALE,Materiais Básicos,Mineração,Minerais Metálicos,NM             ,5284474770
-20028,VALID,VLID3,ON,68.845.943,0.044000000000000004,VLID,Bens Industriais,Serviços Diversos,Serviços Diversos,NM             ,71225000
-6505,VIAVAREJO,VVAR3,ON,1.146.662.628,0.898,VVAR,Consumo Cíclico,Comércio,Eletrodomésticos,NM             ,1300016941
-24805,VIVARA S.A.,VIVA3,ON,93.368.726,0.10400000000000001,VIVA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Acessórios,NM             ,236197769
-11762,VULCABRAS,VULC3,ON,74.685.291,0.02,VULC,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,NM             ,245756346
-5410,WEG,WEGE3,ON,740.696.136,1.714,WEGE,Bens Industriais,Máquinas e Equipamentos,"Motores, Compressores e Outros",NM             ,2098658999
-23590,WIZ S.A.,WIZS3,ON,76.791.625,0.043,WIZS,Financeiro,Previdência e Seguros,Corretoras de Seguros,NM             ,159907282
-21016,YDUQS PART,YDUQ3,ON,299.667.897,0.563,YDUQ,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,618177702
+CD_CVM,NM_PREGAO,BTICKER,SETOR,SUBSETOR,SEGMENTO,CD_GOVERN,QTDE_ON,QTDE_PN
+16284,524 PARTICIP,QVQP,Outros,Outros,Outros,MB             ,228361901,0
+21725,ADVANCED-DH,ADHM,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,,7562598,0
+18970,AES TIETE E,TIET,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,786265136,1209267480
+22179,AFLUENTE T,AFLT,Utilidade Pública,Energia Elétrica,Energia Elétrica,,63084700,0
+16705,ALEF S/A,ALEF,Outros,Outros,Outros,MB             ,116574000,0
+9954,ALFA HOLDING,RPAD,Financeiro,Intermediários Financeiros,Bancos,,46011632,38670637
+21032,ALGAR TELEC,ALGT,Comunicações,Telecomunicações,Telecomunicações,,295019806,0
+22357,ALIANSCSONAE,ALSO,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,265772778,0
+24953,ESTAPAR,ALPK,Bens Industriais,Serviços Diversos,Serviços Diversos,NM             ,193771106,0
+10456,ALPARGATAS,ALPA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,N1             ,302010689,286051533
+22217,ALPER S.A.,APER,Financeiro,Previdência e Seguros,Corretoras de Seguros,NM             ,11480134,0
+21490,ALUPAR,ALUP,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,596955970,282155299
+23264,AMBEV S/A,ABEV,Consumo não Cíclico,Bebidas,Cervejas e Refrigerantes,,15735117965,0
+3050,AMPLA ENERG,CBEE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,166634326,0
+23248,ANIMA,ANIM,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,111122935,0
+22349,AREZZO CO,ARZZ,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,90954280,0
+24171,CARREFOUR BR,CRFB,Consumo não Cíclico,Comércio e Distribuição,Alimentos,NM             ,1985019050,0
+19100,ATMASA,ATMP,Bens Industriais,Serviços Diversos,Serviços Diversos,NM             ,23458943,0
+15423,ATOMPAR,ATOM,Outros,Outros,Outros,,20898994,0
+11975,AZEVEDO,AZEV,Bens Industriais,Construção e Engenharia,Construção Pesada,,1800000,3600000
+24112,AZUL,AZUL,Bens Industriais,Transporte,Transporte Aéreo,N2             ,928965058,329703517
+20990,B2W DIGITAL,BTOW,Consumo Cíclico,Comércio,Produtos Diversos,NM             ,523229262,0
+21610,B3,B3SA,Financeiro,Serviços Financeiros Diversos,Serviços Financeiros Diversos,NM             ,2059138490,0
+701,BAHEMA,BAHI,Consumo Cíclico,Diversos,Serviços Educacionais,MA,2219359,0
+24600,BANCO BMG,BMGB,Financeiro,Intermediários Financeiros,Bancos,N1             ,400007354,191467177
+24406,BANCO INTER,BIDI,Financeiro,Intermediários Financeiros,Bancos,N2             ,365833928,341119102
+1155,BANESTES,BEES,Financeiro,Intermediários Financeiros,Bancos,,231329260,84583600
+1520,BARDELLA,BDLL,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,,607192,992808
+15458,BATTISTELLA,BTTL,Bens Industriais,Comércio,Material de Transporte,,14860568,0
+1562,BAUMER,BALM,Saúde,Equipamentos,Equipamentos,,4900000,4900000
+23159,BBSEGURIDADE,BBSE,Financeiro,Previdência e Seguros,Seguradoras,NM             ,2000000000,0
+24660,BBMLOGISTICA,BBML,Bens Industriais,Serviços Diversos,Serviços Diversos,MA,40760818,0
+20958,ABC BRASIL,ABCB,Financeiro,Intermediários Financeiros,Bancos,N2             ,109496432,108862625
+1384,ALFA INVEST,BRIV,Financeiro,Intermediários Financeiros,Bancos,,53482129,35118455
+922,AMAZONIA,BAZA,Financeiro,Intermediários Financeiros,Bancos,,29645967,0
+906,BRADESCO,BBDC,Financeiro,Intermediários Financeiros,Bancos,N1             ,4435106575,4435106111
+1023,BRASIL,BBAS,Financeiro,Intermediários Financeiros,Bancos,NM             ,2865417020,0
+22616,BTGP BANCO,BPAC,Financeiro,Intermediários Financeiros,Bancos,,1720808722,885023250
+1120,BANESE,BGIP,Financeiro,Intermediários Financeiros,Bancos,,7642545,7642545
+1171,BANPARA,BPAR,Financeiro,Intermediários Financeiros,Bancos,,9521649,0
+1210,BANRISUL,BRSR,Financeiro,Intermediários Financeiros,Bancos,N1             ,205064841,203909636
+20885,INDUSVAL,IDVL,Financeiro,Intermediários Financeiros,Bancos,N2             ,83049425,3749410
+1309,MERC INVEST,BMIN,Financeiro,Intermediários Financeiros,Bancos,,4115057,710143
+1325,MERC BRASIL,BMEB,Financeiro,Intermediários Financeiros,Bancos,,32577872,19837918
+1228,NORD BRASIL,BNBR,Financeiro,Intermediários Financeiros,Bancos,,86371464,0
+21199,BANCO PAN,BPAN,Financeiro,Intermediários Financeiros,Bancos,N1             ,657560635,547495486
+20567,PINE,PINE,Financeiro,Intermediários Financeiros,Bancos,N2             ,75577842,72579922
+20532,SANTANDER BR,SANB,Financeiro,Intermediários Financeiros,Bancos,,3818695031,3679836020
+17884,BETAPART,BETP,Outros,Outros,Outros,MB             ,2761620,0
+1694,BIC MONARK,BMKS,Consumo Cíclico,Viagens e Lazer,Bicicletas,,454750,0
+19305,BIOMM,BIOM,Saúde,Medicamentos e Outros Produtos,Medicamentos e Outros Produtos,MA,60759988,0
+22845,BIOSEV,BSEV,Consumo não Cíclico,Alimentos Processados,Açucar e Alcool,NM             ,1020429426,0
+24317,BK BRASIL,BKBR,Consumo Cíclico,Hoteis e Restaurantes,Restaurante e Similares,NM             ,228105447,0
+16772,BNDESPAR,BNDP,Financeiro,Serviços Financeiros Diversos,Gestão de Recursos e Investimentos,MB             ,1,0
+12190,BOMBRIL,BOBR,Consumo não Cíclico,Produtos de Uso Pessoal e de Limpeza,Produtos de Limpeza,,137615317,122894462
+19909,BR MALLS PAR,BRML,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,873141333,0
+19925,BR PROPERT,BRPR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,491510283,0
+19640,BRADESCO LSG,BDLS,Financeiro,Intermediários Financeiros,Soc. Arrendamento Mercantil,,23585,0
+18724,BRADESPAR,BRAP,Materiais Básicos,Mineração,Minerais Metálicos,N1             ,122171449,225862596
+21180,BR BROKERS,BBRK,Financeiro,Exploração de Imóveis,Intermediação Imobiliária,NM             ,36278303,0
+20036,BRASILAGRO,AGRO,Consumo não Cíclico,Agropecuária,Agricultura,NM             ,62104301,0
+4820,BRASKEM,BRKM,Materiais Básicos,Químicos,Petroquímicos,N1             ,451668652,345549902
+19720,BRAZIL REALT,BZRS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,614879,0
+17922,BRAZILIAN FR,BFRE,Financeiro,Serviços Financeiros Diversos,Gestão de Recursos e Investimentos,,239,478
+18759,BRAZILIAN SC,BSCS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,77864966,0
+14206,BRB BANCO,BSLI,Financeiro,Intermediários Financeiros,Bancos,,28014650,8290000
+20672,BRC SECURIT,BRCS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,453440,0
+16292,BRF SA,BRFS,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,812473246,0
+19984,BRPR 56 SEC,WTVR,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,388374,0
+23817,BRQ,BRQB,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,MA,132514910,0
+20133,BV LEASING,BVLS,Financeiro,Intermediários Financeiros,Soc. Arrendamento Mercantil,,510404,0
+19119,CABINDA PART,CABI,Outros,Outros,Outros,MB             ,2368000,4736000
+22683,CACHOEIRA,CPTE,Utilidade Pública,Energia Elétrica,Energia Elétrica,MB             ,76281111,0
+19135,CACONDE PART,CACO,Outros,Outros,Outros,MB             ,613211,1226542
+2100,CAMBUCI,CAMB,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,,41980080,0
+24228,CAMIL,CAML,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,NM             ,370000000,0
+17493,CAPITALPART,CPTP,Outros,Outros,Outros,MB             ,143243,0
+18821,CCR SA,CCRO,Bens Industriais,Transporte,Exploração de Rodovias,NM             ,2020000000,0
+24848,CEA MODAS,CEAB,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,308245068,0
+13854,CEMEPE,MAPT,Outros,Outros,Outros,,454455,464440
+20303,CEMIG DIST,CMGD,Utilidade Pública,Energia Elétrica,Energia Elétrica,,2359113452,0
+20320,CEMIG GT,CMGT,Utilidade Pública,Energia Elétrica,Energia Elétrica,,2896785358,0
+2437,ELETROBRAS,ELET,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,1288842596,280088314
+2461,CELESC,CLSC,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,15527137,23044454
+24058,ALLIAR,AALR,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,118292816,0
+2577,CESP,CESP,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,109167801,218334872
+14826,P.ACUCAR-CBD,PCAR,Consumo não Cíclico,Comércio e Distribuição,Alimentos,N1             ,268049496,0
+16861,CASAN,CASN,Utilidade Pública,Água e Saneamento,Água e Saneamento,,357547216,357547216
+21393,CELGPAR,GPAR,Utilidade Pública,Energia Elétrica,Energia Elétrica,,77928432,0
+16616,CEG,CEGR,Utilidade Pública,Gás,Gás,,259637732,0
+14524,COELBA,CEEB,Utilidade Pública,Energia Elétrica,Energia Elétrica,,151997609,110098478
+14451,CEB,CEBR,Utilidade Pública,Energia Elétrica,Energia Elétrica,,7184178,7232205
+2453,CEMIG,CMIG,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,487614213,971138388
+14362,CELPE,CEPE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,66302693,8309695
+14869,COELCE,COCE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,48067937,29787362
+18139,COSERN,CSRN,Utilidade Pública,Energia Elétrica,Energia Elétrica,,129746219,38327809
+20648,CEEE-D,CEED,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,9516732,164014
+3204,CEEE-GT,EEEL,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,9516732,164014
+3069,FERBASA,FESA,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,29440000,58880000
+3077,CEDRO,CEDO,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,N1             ,5707104,4292896
+15636,COMGAS,CGAS,Utilidade Pública,Gás,Gás,,103862768,28657819
+3298,HABITASUL,HBTS,Financeiro,Exploração de Imóveis,Exploração de Imóveis,,3152764,5980923
+14761,CIA HERING,HGTX,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Vestuário,NM             ,162533937,0
+3395,IND CATAGUAS,CATA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,144198,1109
+22691,LOCAMERICA,LCAM,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,508729411,0
+3654,MELHOR SP,MSPA,Materiais Básicos,Madeira e Papel,Papel e Celulose,,5631445,773504
+14311,COPEL,CPLE,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,145031080,128624295
+18708,PAR AL BAHIA,PEAB,Financeiro,Holdings Diversificadas,Holdings Diversificadas,,6425139,6425139
+3824,PAUL F LUZ,PALF,Utilidade Pública,Energia Elétrica,Energia Elétrica,,880653031,0
+19275,CPFL PIRATIN,CPFP,Utilidade Pública,Energia Elétrica,Energia Elétrica,,53096770180,0
+14443,SABESP,SBSP,Utilidade Pública,Água e Saneamento,Água e Saneamento,NM             ,683509869,0
+19445,COPASA,CSMG,Utilidade Pública,Água e Saneamento,Água e Saneamento,NM             ,126751023,0
+18627,SANEPAR,SAPR,Utilidade Pública,Água e Saneamento,Água e Saneamento,N2             ,503735259,1007470260
+3115,SEG AL BAHIA,CSAB,Financeiro,Previdência e Seguros,Seguradoras,,3840000,3840000
+4030,SID NACIONAL,CSNA,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,,1387524047,0
+3158,COTEMINAS,CTNM,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,13912800,16723657
+4081,SANTANENSE,CTSA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,38041111,1258019
+21733,CIELO,CIEL,Financeiro,Serviços Financeiros Diversos,Serviços Financeiros Diversos,NM             ,2716815061,0
+14818,CIMS,CMSA,Outros,Outros,Outros,,12799820,25599480
+23965,CINESYSTEM,CNSY,Comunicações,Mídia,Produção e Difusão de Filmes e Programas,MA,30969063,0
+17973,COGNA ON,COGN,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,1876606210,0
+22268,CONC RAPOSO,RPTA,Bens Industriais,Transporte,Exploração de Rodovias,,3432069431,3432069431
+23515,GRUAIRPORT,AGRU,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,MB             ,3033541675,0
+20397,ECOVIAS,ECOV,Bens Industriais,Transporte,Exploração de Rodovias,,262452000,0
+19208,CONC RIO TER,CRTE,Bens Industriais,Transporte,Exploração de Rodovias,MB             ,48786,37680
+22411,ECOPISTAS,ASCP,Bens Industriais,Transporte,Exploração de Rodovias,,496454987,0
+21024,VIAOESTE,VOES,Bens Industriais,Transporte,Exploração de Rodovias,,6988146121,6988146121
+22721,ROD TIETE,RDVT,Bens Industriais,Transporte,Exploração de Rodovias,,30357847596,0
+22071,RT BANDEIRAS,CRBD,Bens Industriais,Transporte,Exploração de Rodovias,,278399525,278399525
+20192,AUTOBAN,ANHB,Bens Industriais,Transporte,Exploração de Rodovias,,175000000,0
+4693,ODERICH,ODER,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,,9858589,1428517
+4707,ALFA CONSORC,BRGE,Financeiro,Previdência e Seguros,Seguradoras,,40394932,33251456
+4723,CONST A LIND,CALI,Consumo Cíclico,Construção Civil,Incorporações,,124040,248079
+21148,TENDA,TEND,Consumo Cíclico,Construção Civil,Incorporações,NM             ,104344246,0
+4863,COR RIBEIRO,CORR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,,7815,15338
+23485,COSAN LOG,RLOG,Bens Industriais,Transporte,Transporte Ferroviário,NM             ,463224241,0
+19836,COSAN,CSAN,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,394210000,0
+18660,CPFL ENERGIA,CPFE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1152254440,0
+20540,CPFL RENOVAV,CPRE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,521315091,0
+18953,CPFL GERACAO,CPFG,Utilidade Pública,Energia Elétrica,Energia Elétrica,,68500208756,136991810529
+20630,CR2,CRDE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,2422153,0
+20044,CSU CARDSYST,CARD,Bens Industriais,Serviços Diversos,Serviços Diversos,NM             ,41800000,0
+18376,TRAN PAULIST,TRPL,Utilidade Pública,Energia Elétrica,Energia Elétrica,N1             ,257937732,400945572
+23310,CVC BRASIL,CVCB,Consumo Cíclico,Viagens e Lazer,Viagens e Turismo,NM             ,149328579,0
+14460,CYRELA REALT,CYRE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,399742799,0
+21040,CYRE COM-CCP,CCPR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,165113612,0
+19623,DASA,DASA,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,,480813758,0
+14214,DIBENS LSG,DBEN,Financeiro,Intermediários Financeiros,Soc. Arrendamento Mercantil,,1504996693,0
+9342,DIMED,PNVL,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,,121994700,13485690
+21350,DIRECIONAL,DIRR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,153398749,0
+5207,DOHLER,DOHL,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,43574256,16941972
+23493,DOMMO,DMMO,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",,270040228,0
+18597,DTCOM-DIRECT,DTCY,Bens Industriais,Serviços Diversos,Serviços Diversos,,7338756,450655
+21091,DURATEX,DTEX,Materiais Básicos,Madeira e Papel,Madeira,NM             ,691784501,0
+21741,ECO SEC AGRO,ECOA,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,MB             ,100000,0
+21903,ECON,ERDV,Bens Industriais,Transporte,Exploração de Rodovias,,736714537,0
+19453,ECORODOVIAS,ECOR,Bens Industriais,Transporte,Exploração de Rodovias,NM             ,558699080,0
+19763,ENERGIAS BR,ENBR,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,606850394,0
+15342,ESCELSA,ESCE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,5876012,0
+16985,EBE,EBEN,Utilidade Pública,Energia Elétrica,Energia Elétrica,,39091735037,0
+5380,ACO ALTONA,EALT,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,,9750000,12750000
+4359,ELEKEIROZ,ELEK,Materiais Básicos,Químicos,Petroquímicos,,14518150,16967020
+17485,ELEKTRO,EKTR,Utilidade Pública,Energia Elétrica,Energia Elétrica,,91880972,101878293
+15784,ELETROPAR,LIPR,Utilidade Pública,Energia Elétrica,Energia Elétrica,,11764889,0
+16993,EMAE,EMAE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,14705370,22241714
+20087,EMBRAER,EMBR,Bens Industriais,Material de Transporte,Material Aeronáutico e de Defesa,NM             ,740465044,0
+19011,ECONORTE,ECNT,Bens Industriais,Transporte,Exploração de Rodovias,,18928597,0
+16497,ENCORPAR,ECPR,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,1026245,873819
+22365,ENAUTA PART,ENAT,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,265806905,0
+5576,ENERSUL,ENER,Utilidade Pública,Energia Elétrica,Energia Elétrica,,647015,0
+14605,ENERGISA MT,ENMT,Utilidade Pública,Energia Elétrica,Energia Elétrica,,75529774,143412165
+15253,ENERGISA,ENGI,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,755993938,1058567972
+21237,ENEVA,ENEV,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,315767683,0
+17329,ENGIE BRASIL,EGIE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,815927740,0
+20010,EQUATORIAL,EQTL,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1010286085,0
+16608,EQTLMARANHAO,EQMA,Utilidade Pública,Energia Elétrica,Energia Elétrica,MB             ,161318939,2864960
+18309,EQTL PARA,EQPA,Utilidade Pública,Energia Elétrica,Energia Elétrica,,2204620569,4453438
+5762,ETERNIT,ETER,Bens Industriais,Construção e Engenharia,Produtos para Construção,NM             ,31773929,0
+5770,EUCATEX,EUCA,Materiais Básicos,Madeira e Papel,Madeira,N1             ,31257700,61361556
+20524,EVEN,EVEN,Consumo Cíclico,Construção Civil,Incorporações,NM             ,212000000,0
+1570,EXCELSIOR,BAUH,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,,2846929,2375293
+20770,EZTEC,EZTC,Consumo Cíclico,Construção Civil,Incorporações,NM             ,227000000,0
+22977,FGENERGIA,FGEN,Utilidade Pública,Energia Elétrica,Energia Elétrica,,807080529,0
+15369,FER C ATLANT,VSPT,Bens Industriais,Transporte,Transporte Ferroviário,,125445701,19
+20621,FER HERINGER,FHER,Materiais Básicos,Químicos,Fertilizantes e Defensivos,NM             ,53857284,0
+3891,ALFA FINANC,CRIV,Financeiro,Intermediários Financeiros,Soc. Crédito e Financiamento,,58736269,44206287
+6076,FINANSINOS,FNCN,Financeiro,Intermediários Financeiros,Soc. Crédito e Financiamento,,913778,0
+21881,FLEURY,FLRY,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,316788210,0
+24350,FLEX S/A,FLEX,Bens Industriais,Serviços Diversos,Serviços Diversos,MA,3248533,0
+6211,FRAS-LE,FRAS,Bens Industriais,Material de Transporte,Material Rodoviário,N1             ,217566343,0
+16101,GAFISA,GFSA,Consumo Cíclico,Construção Civil,Incorporações,NM             ,120000000,0
+22764,GAIA AGRO,GAFL,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,890148,0
+20222,GAIA SECURIT,GAIA,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,MB             ,699012,0
+17965,GAMA PART,OPGM,Outros,Outros,Outros,MB             ,1935716,0
+21008,GENERALSHOPP,GSHP,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,1928769,0
+3980,GERDAU,GGBR,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,573627483,1146031245
+19569,GOL,GOLL,Bens Industriais,Transporte,Transporte Aéreo,N2             ,2863682710,273879123
+16632,GPC PART,GPCP,Materiais Básicos,Químicos,Petroquímicos,,5882782,384787
+4537,GRAZZIOTIN,CGRA,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",,8174413,11926570
+19615,GRENDENE,GRND,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,NM             ,902160000,0
+24694,CENTAURO,CNTO,Consumo Cíclico,Comércio,Produtos Diversos,NM             ,241015279,0
+4669,GUARARAPES,GUAR,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",,499200000,0
+13366,HAGA S/A,HAGA,Bens Industriais,Construção e Engenharia,Produtos para Construção,,3966667,7933333
+24392,HAPVIDA,HAPV,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,742985906,0
+20877,HELBOR,HBOR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,669255362,0
+6629,HERCULES,HETA,Consumo Cíclico,Utilidades Domésticas,Utensílios Domésticos,,171198,338801
+6700,HOTEIS OTHON,HOOT,Consumo Cíclico,Hoteis e Restaurantes,Hotelaria,,10477917,7894494
+21431,HYPERA,HYPE,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,NM             ,632238060,0
+18414,IDEIASNET,IDNT,Financeiro,Serviços Financeiros Diversos,Gestão de Recursos e Investimentos,,78449779,0
+6815,IGB S/A,IGBR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,,12504967,0
+23175,IGUA SA,IGSN,Utilidade Pública,Água e Saneamento,Água e Saneamento,MA,199192402,0
+20494,IGUATEMI,IGTA,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,176611578,0
+12319,J B DUARTE,JBDU,Outros,Outros,Outros,,1673066,3346095
+7510,INDS ROMI,ROMI,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,NM             ,62857647,0
+7595,INEPAR,INEP,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,,4849476,3156808
+17558,SELECTPART,SLCT,Outros,Outros,Outros,MB             ,50612981,0
+24090,IHPARDINI,PARD,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,130978595,0
+24279,INTER SA,INNT,Consumo Cíclico,Construção Civil,Incorporações,MA,86885349,0
+23574,IMC S/A,MEAL,Consumo Cíclico,Hoteis e Restaurantes,Restaurante e Similares,NM             ,195919530,0
+6041,INVEST BEMGE,FIGE,Outros,Outros,Outros,,792124,1571812
+18775,INVEPAR,IVPR,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,MB             ,143057124,286114248
+11932,IOCHP-MAXION,MYPK,Consumo Cíclico,Automóveis e Motocicletas,Automóveis e Motocicletas,NM             ,153719601,0
+2429,IRANI,RANI,Materiais Básicos,Madeira e Papel,Papel e Celulose,,153909975,12810260
+24180,IRBBRASIL RE,IRBR,Financeiro,Previdência e Seguros,Seguradoras,NM             ,936000000,1
+19364,ITAPEBI,ITPB,Utilidade Pública,Energia Elétrica,Energia Elétrica,,202524938,0
+19348,ITAUUNIBANCO,ITUB,Financeiro,Intermediários Financeiros,Bancos,N1             ,4958290359,4845844989
+7617,ITAUSA,ITSA,Financeiro,Intermediários Financeiros,Bancos,N1             ,2889837770,5520977160
+21156,J.MACEDO,JMCD,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,,10674856,8692854
+20575,JBS,JBSS,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,2728747412,0
+8672,JEREISSATI,JPSA,Financeiro,Exploração de Imóveis,Exploração de Imóveis,,87889174,0
+20605,JHSF PART,JHSF,Consumo Cíclico,Construção Civil,Incorporações,NM             ,641241829,0
+7811,JOAO FORTES,JFEN,Consumo Cíclico,Construção Civil,Incorporações,,105203815,0
+13285,JOSAPAR,JOPA,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,,10450993,131368
+22020,JSL,JSLG,Bens Industriais,Transporte,Transporte Rodoviário,NM             ,207692383,0
+4146,KARSTEN,CTKA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,2878404,3326971
+7870,KEPLER WEBER,KEPL,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,,26311971,0
+12653,KLABIN S/A,KLBN,Materiais Básicos,Madeira e Papel,Papel e Celulose,N2,1984594655,3425207185
+24872,LIFEMED,LMED,Saúde,Equipamentos,Equipamentos,MA,2576438,0
+19879,LIGHT S/A,LIGT,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,303934060,0
+8036,LIGHT,LIGH,Utilidade Pública,Energia Elétrica,Energia Elétrica,,392849277746,0
+23035,LINX,LINX,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,189408960,0
+15091,LITEL,LTEL,Materiais Básicos,Mineração,Minerais Metálicos,MB             ,215495403,0
+24759,LITELA,LTLA,Materiais Básicos,Mineração,Minerais Metálicos,MB             ,196713125,0
+19739,LOCALIZA,RENT,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,758466670,0
+24910,LOCAWEB,LWSA,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,125172486,0
+23272,LOG COM PROP,LOGG,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,102159154,0
+20710,LOG-IN,LOGN,Bens Industriais,Transporte,Transporte Hidroviário,NM             ,105489191,0
+8087,LOJAS AMERIC,LAME,Consumo Cíclico,Comércio,Produtos Diversos,N1             ,545154656,1075694696
+8133,LOJAS RENNER,LREN,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,795589562,0
+17434,LONGDIS,SPRT,Outros,Outros,Outros,MB             ,4849892,0
+20370,LOPES BRASIL,LPSB,Financeiro,Exploração de Imóveis,Intermediação Imobiliária,NM             ,147554631,0
+20060,LUPATECH,LUPA,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis",Equipamentos e Serviços,NM             ,25034015,0
+20338,M.DIASBRANCO,MDIA,Consumo não Cíclico,Alimentos Processados,Alimentos Diversos,NM             ,339000000,0
+23612,MAESTROLOC,MSRO,Consumo Cíclico,Diversos,Aluguel de carros,M2,1733988,0
+22470,MAGAZ LUIZA,MGLU,Consumo Cíclico,Comércio,Eletrodomésticos,NM             ,1624731712,0
+8575,METAL LEVE,LEVE,Consumo Cíclico,Automóveis e Motocicletas,Automóveis e Motocicletas,NM             ,128308500,0
+8397,MANGELS INDL,MGEL,Materiais Básicos,Siderurgia e Metalurgia,Artefatos de Ferro e Aço,,2067243,3715969
+8427,ESTRELA,ESTR,Consumo Cíclico,Viagens e Lazer,Brinquedos e Jogos,,269450,538900
+8451,MARCOPOLO,POMO,Bens Industriais,Material de Transporte,Material Rodoviário,N2             ,341625744,605267138
+20788,MARFRIG,MRFG,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,711369913,0
+22055,LOJAS MARISA,AMAR,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,261666739,0
+8540,MERC FINANC,MERC,Financeiro,Intermediários Financeiros,Soc. Crédito e Financiamento,,10179565,7830435
+20613,METALFRIO,FRIO,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,NM             ,4106754,0
+8605,METAL IGUACU,MTIG,Materiais Básicos,Embalagens,Embalagens,,80448,160896
+8656,GERDAU MET,GOAU,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,365111201,722132003
+13439,RIOSULENSE,RSUL,Bens Industriais,Material de Transporte,Material Rodoviário,,343000,240000
+8753,METISA,MTSA,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Construção e Agrícolas,,4212530,4924733
+22942,MGI PARTICIP,MGIP,Outros,Outros,Outros,,574438888,0
+22012,MILLS,MILS,Bens Industriais,Construção e Engenharia,Serviços Diversos,NM             ,251907480,0
+8818,MINASMAQUINA,MMAQ,Bens Industriais,Comércio,Material de Transporte,,22425,22425
+20931,MINERVA,BEEF,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,NM             ,485622891,0
+13765,MINUPAR,MNPR,Consumo não Cíclico,Alimentos Processados,Carnes e Derivados,,7100100,0
+24902,MITRE REALTY,MTRE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,105774820,0
+17914,MMX MINER,MMXM,Materiais Básicos,Mineração,Minerais Metálicos,NM             ,6488183,0
+8893,MONT ARANHA,MOAR,Financeiro,Holdings Diversificadas,Holdings Diversificadas,,12251221,0
+21067,MOURA DUBEUX,MDNE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,84909375,0
+23825,MOVIDA,MOVI,Consumo Cíclico,Diversos,Aluguel de carros,NM             ,298921014,0
+17949,MRS LOGIST,MRSA,Bens Industriais,Transporte,Transporte Ferroviário,MB             ,188332687,151667313
+20915,MRV,MRVE,Consumo Cíclico,Construção Civil,Incorporações,NM             ,481953895,0
+20982,MULTIPLAN,MULT,Financeiro,Exploração de Imóveis,Exploração de Imóveis,N2             ,565185834,35575041
+5312,MUNDIAL,MNDL,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Acessórios,,2480260,0
+24783,GRUPO NATURA,NTCO,Consumo não Cíclico,Produtos de Uso Pessoal e de Limpeza,Produtos de Uso Pessoal,NM             ,1188807771,0
+15539,NEOENERGIA,NEOE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,1213797248,0
+9083,NORDON MET,NORD,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,,6621486,0
+22985,NORTCQUIMICA,NRTQ,Saúde,Medicamentos e Outros Produtos,Medicamentos e Outros Produtos,MA,11877395,0
+24384,INTERMEDICA,GNDI,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,603693182,0
+21334,NUTRIPLANT,NUTR,Materiais Básicos,Químicos,Fertilizantes e Defensivos,MA             ,127944,0
+22390,OCTANTE SEC,OCTS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,134889,0
+20125,ODONTOPREV,ODPV,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,531294792,0
+11312,OI,OIBR,Comunicações,Telecomunicações,Telecomunicações,N1,5796477760,157727241
+23426,OMEGA GER,OMGE,Utilidade Pública,Energia Elétrica,Energia Elétrica,NM             ,170132930,0
+16942,OPPORT ENERG,OPHE,Outros,Outros,Outros,MB             ,1816703827,0
+21342,OSX BRASIL,OSXB,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis",Equipamentos e Serviços,NM             ,3148038,0
+23507,OUROFINO S/A,OFSA,Saúde,Medicamentos e Outros Produtos,Medicamentos e Outros Produtos,NM             ,53949006,0
+94,PANATLANTICA,PATI,Materiais Básicos,Siderurgia e Metalurgia,Artefatos de Ferro e Aço,,17487075,782695
+20729,PARANA,PRBC,Financeiro,Intermediários Financeiros,Bancos,,1647843240,1609920560
+9393,PARANAPANEMA,PMAM,Materiais Básicos,Siderurgia e Metalurgia,Artefatos de Cobre,NM             ,43403849,0
+13773,PORTOBELLO,PTBL,Bens Industriais,Construção e Engenharia,Produtos para Construção,NM             ,158488517,0
+21644,PDG SECURIT,PDGS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,36292213,0
+20478,PDG REALT,PDGR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,8066955,0
+22187,PETRORIO,PRIO,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,144685660,0
+24295,PETROBRAS BR,BRDT,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,1165000000,0
+9512,PETROBRAS,PETR,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",N2,7442454142,5602042788
+9539,PETTENATI,PTNT,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,16016924,32029564
+13471,PLASCAR PART,PLAS,Consumo Cíclico,Automóveis e Motocicletas,Automóveis e Motocicletas,,12425418,0
+22160,POLO CAP SEC,PLSC,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,500000,0
+13447,POLPAR,PPAR,Outros,Outros,Outros,,34000,40000
+19658,POMIFRUTAS,FRTA,Consumo não Cíclico,Agropecuária,Agricultura,NM             ,2001106,0
+16659,PORTO SEGURO,PSSA,Financeiro,Previdência e Seguros,Seguradoras,NM             ,323293030,0
+23523,PORTO VM,PSVM,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,,4060490071,0
+20362,POSITIVO TEC,POSI,Tecnologia da Informação,Computadores e Equipamentos,Computadores e Equipamentos,NM             ,141800000,0
+24546,PRATICA,PTCA,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Industriais,M2,3355031,373242
+24236,PRINER,PRNR,Bens Industriais,Serviços Diversos,Serviços Diversos,MA,38044801,0
+19232,PROMAN,PRMN,Utilidade Pública,Energia Elétrica,Energia Elétrica,MB             ,100000,0
+20346,PROFARMA,PFRM,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,NM             ,123812773,0
+18333,PROMPT PART,PRPT,Outros,Outros,Outros,MB             ,106815796,0
+22497,QUALICORP,QUAL,Saúde,Análises e Diagnósticos,Análises e Diagnósticos,NM             ,284014325,0
+23302,QUALITY SOFT,QUSW,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,MA,861605,0
+5258,RAIADROGASIL,RADL,Saúde,Comércio e Distribuição,Medicamentos e Outros Produtos,NM             ,330386000,0
+23230,RAIZEN ENERG,RESA,Consumo não Cíclico,Alimentos Processados,Açucar e Alcool,,7243283198,133342458
+14109,RANDON PART,RAPT,Bens Industriais,Material de Transporte,Material Rodoviário,N1             ,116515527,229260282
+18406,RBCAPITALRES,RBRA,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,MB             ,7927248,0
+18430,WTORRE PIC,WTPI,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,59396,10
+12572,RECRUSUL,RCSL,Bens Industriais,Material de Transporte,Material Rodoviário,,25408950,50414424
+3190,REDE ENERGIA,REDE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,2110323374,0
+9989,PET MANGUINH,RPMG,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",,67691629,0
+21636,RENOVA,RNEW,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,31352518,10367206
+21440,LE LIS BLANC,LLIS,Consumo Cíclico,Comércio,"Tecidos, Vestuário e Calçados",NM             ,68850829,0
+16527,AES SUL,AESL,Utilidade Pública,Energia Elétrica,Energia Elétrica,,1125427,0
+18368,GER PARANAP,GEPA,Utilidade Pública,Energia Elétrica,Energia Elétrica,,31477761,62955522
+20451,RNI,RDNI,Consumo Cíclico,Construção Civil,Incorporações,NM             ,43769808,0
+23167,ROD COLINAS,COLN,Bens Industriais,Transporte,Exploração de Rodovias,,74220000,0
+16306,ROSSI RESID,RSID,Consumo Cíclico,Construção Civil,Incorporações,NM             ,17153337,0
+15300,ALL NORTE,FRRN,Bens Industriais,Transporte,Transporte Ferroviário,MB             ,1107698070,81714293
+17930,ALL PAULISTA,GASC,Bens Industriais,Transporte,Transporte Ferroviário,MB             ,133558874208,246966290171
+17450,RUMO S.A.,RAIL,Bens Industriais,Transporte,Transporte Ferroviário,NM             ,1559015898,0
+23540,SALUS INFRA,SAIP,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,,420000,0
+19593,SANESALTO,SNST,Utilidade Pública,Água e Saneamento,Água e Saneamento,,14573546,0
+12696,SANSUY,SNSY,Materiais Básicos,Materiais Diversos,Materiais Diversos,,66448,126463
+14923,SANTHER,STTZ,Materiais Básicos,Madeira e Papel,Papel e Celulose,,16918,0
+23388,STO ANTONIO,STEN,Utilidade Pública,Energia Elétrica,Energia Elétrica,,10000452329,0
+17892,SANTOS BRP,STBP,Bens Industriais,Transporte,Serviços de Apoio e Armazenagem,N2             ,669798378,0
+13781,SAO CARLOS,SCAR,Financeiro,Exploração de Imóveis,Exploração de Imóveis,NM             ,57737319,0
+20516,SAO MARTINHO,SMTO,Consumo não Cíclico,Alimentos Processados,Açucar e Alcool,NM             ,354011329,0
+9415,SPTURIS,AHEB,Consumo Cíclico,Viagens e Lazer,Produção de Eventos e Shows,,8407877,136017
+10472,SARAIVA LIVR,SLED,Consumo Cíclico,Comércio,Produtos Diversos,N2             ,18620841,20325213
+14664,SCHULZ,SHUL,Bens Industriais,Máquinas e Equipamentos,"Motores, Compressores e Outros",,38173191,51170504
+23221,SER EDUCA,SEER,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,128721560,0
+12823,ALIPERTI,APTI,Consumo não Cíclico,Agropecuária,Agricultura,,6250,12345
+22799,SINQIA,SQIA,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,70548812,0
+20745,SLC AGRICOLA,SLCE,Consumo não Cíclico,Agropecuária,Agricultura,NM             ,190595000,0
+24260,SMART FIT,SMFT,Consumo Cíclico,Viagens e Lazer,Atividades Esportivas,M2,14601763,6464424
+24252,SMILES,SMLS,Consumo Cíclico,Diversos,Programas de Fidelização,NM             ,124158953,0
+10880,SONDOTECNICA,SOND,Bens Industriais,Construção e Engenharia,Engenharia Consultiva,,856000,1601900
+10960,SPRINGER,SPRI,Financeiro,Holdings Diversificadas,Holdings Diversificadas,,1889004,640415
+20966,SPRINGS,SGPS,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,NM             ,50000000,0
+24201,STARA,STTR,Bens Industriais,Máquinas e Equipamentos,Máq. e Equip. Construção e Agrícolas,MA,297498383,0
+22594,STATKRAFT,STKF,Utilidade Pública,Energia Elétrica,Energia Elétrica,,218370694,0
+16586,SUDESTE S/A,OPSE,Outros,Outros,Outros,MB             ,126178324,0
+16438,SUL 116 PART,OPTS,Outros,Outros,Outros,MB             ,83596902573,0
+21121,SUL AMERICA,SULA,Financeiro,Previdência e Seguros,Seguradoras,N2             ,592688393,589773510
+9067,SUZANO HOLD,NEMO,Materiais Básicos,Madeira e Papel,Papel e Celulose,,75034146,97893157
+13986,SUZANO S.A.,SUZB,Materiais Básicos,Madeira e Papel,Papel e Celulose,NM             ,1361263584,0
+22454,TIME FOR FUN,SHOW,Consumo Cíclico,Viagens e Lazer,Produção de Eventos e Shows,NM             ,67500665,0
+6173,TAURUS ARMAS,TASA,Bens Industriais,Máquinas e Equipamentos,Armas e Munições,N2             ,46445314,42042380
+22519,TECHNOS,TECN,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Acessórios,NM             ,78506215,0
+20435,TECNISA,TCSA,Consumo Cíclico,Construção Civil,Incorporações,NM             ,73619230,0
+11207,TECNOSOLO,TCNO,Bens Industriais,Construção e Engenharia,Engenharia Consultiva,,2353672,4266666
+20800,TEGMA,TGMA,Bens Industriais,Transporte,Transporte Rodoviário,NM             ,66002915,0
+11223,TEKA,TEKA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,167915,335240
+11231,TEKNO,TKNO,Materiais Básicos,Siderurgia e Metalurgia,Artefatos de Ferro e Aço,,1587101,1360709
+11258,TELEBRAS,TELB,Comunicações,Telecomunicações,Telecomunicações,,49457271,18407491
+17671,TELEF BRASIL,VIVT,Comunicações,Telecomunicações,Telecomunicações,,571644217,1119340706
+23329,TERM. PE III,TEPE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,26162996,0
+18538,MENEZES CORT,MNZC,Financeiro,Exploração de Imóveis,Exploração de Imóveis,MB             ,526308,0
+19852,TERMOPE,TMPE,Utilidade Pública,Energia Elétrica,Energia Elétrica,,571815320,0
+20354,TERRA SANTA,TESA,Consumo não Cíclico,Agropecuária,Agricultura,NM             ,21656539,0
+7544,TEX RENAUX,TXRX,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Fios e Tecidos,,1456603,2802678
+17639,TIM PART S/A,TIMP,Comunicações,Telecomunicações,Telecomunicações,NM             ,2421032479,0
+19992,TOTVS,TOTS,Tecnologia da Informação,Programas e Serviços,Programas e Serviços,NM             ,577913181,0
+19330,TRIUNFO PART,TPIS,Bens Industriais,Transporte,Exploração de Rodovias,NM             ,176000000,0
+20257,TAESA,TAEE,Utilidade Pública,Energia Elétrica,Energia Elétrica,N2             ,590714069,442782652
+8192,TREVISA,LUXM,Bens Industriais,Transporte,Transporte Hidroviário,,2298000,2898000
+23060,TRIANGULOSOL,TRIA,Bens Industriais,Transporte,Exploração de Rodovias,,610000,0
+21130,TRISUL,TRIS,Consumo Cíclico,Construção Civil,Incorporações,NM             ,186617538,0
+11398,CRISTAL,CRPG,Materiais Básicos,Químicos,Químicos Diversos,,10158398,18860349
+22276,TRUESEC,APCS,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,400000,0
+6343,TUPY,TUPY,Bens Industriais,Material de Transporte,Material Rodoviário,NM             ,144177500,0
+18465,ULTRAPAR,UGPA,"Petróleo, Gás e Biocombustíveis","Petróleo, Gás e Biocombustíveis","Exploração, Refino e Distribuição",NM             ,1114918734,0
+22780,UNICASA,UCAS,Consumo Cíclico,Utilidades Domésticas,Móveis,NM             ,66086364,0
+21555,UNIDAS,UNID,Consumo Cíclico,Diversos,Aluguel de carros,,63306883,0
+11592,UNIPAR,UNIP,Materiais Básicos,Químicos,Químicos Diversos,,34461770,63356402
+16624,UPTICK,UPKP,Utilidade Pública,Energia Elétrica,Energia Elétrica,MB             ,52437003,0
+14320,USIMINAS,USIM,Materiais Básicos,Siderurgia e Metalurgia,Siderurgia,N1             ,705260684,547818424
+4170,VALE,VALE,Materiais Básicos,Mineração,Minerais Metálicos,NM             ,5284474770,12
+20028,VALID,VLID,Bens Industriais,Serviços Diversos,Serviços Diversos,NM             ,71225000,0
+23990,VERTCIASEC,VERT,Financeiro,Securitizadoras de Recebíveis,Securitizadoras de Recebíveis,,100000,11
+6505,VIAVAREJO,VVAR,Consumo Cíclico,Comércio,Eletrodomésticos,NM             ,1300016941,0
+24805,VIVARA S.A.,VIVA,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Acessórios,NM             ,236197769,0
+20702,VIVER,VIVR,Consumo Cíclico,Construção Civil,Incorporações,NM             ,46572036,0
+11762,VULCABRAS,VULC,Consumo Cíclico,"Tecidos, Vestuário e Calçados",Calçados,NM             ,245756346,0
+5410,WEG,WEGE,Bens Industriais,Máquinas e Equipamentos,"Motores, Compressores e Outros",NM             ,2098658999,0
+11991,WETZEL S/A,MWET,Bens Industriais,Material de Transporte,Material Rodoviário,,686001,1372002
+14346,WHIRLPOOL,WHRL,Consumo Cíclico,Utilidades Domésticas,Eletrodomésticos,,1028700892,474085114
+23590,WIZ S.A.,WIZS,Financeiro,Previdência e Seguros,Corretoras de Seguros,NM             ,159907282,0
+11070,WLM IND COM,WLMM,Bens Industriais,Comércio,Material de Transporte,,16571220,19843450
+21016,YDUQS PART,YDUQ,Consumo Cíclico,Diversos,Serviços Educacionais,NM             ,618177702,0
