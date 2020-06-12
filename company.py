@@ -55,10 +55,10 @@ def layout(ticker):
                 ])
             ], label="Visão Geral"),
             dbc.Tab([
-                dcc.Dropdown(
+                dbc.RadioItems(
                     id='rev_forecast_method',
                     value='ets',
-                    clearable=False,
+                    inline=True,
                     options=[
                         {'value': 'ets', 'label': 'Alisamento exponencial'},
                         {'value': 'arima', 'label': 'ARIMA'}
