@@ -65,7 +65,7 @@ def calc_kpis(df):
 
 screener = calc_kpis(screener)
 screener = companies.merge(screener, on='CD_CVM')
-screener = screener.sort_values('PESO', ascending=False)
+screener = screener.sort_values('Revenue', ascending=False)
 
 #
 app = dash.Dash(
@@ -87,7 +87,7 @@ navbar = dbc.NavbarSimple(
 
 # SCREENER MODAL
 visible_cols = [
-    'TICKER', 'SETOR', 'Revenue', 'EBIT', 'NetIncome',
+    'BTICKER', 'SETOR', 'Revenue', 'EBIT', 'NetIncome',
     'EBITMargin', 'NetMargin', 'ROIC', 'ROE', 'NetDebtToEBIT'
 ]
 screener_table = dt.DataTable(
@@ -153,7 +153,7 @@ def update_url(url):
         ticker = ''
     else:
         ticker = url[1:5].upper()
-        if screener['TICKER'].str[:4].isin([ticker]).sum() == 0:
+        if screener['BTICKER'].str[:4].isin([ticker]).sum() == 0:
             ticker = ''
     if ticker == '':
         content = html.Div([
@@ -162,7 +162,7 @@ def update_url(url):
         ])
         data = {}
     else:
-        row = screener[screener['TICKER'].str[:4] == ticker]
+        row = screener[screener['BTICKER'].str[:4] == ticker]
         cvm_id = row['CD_CVM'].iloc[0]
         company_name = row['NM_PREGAO'].iloc[0]
         sectors = [

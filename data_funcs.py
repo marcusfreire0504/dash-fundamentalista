@@ -73,10 +73,10 @@ def get_num_shares():
     numshares = pd.read_html(
         'http://bvmf.bmfbovespa.com.br/CapitalSocial/',
         decimal=',', thousands='.')[0]
-    numshares = numshares[['Código', 'Qtde Ações Ordinárias', 'Qtde Ações Preferenciais']]
-    numshares.columns = ['BTICKER', 'ON', 'PN']
+    numshares = numshares[['Código', 'Qtde Ações Ordinárias',
+                           'Qtde Ações Preferenciais']]
+    numshares.columns = ['BTICKER', 'QTDE_ON', 'QTDE_PN']
     numshares = numshares.groupby('BTICKER').sum().reset_index()
-    numshares = numshares.melt('BTICKER', var_name='TIPO', value_name='QT_ACOES')
     return numshares.reset_index(drop=True)
 
 
@@ -94,17 +94,13 @@ def cache_data(fn, fun, *args, **kwargs):
         return df
 
 
-def get_companies(index_name='IBRA'):
-    ibra = cache_data(f'{index_name}.csv', get_index_composition, 'IBRA')
+def get_companies():
     codigos = cache_data('codigos.csv', get_listed_codes)
     setores = cache_data('setores.csv', get_sectors)
     numshares = cache_data('num_shares.csv', get_num_shares)
 
-    df = pd.merge(codigos, ibra, on='NM_PREGAO', how='inner')
-    df['BTICKER'] = df['TICKER'].str[:4]
-    df = df.merge(setores.drop(columns=['NM_PREGAO']), on='BTICKER')
-    df['TIPO'] = df['TIPO'].str[:2]
-    df = df.merge(numshares, on=['BTICKER', 'TIPO'])
+    df = pd.merge(codigos, setores, on='NM_PREGAO', how='inner')
+    df = df.merge(numshares, on='BTICKER')
     return df.reset_index(drop=True)
 
 

@@ -4,7 +4,7 @@ from data_funcs import get_cvm_all, get_companies
 
 accounts = pd.read_csv('accounts.csv')
 
-companies = get_companies('IBRA')
+companies = get_companies()
 companies.to_csv('data/companies.csv', index=False)
 
 fin_stmts = get_cvm_all(
