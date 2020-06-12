@@ -79,7 +79,7 @@ app.title = 'Análise Fundamentalista'
 navbar = dbc.NavbarSimple(
     children=[],
     brand=app.title,
-    brand_href="#",
+    brand_href="/",
     color='dark',
     dark=True
 )
