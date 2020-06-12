@@ -39,11 +39,13 @@ def layout(ticker):
                 grid([
                     [
                         dcc.Graph(id='ov_revenue_plot'),
-                        dcc.Graph(id='ov_profit_plot')
+                        dcc.Graph(id='ov_profit_plot'),
+                        dcc.Graph(id='ov_debt_plot')
                     ],
                     [
                         dcc.Graph(id='ov_margins_plot'),
-                        dcc.Graph(id='ov_returns_plot')
+                        dcc.Graph(id='ov_returns_plot'),
+                        dcc.Graph(id='ov_debt2_plot')
                     ]
                 ])
             ], label="Visão Geral")
@@ -55,32 +57,46 @@ def layout(ticker):
     [Output('ov_revenue_plot', 'figure'),
      Output('ov_profit_plot', 'figure'),
      Output('ov_margins_plot', 'figure'),
-     Output('ov_returns_plot', 'figure')],
+     Output('ov_returns_plot', 'figure'),
+     Output('ov_debt_plot', 'figure'),
+     Output('ov_debt2_plot', 'figure')],
     [Input('stmts_store', 'data')]
 )
 def update_overview_plot(data):
     df = pd.DataFrame(data)
     labs = {'value': '', 'DT_FIM_EXERC': '', 'variable': ''}
     revenue_fig = px.bar(
-        df[['DT_FIM_EXERC', 'Revenue', 'GrossProfit']].melt('DT_FIM_EXERC'),
-        x='DT_FIM_EXERC', y='value', color='variable', barmode='group',
+        df,  barmode='group',
+        x='DT_FIM_EXERC', y=['Revenue', 'GrossProfit'], color='variable',
         title='Receita e Lucro Bruto', labels=labs
     )
     profit_fig = px.bar(
-        df[['DT_FIM_EXERC', 'EBIT', 'NetIncome']].melt('DT_FIM_EXERC'),
-        x='DT_FIM_EXERC', y='value', color='variable', barmode='group',
+        df,  barmode='group',
+        x='DT_FIM_EXERC', y=['EBIT', 'NetIncome'], color='variable',
         title='Lucro', labels=labs
     )
     margins_fig = px.line(
-        df[['DT_FIM_EXERC', 'EBITMargin', 'NetMargin', 'GrossMargin']]
-            .melt('DT_FIM_EXERC'),
-        x='DT_FIM_EXERC', y='value', color='variable',
+        df,
+        x='DT_FIM_EXERC', y=['EBITMargin', 'NetMargin', 'GrossMargin'],
+        color='variable',
         title='Margens', labels=labs
     )
     returns_fig = px.line(
-        df[['DT_FIM_EXERC', 'ROIC', 'ROE']].melt('DT_FIM_EXERC'),
-        x='DT_FIM_EXERC', y='value', color='variable',
+        df,
+        x='DT_FIM_EXERC', y=['ROIC', 'ROE'], color='variable',
         title='Rentabilidade', labels=labs
     )
-    return revenue_fig, profit_fig, margins_fig, returns_fig
+    debt_fig = px.bar(
+        df,
+        x='DT_FIM_EXERC', y=['Debt', 'ShareholderEquity'], color='variable',
+        title='Estrutura de Capital', labels=labs
+    )
+    debt2_fig = px.line(
+        df,
+        x='DT_FIM_EXERC', y=['NetDebtToEBIT', 'DebtToEquity'], color='variable',
+        title='Endividamento', labels=labs
+    )
+    
+    return revenue_fig, profit_fig, margins_fig, \
+        returns_fig, debt_fig, debt2_fig
 
