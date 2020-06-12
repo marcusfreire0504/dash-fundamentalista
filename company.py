@@ -66,7 +66,12 @@ def layout(ticker):
                     ]
                 ),
                 dcc.Graph("rev_forecast_plot", style={'height': '80vh'})
-            ], label="Receita")
+            ], label="Receita"),
+            dbc.Tab([
+                grid([[
+                    dcc.Graph(id='opex_scatter', style={'height': '80vh'})
+                ]])
+            ], label='OPEX')
         ])
     ])
 
@@ -170,4 +175,17 @@ def plot_revenue_forecast(data):
     fig = px.line(df,
         x='DT_FIM_EXERC', y=['Revenue', 'Simulation', 'Forecast'],
         line_group='iteration')
+    return fig
+
+
+@app.callback(
+    Output('opex_scatter', 'figure'),
+    [Input('stmts_store', 'data')]
+)
+def plot_opex_scatter(data):
+    df = pd.DataFrame(data)
+    df['Opex'] = df['Revenue'] - df['EBIT']
+    df['Quarter'] = pd.to_datetime(df['DT_FIM_EXERC']).dt.quarter.astype(str) \
+        + 'Q'
+    fig = px.scatter(df, x='Revenue', y='Opex', color='Quarter')
     return fig
