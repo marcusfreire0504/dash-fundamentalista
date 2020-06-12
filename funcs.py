@@ -1,11 +1,22 @@
 import numpy as np
+import pandas as pd
 
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 
+def add_quarters(df):
+    df['Quarter'] = pd.to_datetime(df['DT_FIM_EXERC']).dt.quarter.astype(str)
+    for i in range(4):
+        df[f'Q{i+1}'] = (df['Quarter'] == f"{i + 1}") * 1
+    return df
+
+
 def calc_kpis(df, quarterly=True):
     df.sort_values('DT_FIM_EXERC', inplace=True)
+    if quarterly:
+        df = add_quarters(df)
+
     df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
         df['StakeholderEquity'] - df['MinorityInterests'].fillna(0)

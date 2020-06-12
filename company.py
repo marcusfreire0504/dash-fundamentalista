@@ -15,9 +15,10 @@ from plotly.subplots import make_subplots
 import statsmodels.api as sm
 from statsmodels.tsa.statespace.exponential_smoothing import ExponentialSmoothing
 from statsmodels.tsa.statespace.sarimax import SARIMAX
+from statsmodels.regression.quantile_regression import QuantReg
 
 from app import app, companies, fin_stmts
-from funcs import grid, calc_kpis
+from funcs import grid, calc_kpis, add_quarters
 
 
 def layout(ticker):
@@ -37,6 +38,7 @@ def layout(ticker):
     return html.Div([
         dcc.Store(id='stmts_store', data=data.to_dict('records')),
         dcc.Store(id='rev_forecast_store', data={}),
+        dcc.Store(id='ebit_forecast_store', data={}),
         html.H2(company_name),
         html.Ol(sectors, className='breadcrumb',
             style={'background': 'none'}),
@@ -69,7 +71,8 @@ def layout(ticker):
             ], label="Receita"),
             dbc.Tab([
                 grid([[
-                    dcc.Graph(id='opex_scatter', style={'height': '80vh'})
+                    dcc.Graph(id='opex_scatter', style={'height': '80vh'}),
+                    dcc.Graph(id='opex_forecast_plot', style={'height': '80vh'})
                 ]])
             ], label='OPEX')
         ])
@@ -144,36 +147,32 @@ def update_revenue_forecast(data, method):
     else:
         return {}
     results = model.fit()
-    fcasts = np.exp(results.forecast(4*5))
-    df = pd.concat([data, pd.DataFrame({'Forecast': fcasts})]).reset_index()
-    fcasts = (
-        pd.DataFrame({'Forecast': np.exp(results.forecast(4*5))})
-        .reset_index()
-        .rename(columns={'index': 'DT_FIM_EXERC'})
-    )
     simulations = (
         np.exp(results.simulate(4*5, repetitions=100, anchor=data.shape[0]))
         .reset_index()
-        .melt('index', value_name='Simulation')
+        .melt('index', value_name='Revenue')
         .drop(columns='variable_0')
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
     )
-    df = pd.concat([
-        data.reset_index().merge(fcasts, how='outer'),
-        simulations
-        ])
-    df['iteration'] = df['iteration'].fillna('')
-    return df.to_dict('records')
+    simulations = add_quarters(simulations)
+    return simulations.to_dict('records')
 
 
 @app.callback(
     Output('rev_forecast_plot', 'figure'),
-    [Input('rev_forecast_store', 'data')]
+    [Input('stmts_store', 'data'),
+     Input('rev_forecast_store', 'data')]
 )
-def plot_revenue_forecast(data):
-    df = pd.DataFrame(data)
+def plot_revenue_forecast(historicals, forecasts):
+    historicals = pd.DataFrame(historicals)
+    forecasts = pd.DataFrame(forecasts)
+    df = pd.concat([
+        historicals,
+        forecasts.rename(columns={'Revenue': 'Simulation'})
+    ])
+    df['iteration'] = df['iteration'].fillna('')
     fig = px.line(df,
-        x='DT_FIM_EXERC', y=['Revenue', 'Simulation', 'Forecast'],
+        x='DT_FIM_EXERC', y=['Revenue', 'Simulation'],
         line_group='iteration')
     return fig
 
@@ -184,7 +183,57 @@ def plot_revenue_forecast(data):
 )
 def plot_opex_scatter(data):
     df = pd.DataFrame(data)
-    df['Quarter'] = pd.to_datetime(df['DT_FIM_EXERC']).dt.quarter.astype(str) \
-        + 'Q'
     fig = px.scatter(df, x='Revenue', y='Opex', color='Quarter')
+    return fig
+
+
+@app.callback(
+    Output('ebit_forecast_store', 'data'),
+    [Input('stmts_store', 'data'),
+     Input('rev_forecast_store', 'data')]
+)
+def update_ebit_forecast(historicals, forecasts):
+    historicals = pd.DataFrame(historicals)
+    forecasts = pd.DataFrame(forecasts)
+    historicals['const'] = 1
+    historicals['logRevenue'] = np.log(historicals['Revenue'])
+
+    exog = historicals[['logRevenue', 'Q2', 'Q3', 'Q4']]
+    exog = sm.add_constant(exog)
+    
+    model = QuantReg(np.log(historicals['Opex']), exog)
+    results = model.fit(q=0.5)
+    coefs = results.params
+    rmse = np.mean(results.resid ** 2) ** .5
+
+    forecasts['Opex'] = np.exp(
+        coefs[0] + coefs[1] * np.log(forecasts['Revenue']) +
+        coefs[2] * forecasts['Q2'] + coefs[3] * forecasts['Q3'] +
+        coefs[4] * forecasts['Q4'] +
+        np.random.normal(0, rmse, forecasts.shape[0])
+    )
+    forecasts['EBIT'] = forecasts['Revenue'] - forecasts['Opex']
+    forecasts['EBITMargin'] = 100 * forecasts['EBIT'] / forecasts['Revenue']
+
+    return forecasts.to_dict('records')
+
+
+
+@app.callback(
+    Output('opex_forecast_plot', 'figure'),
+    [Input('stmts_store', 'data'),
+     Input('ebit_forecast_store', 'data')]
+)
+def plot_opex_forecast(historicals, forecasts):
+    historicals = pd.DataFrame(historicals)
+    forecasts = pd.DataFrame(forecasts)
+
+    cols = [s for s in forecasts.columns if s in historicals.columns]
+    df = pd.concat([historicals[cols], forecasts])
+    df['iteration'] = df['iteration'].fillna('')
+
+    fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
+        facet_row='variable', line_group='iteration')
+    fig.update_yaxes(matches=None)
+
     return fig
