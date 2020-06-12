@@ -8,6 +8,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_table as dt
 from dash_table.Format import Format, Scheme, Sign
+from dash.exceptions import PreventUpdate
 
 import plotly.graph_objects as go
 import plotly.express as px
@@ -76,9 +77,7 @@ app.title = 'Análise Fundamentalista'
 
 #
 navbar = dbc.NavbarSimple(
-    children=[
-        dbc.Button(screener['TICKER'].iloc[0], id='ticker', className='ml-auto'),
-    ],
+    children=[],
     brand=app.title,
     brand_href="#",
     color='dark',
@@ -105,18 +104,6 @@ screener_table = dt.DataTable(
     page_action='native',
     page_size=15
 )
-screener_modal = dbc.Modal([
-    dbc.ModalHeader([
-        'Selecionar ativo',
-    ]),
-    dbc.ModalBody([
-        html.Div(screener_table)
-    ]),
-    dbc.ModalFooter([
-        dbc.Button('Fechar', id='screener_close', className='ml-auto')
-    ])
-], id='screener_modal', size="xl", scrollable=True)
-
 
 #
 def grid(rows):
@@ -149,57 +136,53 @@ stores = html.Div([dcc.Store(id=f"{s}_store") for s in ['stmts']])
 
 # LAYOUT
 app.layout = html.Div([
+    dcc.Location('url', refresh=False),
     navbar,
-    html.Div([
-        html.H2('', id='company_name'),
-        html.Ol([], id='sectors', className='breadcrumb', style={'background': 'none'}),
-        tabs
-    ], className='container-fluid'),
-    screener_modal,
+    html.Div(id='page_content', className='container-fluid'),
     stores
 ])
 
 
-#
 @app.callback(
-    [Output("screener_modal", "is_open"),
-     Output('ticker', 'children')],
-    [Input("ticker", "n_clicks"),
-     Input("screener_close", "n_clicks")],
-    [State("screener_modal", "is_open"),
-     State("ticker", "children"),
-     State("screener_table", "data"),
-     State("screener_table", "selected_rows")],
+    [Output("page_content", "children"),
+     Output("stmts_store", "data")],
+    [Input('url', 'pathname')]
 )
-def toggle_search_modal(n1, n2, is_open, ticker, data, rows):
-    if n1 or n2:
-        if is_open:
-            ticker = pd.DataFrame(data)['TICKER'].iloc[rows[0]]
-        return not is_open, ticker
-    return is_open, ticker
-
-
-@app.callback(
-    [Output('stmts_store', 'data'),
-     Output('company_name', 'children'),
-     Output('sectors', 'children')],
-    [Input('ticker', 'children')]
-)
-def update_stmts_data(ticker):
-    row = screener[screener['TICKER'] == ticker]
-    cvm_id = row['CD_CVM'].iloc[0]
-    company_name = row['NM_PREGAO'].iloc[0]
-    sectors = [
-        html.Li(row[s].iloc[0], className='breadcrumb-item')
-        for s in ['SETOR', 'SUBSETOR', 'SEGMENTO']
-    ]
-
-    df = fin_stmts[fin_stmts['CD_CVM'] == cvm_id]
-    df = df.reset_index()
-    df = df[1:]
-    df = calc_kpis(df)
-
-    return df.to_dict('records'), company_name, sectors
+def update_url(url):
+    if url is None or len(url) < 4:
+        ticker = ''
+    else:
+        ticker = url[1:5].upper()
+        if screener['TICKER'].str[:4].isin([ticker]).sum() == 0:
+            ticker = ''
+    if ticker == '':
+        content = html.Div([
+            html.H2('Screener'),
+            grid([[screener_table]])
+        ])
+        data = {}
+    else:
+        row = screener[screener['TICKER'].str[:4] == ticker]
+        cvm_id = row['CD_CVM'].iloc[0]
+        company_name = row['NM_PREGAO'].iloc[0]
+        sectors = [
+            html.Li(row[s].iloc[0], className='breadcrumb-item')
+            for s in ['SETOR', 'SUBSETOR', 'SEGMENTO']
+        ]
+        # Prepare fin statements dataset
+        data = fin_stmts[fin_stmts['CD_CVM'] == cvm_id]
+        data = data.reset_index()
+        data = data[1:]
+        data = calc_kpis(data)
+        #
+        content = html.Div([
+            html.H2(company_name),
+            html.Ol(sectors, className='breadcrumb',
+                style={'background': 'none'}),
+            tabs
+        ])
+        data = data.to_dict('records')
+    return content, data
 
 
 @app.callback(
