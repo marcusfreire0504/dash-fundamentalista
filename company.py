@@ -182,12 +182,14 @@ def update_revenue_forecast(historicals, method):
     rev_results = rev_model.fit()
     models['revenue'] = {
         'Params': rev_results.params,
-        'RMSE': np.sqrt(rev_results.mse),
-        'MAE': rev_results.mae,
-        'Ljung-Box': rev_results.test_serial_correlation('ljungbox')[0, 0, -1],
-        'log-Likelihood': rev_results.llf,
-        'AICc': rev_results.aicc,
-        'BIC': rev_results.bic
+        'diag': {
+            'RMSE': np.sqrt(rev_results.mse),
+            'MAE': rev_results.mae,
+            'Ljung-Box': rev_results.test_serial_correlation('ljungbox')[0, 0, -1],
+            'log-Likelihood': rev_results.llf,
+            'AICc': rev_results.aicc,
+            'BIC': rev_results.bic
+        }
     }
 
     #
@@ -274,8 +276,7 @@ def plot_revenue_forecast(forecasts, models):
         color_discrete_sequence=simulation_scheme)
     fig.update_yaxes(matches=None)
     text = "<br>".join([
-        f"{s}: {round(model[s], 4)}"
-        for s in ['RMSE', 'MAE', 'AICc', 'BIC', 'log-Likelihood', 'Ljung-Box']
+        f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
     ])
     fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
         text=text)
