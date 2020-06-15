@@ -46,14 +46,14 @@ def layout(ticker):
             dbc.Tab([
                 grid([
                     [
-                        dcc.Graph(id='ov_revenue_plot'),
-                        dcc.Graph(id='ov_profit_plot'),
-                        dcc.Graph(id='ov_debt_plot')
+                        dcc.Graph(id='ov_revenue_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='ov_profit_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='ov_debt_plot', style={'height': '40vh'})
                     ],
                     [
-                        dcc.Graph(id='ov_margins_plot'),
-                        dcc.Graph(id='ov_returns_plot'),
-                        dcc.Graph(id='ov_debt2_plot')
+                        dcc.Graph(id='ov_margins_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='ov_returns_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='ov_debt2_plot', style={'height': '40vh'})
                     ]
                 ])
             ], label="Visão Geral"),
