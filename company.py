@@ -20,6 +20,8 @@ from statsmodels.regression.quantile_regression import QuantReg
 from app import app, companies, fin_stmts, colorscheme
 from funcs import grid, calc_kpis, add_quarters
 
+simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
+
 
 def layout(ticker):
     row = companies[companies['BTICKER'].str[:4] == ticker]
@@ -171,7 +173,7 @@ def update_revenue_forecast(historicals, method):
         .assign(group='simulation')
     )
     simulations = (
-        pd.concat([forecasts, simulations])
+        pd.concat([simulations, forecasts])
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
         .pipe(add_quarters)
         .assign(
@@ -194,7 +196,8 @@ def update_revenue_forecast(historicals, method):
         opex_coefs[0] * np.log(simulations['Revenue']) +
         opex_coefs[1] * simulations['Q1'] + opex_coefs[2] * simulations['Q2'] +
         opex_coefs[3] * simulations['Q3'] + opex_coefs[4] * simulations['Q4'] +
-        np.random.normal(0, rmse, simulations.shape[0])
+        np.random.normal(0, rmse, simulations.shape[0]) *
+        (simulations['group'] == 'simulation')
     )
     simulations['EBIT'] = simulations['Revenue'] - simulations['Opex']
     simulations['EBITMargin'] = 100 * simulations['EBIT'] / simulations['Revenue']
@@ -213,13 +216,11 @@ def update_revenue_forecast(historicals, method):
 )
 def plot_revenue_forecast(forecasts):
     df = pd.DataFrame(forecasts)
-    scheme = colorscheme
-    scheme[2] = 'rgba(180,180,180,0.2)'
     fig = px.line(df,
         x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
         line_group='iteration', color='group',
         facet_col='variable', facet_col_wrap=1,
-        color_discrete_sequence=scheme)
+        color_discrete_sequence=simulation_scheme)
     fig.update_yaxes(matches=None)
     return fig
 
@@ -241,10 +242,8 @@ def plot_opex_scatter(data):
 )
 def plot_opex_forecast(forecasts):
     df = pd.DataFrame(forecasts)
-    scheme = colorscheme
-    scheme[2] = 'rgba(180,180,180,0.2)'
     fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
-        color='group', color_discrete_sequence=scheme,
+        color='group', color_discrete_sequence=simulation_scheme,
         facet_col='variable', facet_col_wrap=1, line_group='iteration')
     fig.update_yaxes(matches=None)
 
