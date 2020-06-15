@@ -6,13 +6,13 @@ import dash_bootstrap_components as dbc
 import plotly.io as pio
 import plotly.graph_objects as go
 
-
+colorscheme = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", 
+               "#0072B2", "#D55E00", "#CC79A7", "#999999"]
 pio.templates["custom"] = go.layout.Template(
     layout=go.Layout(
         margin=dict(l=50, r=20, t=40, b=40),
         legend=dict(orientation='h'),
-        colorway=["#E69F00", "#56B4E9", "#009E73", "#F0E442", 
-                  "#0072B2", "#D55E00", "#CC79A7", "#999999"]
+        colorway=colorscheme
     )
 )
 pio.templates.default = 'custom'

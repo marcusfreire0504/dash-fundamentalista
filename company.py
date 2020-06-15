@@ -17,7 +17,7 @@ from statsmodels.tsa.statespace.exponential_smoothing import ExponentialSmoothin
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.regression.quantile_regression import QuantReg
 
-from app import app, companies, fin_stmts
+from app import app, companies, fin_stmts, colorscheme
 from funcs import grid, calc_kpis, add_quarters
 
 
@@ -153,6 +153,13 @@ def update_revenue_forecast(historicals, method):
     #
     nsim = 100
     horiz = 5
+    forecasts = (
+        pd.DataFrame({
+                'Revenue': np.exp(rev_results.forecast(horiz * 4)),
+                'group': 'forecast', 'variable_1': ''
+            })
+        .reset_index()
+    )
     simulations = (
         rev_results.simulate(
             4 * horiz, repetitions=nsim, anchor=data.shape[0]
@@ -161,6 +168,10 @@ def update_revenue_forecast(historicals, method):
         .reset_index()
         .melt('index', value_name='Revenue')
         .drop(columns='variable_0')
+        .assign(group='simulation')
+    )
+    simulations = (
+        pd.concat([forecasts, simulations])
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
         .pipe(add_quarters)
         .assign(
@@ -188,23 +199,27 @@ def update_revenue_forecast(historicals, method):
     simulations['EBIT'] = simulations['Revenue'] - simulations['Opex']
     simulations['EBITMargin'] = 100 * simulations['EBIT'] / simulations['Revenue']
 
+    simulations = pd.concat([
+        historicals.assign(group='historicals', iteration=''),
+        simulations
+    ])
+
     return simulations.to_dict('records')
 
 
 @app.callback(
     Output('rev_forecast_plot', 'figure'),
-    [Input('stmts_store', 'data'),
-     Input('rev_forecast_store', 'data')]
+    [Input('rev_forecast_store', 'data')]
 )
-def plot_revenue_forecast(historicals, forecasts):
-    historicals = pd.DataFrame(historicals)
-    forecasts = pd.DataFrame(forecasts)
-    df = pd.concat([historicals, forecasts])
-    df['iteration'] = df['iteration'].fillna('')
+def plot_revenue_forecast(forecasts):
+    df = pd.DataFrame(forecasts)
+    scheme = colorscheme
+    scheme[2] = 'rgba(180,180,180,0.2)'
     fig = px.line(df,
         x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
-        line_group='iteration',
-        facet_col='variable', facet_col_wrap=1)
+        line_group='iteration', color='group',
+        facet_col='variable', facet_col_wrap=1,
+        color_discrete_sequence=scheme)
     fig.update_yaxes(matches=None)
     return fig
 
@@ -222,18 +237,14 @@ def plot_opex_scatter(data):
 
 @app.callback(
     Output('opex_forecast_plot', 'figure'),
-    [Input('stmts_store', 'data'),
-     Input('rev_forecast_store', 'data')]
+    [Input('rev_forecast_store', 'data')]
 )
-def plot_opex_forecast(historicals, forecasts):
-    historicals = pd.DataFrame(historicals)
-    forecasts = pd.DataFrame(forecasts)
-
-    cols = [s for s in forecasts.columns if s in historicals.columns]
-    df = pd.concat([historicals[cols], forecasts])
-    df['iteration'] = df['iteration'].fillna('')
-
+def plot_opex_forecast(forecasts):
+    df = pd.DataFrame(forecasts)
+    scheme = colorscheme
+    scheme[2] = 'rgba(180,180,180,0.2)'
     fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
+        color='group', color_discrete_sequence=scheme,
         facet_col='variable', facet_col_wrap=1, line_group='iteration')
     fig.update_yaxes(matches=None)
 
