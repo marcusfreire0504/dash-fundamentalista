@@ -19,6 +19,9 @@ CD_CONTA,OUTRA,BANCO,
 1.01.02,Cash,
 1.01.03,AccountsReceivable,
 1.01.04,Inventories,
+2.01.01,AccountsPayable,
+2.01.02,AccountsPayable,
+2.01.03,TaxesPayable,
 1.02.01,LongTermAssets,
 1.02.02,Investments,
 1.02.03,PPE,
@@ -37,4 +40,4 @@ CD_CONTA,OUTRA,BANCO,
 6.01.02,WorkingCapitalChange,
 6.02,InvestingCashFlow,InvestingCashFlow
 6.03,FinancingCashFlow,FinancingCashFlow
-
+7.04.01,DepreciationAmortizaiton,
