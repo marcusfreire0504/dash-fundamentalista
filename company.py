@@ -301,7 +301,7 @@ def plot_revenue_forecast(forecasts, models):
         f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
     ])
     fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
-        text=text)
+        text=text, align='left')
     return fig
 
 
