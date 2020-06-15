@@ -40,7 +40,7 @@ def layout(ticker):
     return html.Div([
         dcc.Store(id='stmts_store', data=data.to_dict('records')),
         dcc.Store(id='rev_forecast_store', data={}),
-        dcc.Store(id='ebit_forecast_store', data={}),
+        dcc.Store(id='models_store', data={}),
         html.H2(company_name),
         html.Ol(sectors, className='breadcrumb',
             style={'background': 'none'}),
@@ -157,7 +157,8 @@ def update_overview_plot(data):
 
 
 @app.callback(
-    Output('rev_forecast_store', 'data'),
+    [Output('rev_forecast_store', 'data'),
+     Output('models_store', 'data')],
     [Input('stmts_store', 'data'),
      Input('rev_forecast_method', 'value')]
 
@@ -165,6 +166,7 @@ def update_overview_plot(data):
 def update_revenue_forecast(historicals, method):
     historicals = pd.DataFrame(historicals)
     historicals['DT_FIM_EXERC'] = pd.to_datetime(historicals['DT_FIM_EXERC'])
+    models = {}
 
     # Revenue time series model
     data = historicals.set_index('DT_FIM_EXERC').asfreq('Q')[['Revenue']]
@@ -178,6 +180,15 @@ def update_revenue_forecast(historicals, method):
     else:
         return {}
     rev_results = rev_model.fit()
+    models['revenue'] = {
+        'Params': rev_results.params,
+        'RMSE': np.sqrt(rev_results.mse),
+        'MAE': rev_results.mae,
+        'Ljung-Box': rev_results.test_serial_correlation('ljungbox')[0, 0, -1],
+        'log-Likelihood': rev_results.llf,
+        'AICc': rev_results.aicc,
+        'BIC': rev_results.bic
+    }
 
     #
     nsim = 100
@@ -245,14 +256,16 @@ def update_revenue_forecast(historicals, method):
         simulations
     ])
 
-    return simulations.to_dict('records')
+    return simulations.to_dict('records'), models
 
 
 @app.callback(
     Output('rev_forecast_plot', 'figure'),
-    [Input('rev_forecast_store', 'data')]
+    [Input('rev_forecast_store', 'data'),
+     Input('models_store', 'data')]
 )
-def plot_revenue_forecast(forecasts):
+def plot_revenue_forecast(forecasts, models):
+    model = models['revenue']
     df = pd.DataFrame(forecasts)
     fig = px.line(df,
         x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
@@ -260,6 +273,12 @@ def plot_revenue_forecast(forecasts):
         facet_col='variable', facet_col_wrap=1,
         color_discrete_sequence=simulation_scheme)
     fig.update_yaxes(matches=None)
+    text = "<br>".join([
+        f"{s}: {round(model[s], 4)}"
+        for s in ['RMSE', 'MAE', 'AICc', 'BIC', 'log-Likelihood', 'Ljung-Box']
+    ])
+    fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
+        text=text)
     return fig
 
 
