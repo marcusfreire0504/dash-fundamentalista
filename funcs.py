@@ -38,12 +38,12 @@ def calc_kpis(df, quarterly=True):
         df['ROE'] = 100 * df['LTM_NetIncome'] / df['LTM_ShareholderEquity']
         df['ROIC'] = 100 * df['LTM_EBIT'] / df['LTM_InvestedCapital']
         df['NetDebtToEBIT'] = np.where(df['LTM_EBIT'] < 0, np.NaN,
-                                   100 * df['NetDebt'] / df['LTM_EBIT'])
+                                   df['NetDebt'] / df['LTM_EBIT'])
     else:
         df['ROE'] = 100 * df['NetIncome'] / df['ShareholderEquity']
         df['ROIC'] = 100 * df['EBIT'] / df['InvestedCapital']
         df['NetDebtToEBIT'] = np.where(df['EBIT'] < 0, np.NaN,
-                                   100 * df['NetDebt'] / df['EBIT'])
+                                   df['NetDebt'] / df['EBIT'])
     return df
 
 
