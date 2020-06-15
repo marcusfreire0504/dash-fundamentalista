@@ -153,10 +153,11 @@ def update_revenue_forecast(data, method):
         .melt('index', value_name='Revenue')
         .drop(columns='variable_0')
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
+        .assign(
+            RevenueGrowth=lambda x: 100 * (x['Revenue'] /
+            x.groupby('iteration')['Revenue'].shift(4) - 1))
+        .pipe(add_quarters)
     )
-    simulations['RevenueGrowth'] = 100 * (simulations['Revenue'] /
-            simulations.groupby('iteration')['Revenue'].shift(4) - 1)
-    simulations = add_quarters(simulations)
     return simulations.to_dict('records')
 
 
