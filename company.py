@@ -295,7 +295,8 @@ def plot_revenue_forecast(forecasts, models):
         x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
         line_group='iteration', color='group',
         facet_col='variable', facet_col_wrap=1,
-        color_discrete_sequence=simulation_scheme)
+        color_discrete_sequence=simulation_scheme,
+        labels={'DT_FIM_EXERC': '', 'value': '', 'variable': ''})
     fig.update_yaxes(matches=None)
     text = "<br>".join([
         f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
@@ -324,7 +325,8 @@ def plot_opex_forecast(forecasts):
     df = pd.DataFrame(forecasts)
     fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
         color='group', color_discrete_sequence=simulation_scheme,
-        facet_col='variable', facet_col_wrap=1, line_group='iteration')
+        facet_col='variable', facet_col_wrap=1, line_group='iteration',
+        labels={'DT_FIM_EXERC': '', 'value': '', 'variable': ''})
     fig.update_yaxes(matches=None)
 
     return fig
