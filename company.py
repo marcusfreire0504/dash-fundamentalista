@@ -133,31 +133,62 @@ def update_overview_plot(data):
      Input('rev_forecast_method', 'value')]
 
 )
-def update_revenue_forecast(data, method):
-    data = pd.DataFrame(data)
-    data['DT_FIM_EXERC'] = pd.to_datetime(data['DT_FIM_EXERC'])
-    data = data.set_index('DT_FIM_EXERC').asfreq('Q')[['Revenue']]
+def update_revenue_forecast(historicals, method):
+    historicals = pd.DataFrame(historicals)
+    historicals['DT_FIM_EXERC'] = pd.to_datetime(historicals['DT_FIM_EXERC'])
+
+    # Revenue time series model
+    data = historicals.set_index('DT_FIM_EXERC').asfreq('Q')[['Revenue']]
     if method == 'ets':
-        model = ExponentialSmoothing(
+        rev_model = ExponentialSmoothing(
             np.log(data['Revenue']), trend=True, damped_trend=True, seasonal=4)
     elif method == 'arima':
-        model = SARIMAX(
+        rev_model = SARIMAX(
             np.log(data['Revenue']),
             order=(2, 1, 1), seasonal_order=(1, 0, 1, 4), trend='c')
     else:
         return {}
-    results = model.fit()
+    rev_results = rev_model.fit()
+
+    #
+    nsim = 100
+    horiz = 5
     simulations = (
-        np.exp(results.simulate(4*5, repetitions=100, anchor=data.shape[0]))
+        rev_results.simulate(
+            4 * horiz, repetitions=nsim, anchor=data.shape[0]
+        )
+        .pipe(np.exp)
         .reset_index()
         .melt('index', value_name='Revenue')
         .drop(columns='variable_0')
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
+        .pipe(add_quarters)
         .assign(
             RevenueGrowth=lambda x: 100 * (x['Revenue'] /
-            x.groupby('iteration')['Revenue'].shift(4) - 1))
-        .pipe(add_quarters)
+                x.groupby('iteration')['Revenue'].shift(4) - 1)
+        )
     )
+
+    # Expenses regression model
+    historicals['logRevenue'] = np.log(historicals['Revenue'])
+    exog = historicals[['logRevenue', 'Q2', 'Q3', 'Q4']]
+    exog = sm.add_constant(exog)
+    
+    opex_model = QuantReg(np.log(historicals['Opex']), exog)
+    opex_results = opex_model.fit(q=0.5)
+    opex_coefs = opex_results.params
+    rmse = np.mean(opex_results.resid ** 2) ** .5
+
+    # Simulations
+    simulations['Opex'] = np.exp(
+        opex_coefs[0] + opex_coefs[1] * np.log(simulations['Revenue']) +
+        opex_coefs[2] * simulations['Q2'] + opex_coefs[3] * simulations['Q3'] +
+        opex_coefs[4] * simulations['Q4'] +
+        np.random.normal(0, rmse, simulations.shape[0])
+    )
+    simulations['EBIT'] = simulations['Revenue'] - simulations['Opex']
+    simulations['EBITMargin'] = 100 * simulations['EBIT'] / simulations['Revenue']
+
     return simulations.to_dict('records')
 
 
@@ -191,41 +222,9 @@ def plot_opex_scatter(data):
 
 
 @app.callback(
-    Output('ebit_forecast_store', 'data'),
-    [Input('stmts_store', 'data'),
-     Input('rev_forecast_store', 'data')]
-)
-def update_ebit_forecast(historicals, forecasts):
-    historicals = pd.DataFrame(historicals)
-    forecasts = pd.DataFrame(forecasts)
-    historicals['const'] = 1
-    historicals['logRevenue'] = np.log(historicals['Revenue'])
-
-    exog = historicals[['logRevenue', 'Q2', 'Q3', 'Q4']]
-    exog = sm.add_constant(exog)
-    
-    model = QuantReg(np.log(historicals['Opex']), exog)
-    results = model.fit(q=0.5)
-    coefs = results.params
-    rmse = np.mean(results.resid ** 2) ** .5
-
-    forecasts['Opex'] = np.exp(
-        coefs[0] + coefs[1] * np.log(forecasts['Revenue']) +
-        coefs[2] * forecasts['Q2'] + coefs[3] * forecasts['Q3'] +
-        coefs[4] * forecasts['Q4'] +
-        np.random.normal(0, rmse, forecasts.shape[0])
-    )
-    forecasts['EBIT'] = forecasts['Revenue'] - forecasts['Opex']
-    forecasts['EBITMargin'] = 100 * forecasts['EBIT'] / forecasts['Revenue']
-
-    return forecasts.to_dict('records')
-
-
-
-@app.callback(
     Output('opex_forecast_plot', 'figure'),
     [Input('stmts_store', 'data'),
-     Input('ebit_forecast_store', 'data')]
+     Input('rev_forecast_store', 'data')]
 )
 def plot_opex_forecast(historicals, forecasts):
     historicals = pd.DataFrame(historicals)
