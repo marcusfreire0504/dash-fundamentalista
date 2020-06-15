@@ -49,16 +49,26 @@ def layout(ticker):
                 grid([
                     [
                         dcc.Graph(id='ov_revenue_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_profit_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_debt_plot', style={'height': '40vh'})
+                        dcc.Graph(id='ov_profit_plot', style={'height': '40vh'})
                     ],
                     [
                         dcc.Graph(id='ov_margins_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_returns_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_debt2_plot', style={'height': '40vh'})
+                        dcc.Graph(id='ov_returns_plot', style={'height': '40vh'})
                     ]
                 ])
             ], label="Visão Geral"),
+            dbc.Tab([
+                grid([
+                    [
+                        dcc.Graph(id='workingk_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='liquid_plot', style={'height': '40vh'}),
+                    ],
+                    [
+                        dcc.Graph(id='ov_debt_plot', style={'height': '40vh'}),
+                        dcc.Graph(id='ov_debt2_plot', style={'height': '40vh'})
+                    ]
+                ])
+            ], label="Capital"),
             dbc.Tab([
                 dbc.RadioItems(
                     id='rev_forecast_method',
@@ -87,7 +97,9 @@ def layout(ticker):
      Output('ov_margins_plot', 'figure'),
      Output('ov_returns_plot', 'figure'),
      Output('ov_debt_plot', 'figure'),
-     Output('ov_debt2_plot', 'figure')],
+     Output('ov_debt2_plot', 'figure'),
+     Output('workingk_plot', 'figure'),
+     Output('liquid_plot', 'figure')],
     [Input('stmts_store', 'data')]
 )
 def update_overview_plot(data):
@@ -124,9 +136,24 @@ def update_overview_plot(data):
         x='DT_FIM_EXERC', y=['NetDebtToEBIT', 'DebtToEquity'], color='variable',
         title='Endividamento', labels=labs
     )
+    workingk_fig = px.line(
+        df,
+        x='DT_FIM_EXERC',
+        y=['DaysSalesOutstanding', 'DaysInventoriesOutstanding',
+           'DaysPayablesOutstanding', 'CashConversionCycle'],
+        color='variable',
+        title='Capital de Giro', labels=labs
+    )
+    liquid_fig = px.line(
+        df,
+        x='DT_FIM_EXERC',
+        y=[f'{s}Liquidity' for s in ['Current', 'General', 'Cash']],
+        color='variable',
+        title='Liquidez', labels=labs
+    )
     
-    return revenue_fig, profit_fig, margins_fig, \
-        returns_fig, debt_fig, debt2_fig
+    return revenue_fig, profit_fig, margins_fig, returns_fig, \
+        debt_fig, debt2_fig, workingk_fig, liquid_fig
 
 
 @app.callback(
