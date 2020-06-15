@@ -183,16 +183,38 @@ def update_revenue_forecast(historicals, method):
     models['revenue'] = {
         'Params': rev_results.params,
         'diag': {
-            'RMSE': np.sqrt(rev_results.mse),
-            'MAE': rev_results.mae,
+            'In-sample RMSE': np.sqrt(rev_results.mse),
+            'In-sample MAE': rev_results.mae,
             'Ljung-Box': rev_results.test_serial_correlation('ljungbox')[0, 0, -1],
             'log-Likelihood': rev_results.llf,
             'AICc': rev_results.aicc,
             'BIC': rev_results.bic
         }
     }
+    # Cross validation
+    foldsize = 1
+    nfolds = round(historicals.shape[0] / (4 * foldsize)) - 1
+    cv_errors = []
+    for fold in range(nfolds, 0, -1):
+        train_subset = historicals.iloc[:-(fold+2)*(4*foldsize)]
+        valid_subset = historicals.iloc[-(fold+2)*(4*foldsize):-(fold+1)*(4*foldsize)]
+        if train_subset.shape[0] < 16:
+            continue
+        fcasts = (
+            rev_model.clone(np.log(train_subset['Revenue']))
+            .fit().forecast(valid_subset.shape[0])
+        )
+        cv_errors = np.append(
+            cv_errors, fcasts - np.log(valid_subset['Revenue'])
+        )
+    models['revenue']['diag']['CV RMSE'] = np.sqrt(np.mean(
+        (cv_errors) ** 2
+    ))
+    models['revenue']['diag']['CV MAE'] = np.mean(
+        np.abs(cv_errors)
+    )
 
-    #
+    # Generate simulated forecasts
     nsim = 100
     horiz = 5
     forecasts = (
