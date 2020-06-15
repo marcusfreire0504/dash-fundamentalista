@@ -171,8 +171,7 @@ def update_revenue_forecast(historicals, method):
 
     # Expenses regression model
     historicals['logRevenue'] = np.log(historicals['Revenue'])
-    exog = historicals[['logRevenue', 'Q2', 'Q3', 'Q4']]
-    exog = sm.add_constant(exog)
+    exog = historicals[['logRevenue', 'Q1', 'Q2', 'Q3', 'Q4']]
     
     opex_model = QuantReg(np.log(historicals['Opex']), exog)
     opex_results = opex_model.fit(q=0.5)
@@ -181,9 +180,9 @@ def update_revenue_forecast(historicals, method):
 
     # Simulations
     simulations['Opex'] = np.exp(
-        opex_coefs[0] + opex_coefs[1] * np.log(simulations['Revenue']) +
-        opex_coefs[2] * simulations['Q2'] + opex_coefs[3] * simulations['Q3'] +
-        opex_coefs[4] * simulations['Q4'] +
+        opex_coefs[0] * np.log(simulations['Revenue']) +
+        opex_coefs[1] * simulations['Q1'] + opex_coefs[2] * simulations['Q2'] +
+        opex_coefs[3] * simulations['Q3'] + opex_coefs[4] * simulations['Q4'] +
         np.random.normal(0, rmse, simulations.shape[0])
     )
     simulations['EBIT'] = simulations['Revenue'] - simulations['Opex']
