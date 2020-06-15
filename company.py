@@ -201,6 +201,7 @@ def update_revenue_forecast(historicals, method):
     )
     simulations = (
         pd.concat([simulations, forecasts])
+        .reset_index(drop=True)
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
         .pipe(add_quarters)
         .assign(
@@ -208,6 +209,16 @@ def update_revenue_forecast(historicals, method):
                 x.groupby('iteration')['Revenue'].shift(4) - 1)
         )
     )
+    simulations.loc[simulations['RevenueGrowth'].isna(), 'RevenueGrowth'] = \
+        np.reshape(
+            100 * (
+                np.reshape(
+                    simulations['Revenue'][simulations['RevenueGrowth'].isna()].values,
+                    (nsim + 1, 4)) / 
+                historicals['Revenue'].tail(4).values - 1
+                ),
+            ((nsim + 1) * 4)
+        )
 
     # Expenses regression model
     historicals['logRevenue'] = np.log(historicals['Revenue'])
