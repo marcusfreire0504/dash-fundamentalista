@@ -207,12 +207,13 @@ def update_revenue_forecast(historicals, method):
         cv_errors = np.append(
             cv_errors, fcasts - np.log(valid_subset['Revenue'])
         )
-    models['revenue']['diag']['CV RMSE'] = np.sqrt(np.mean(
-        (cv_errors) ** 2
-    ))
-    models['revenue']['diag']['CV MAE'] = np.mean(
-        np.abs(cv_errors)
-    )
+    if len(cv_errors) > 4:
+        models['revenue']['diag']['CV RMSE'] = np.sqrt(np.mean(
+            np.array(cv_errors) ** 2
+        ))
+        models['revenue']['diag']['CV MAE'] = np.mean(
+            np.abs(cv_errors)
+        )
 
     # Generate simulated forecasts
     nsim = 100
