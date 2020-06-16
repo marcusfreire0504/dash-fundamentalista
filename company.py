@@ -264,6 +264,18 @@ def update_revenue_forecast(historicals, method):
     opex_coefs = opex_results.params
     rmse = np.mean(opex_results.resid ** 2) ** .5
 
+    models['opex'] = {
+        'Params': opex_results.params,
+        'diag': {
+            'In-sample RMSE': np.sqrt(np.mean(opex_results.resid)**2),
+            'In-sample MAE': np.mean(np.abs(opex_results.resid)),
+            #'Ljung-Box': opex_results.test_serial_correlation('ljungbox')[0, 0, -1],
+            #'log-Likelihood': opex_results.llf,
+            #'AICc': opex_results.aicc,
+            #'BIC': opex_results.bic
+        }
+    }
+
     # Simulations
     simulations['Opex'] = np.exp(
         opex_coefs[0] * np.log(simulations['Revenue']) +
@@ -308,12 +320,19 @@ def plot_revenue_forecast(forecasts, models):
 
 @app.callback(
     Output('opex_scatter', 'figure'),
-    [Input('stmts_store', 'data')]
+    [Input('stmts_store', 'data'),
+     Input('models_store', 'data')]
 )
-def plot_opex_scatter(data):
+def plot_opex_scatter(data, models):
     df = pd.DataFrame(data)
+    model = models['opex']
     fig = px.scatter(
-        df, x='Revenue', y='Opex', color='Quarter', size='EBITMargin')
+        df, x='Revenue', y='Opex', color='Quarter')
+    text = "<br>".join([
+        f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
+    ])
+    fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
+        text=text, align='left')
     return fig
 
 
