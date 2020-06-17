@@ -1,5 +1,6 @@
 import os
 import io
+import locale
 import numpy as np
 import pandas as pd
 import requests
@@ -182,6 +183,28 @@ def get_pib():
                 'month': x['DT_FIM_EXERC'].str[0].astype(int) * 3,
                 'day': 1
             })
+        )
+        .set_index('DT_FIM_EXERC')
+        .resample('Q').last()
+        .reset_index()
+    )
+    return df
+
+
+def get_ipca():
+    locale.setlocale(locale.LC_ALL,'pt_BR.UTF-8')
+    url = "https://sidra.ibge.gov.br/geratabela?format=us.csv&" + \
+        "name=tabela1737.csv&terr=N&rank=-&query=" + \
+        "t/1737/n1/all/v/2266/p/all/d/v2266%2013/l/t%2Bv,,p"
+    df = (
+        pd.read_csv(url, skiprows=4, skipfooter=13,
+                    names=['DT_FIM_EXERC', 'IPCA'])
+        .assign(
+            IPCA=lambda x: x['IPCA'] / x['IPCA'].iloc[-1],
+            DT_FIM_EXERC=lambda x: pd.to_datetime(
+                x['DT_FIM_EXERC'],
+                format="%B %Y"
+            )
         )
         .set_index('DT_FIM_EXERC')
         .resample('Q').last()
