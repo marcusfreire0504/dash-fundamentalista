@@ -24,6 +24,8 @@ simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
 
 
 def layout(ticker):
+    arima_marks = {i: str(i) for i in range(4)}
+    print(arima_marks)
     row = companies[companies['BTICKER'].str[:4] == ticker]
     cvm_id = row['CD_CVM'].iloc[0]
     company_name = row['NM_PREGAO'].iloc[0]
@@ -70,16 +72,42 @@ def layout(ticker):
                 ])
             ], label="Capital"),
             dbc.Tab([
-                dbc.RadioItems(
-                    id='rev_forecast_method',
-                    value='ets',
-                    inline=True,
-                    options=[
-                        {'value': 'ets', 'label': 'Alisamento exponencial'},
-                        {'value': 'arima', 'label': 'ARIMA'}
-                    ]
-                ),
-                dcc.Graph("rev_forecast_plot", style={'height': '80vh'})
+                dbc.Row([
+                    dbc.Col([
+                        dbc.RadioItems(
+                            id='rev_forecast_method',
+                            value='ets',
+                            inline=True,
+                            options=[
+                                {'value': 'ets', 'label': 'Alisamento exponencial'},
+                                {'value': 'arima', 'label': 'ARIMA'}
+                            ]
+                        ),
+                        html.Div([
+                            html.Label('Coef. Autoregressivos (p)'),
+                            dcc.Slider(id="arima_p", min=0, max=3, value=2,
+                                marks=arima_marks),
+                            html.Label('Grau de integração (d)'),
+                            dcc.Slider(id="arima_d", min=0, max=3, value=1,
+                                marks=arima_marks),
+                            html.Label('Coef. Média Móvel (q)'),
+                            dcc.Slider(id="arima_q", min=0, max=3, value=1,
+                                marks=arima_marks),
+                            html.Label('Coef. AR sazonal (P)'),
+                            dcc.Slider(id="arima_P", min=0, max=3, value=1,
+                                marks=arima_marks),
+                            html.Label('Grau de integração sazonal (D)'),
+                            dcc.Slider(id="arima_D", min=0, max=3, value=0,
+                                marks=arima_marks),
+                            html.Label('Coef. Média Móvel sazonal (Q)'),
+                            dcc.Slider(id="arima_Q", min=0, max=3, value=1,
+                                marks=arima_marks)
+                        ], id="arima_params_div", style={"display": "none"})
+                    ], width=3, className="sidebar"),
+                    dbc.Col([
+                        dcc.Graph("rev_forecast_plot", style={'height': '80vh'})
+                    ], width=9)
+                ])
             ], label="Receita"),
             dbc.Tab([
                 grid([[
@@ -157,13 +185,29 @@ def update_overview_plot(data):
 
 
 @app.callback(
+    Output('arima_params_div', 'style'),
+    [Input('rev_forecast_method', 'value')]
+)
+def update_arima_params_visible(method):
+    if method == "arima":
+        return {"display": "block"}
+    else:
+        return {"display": "none"}
+
+
+@app.callback(
     [Output('rev_forecast_store', 'data'),
      Output('models_store', 'data')],
     [Input('stmts_store', 'data'),
-     Input('rev_forecast_method', 'value')]
-
+     Input('rev_forecast_method', 'value'),
+     Input('arima_p', 'value'),
+     Input('arima_d', 'value'),
+     Input('arima_q', 'value'),
+     Input('arima_P', 'value'),
+     Input('arima_D', 'value'),
+     Input('arima_Q', 'value')]
 )
-def update_revenue_forecast(historicals, method):
+def update_revenue_forecast(historicals, method, p, d, q, P, D, Q):
     historicals = pd.DataFrame(historicals)
     historicals['DT_FIM_EXERC'] = pd.to_datetime(historicals['DT_FIM_EXERC'])
     models = {}
@@ -176,7 +220,7 @@ def update_revenue_forecast(historicals, method):
     elif method == 'arima':
         rev_model = SARIMAX(
             np.log(data['Revenue']),
-            order=(2, 1, 1), seasonal_order=(1, 0, 1, 4), trend='c')
+            order=(p, d, q), seasonal_order=(P, D, Q, 4), trend='c')
     else:
         return {}
     rev_results = rev_model.fit()
