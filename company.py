@@ -287,6 +287,8 @@ def update_revenue_forecast(historicals, method):
     )
     simulations['EBIT'] = simulations['Revenue'] - simulations['Opex']
     simulations['EBITMargin'] = 100 * simulations['EBIT'] / simulations['Revenue']
+    simulations['Taxes'] = simulations['EBIT'] * .34
+    simulations['NOPAT'] = simulations['EBIT'] - simulations['Taxes']
 
     simulations = pd.concat([
         historicals.assign(group='historicals', iteration=''),
