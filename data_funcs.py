@@ -211,3 +211,30 @@ def get_ipca():
         .reset_index()
     )
     return df
+
+
+def bcb_sgs(beg_date, end_date, **kwargs):
+    return pd.concat([
+        pd.read_json(f"http://api.bcb.gov.br/dados/serie/bcdata.sgs.{v}" +
+                     f"/dados?formato=json&dataInicial={beg_date}&" +
+                     f"dataFinal={end_date}",
+                     convert_dates=False)
+        .assign(DT_FIM_EXERC=lambda x: pd.to_datetime(x.data, dayfirst=True))
+        .set_index('DT_FIM_EXERC')
+        .rename(columns={'valor': k}) for k, v in kwargs.items()
+    ], axis=1)
+
+
+def get_usd():
+    df = (
+        bcb_sgs('01/01/2010', '31/03/2020', USD=3697)
+        .resample('Q')
+        ['USD']
+        .agg(['last', 'mean'])
+        .reset_index()
+        .rename(columns={
+            'last': 'USD_EOP',
+            'mean': 'USD_AVG'
+        })
+    )
+    return df
