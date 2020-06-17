@@ -1,7 +1,17 @@
 import numpy as np
 import pandas as pd
-from data_funcs import get_cvm_all, get_companies
+from data_funcs import get_cvm_all, get_companies, get_pib, get_ipca, get_usd
 
+# Macroeconomic data
+macro = (
+    get_pib()
+    .merge(get_ipca())
+    .merge(get_usd())
+)
+macro.to_csv('data/macro.csv')
+
+
+# Financial statements
 accounts = pd.read_csv('accounts.csv')
 
 companies = get_companies()
