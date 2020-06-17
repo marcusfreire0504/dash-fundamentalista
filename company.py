@@ -19,8 +19,12 @@ from statsmodels.regression.quantile_regression import QuantReg
 
 from app import app, companies, fin_stmts, colorscheme
 from funcs import grid, calc_kpis, add_quarters
+from data_funcs import get_focus
 
 simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
+
+macro = pd.read_csv("data/macro.csv")
+focus = get_focus(macro)
 
 
 def layout(ticker):

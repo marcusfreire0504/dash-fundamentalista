@@ -1,9 +1,11 @@
 import os
 import io
 import locale
+import datetime
 import numpy as np
 import pandas as pd
 import requests
+import urllib.parse
 import urllib.request as ur
 from bs4 import BeautifulSoup
 from zipfile import ZipFile
@@ -236,5 +238,161 @@ def get_usd():
             'last': 'USD_EOP',
             'mean': 'USD_AVG'
         })
+    )
+    return df
+
+
+def last_friday():
+    current_time = datetime.datetime.now()
+    return str(
+        current_time.date()
+        - datetime.timedelta(days=current_time.weekday())
+        + datetime.timedelta(days=4, weeks=-1))
+
+
+def get_focus_quarterly(column='PIB Total', date=None):
+    if date is None:
+        date = last_friday()
+    url = \
+        "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/" + \
+        "odata/ExpectativasMercadoTrimestrais?$top=100&$format=text/csv" + \
+        "&$filter=Indicador%20eq%20'" + urllib.parse.quote(column) + \
+        "'%20and%20Data%20eq%20'" + date + "'"
+    dfq = (
+        pd.read_csv(url, decimal=',')
+        [['DataReferencia', 'Media', 'Mediana', 'Minimo', 'Maximo']]
+        .assign(
+            DataReferencia=lambda x: pd.to_datetime({
+                'year': x['DataReferencia'].str[-4:],
+                'month': x['DataReferencia'].str[0].astype(int) * 3,
+                'day': 1
+            })
+        )
+        .set_index("DataReferencia")
+        .resample('Q').last()
+    )
+    return dfq
+
+
+def get_focus_monthly(column="IPCA", date=None):
+    if date is None:
+        date = last_friday()
+    url = \
+        "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/" + \
+            "odata/ExpectativaMercadoMensais?$top=100&$format=text/csv" + \
+            "&$filter=(Indicador%20eq%20'" + urllib.parse.quote(column) + \
+            "')%20and%20" + \
+            "Data%20eq%20'" + date + "'%20and%20baseCalculo%20eq%200"
+    dfm = (
+        pd.read_csv(url, decimal=',')
+        [['DataReferencia', 'Media', 'Mediana', 'Minimo', 'Maximo']]
+        .assign(
+            DataReferencia=lambda x: pd.to_datetime({
+                'year': x['DataReferencia'].str[-4:],
+                'month': x['DataReferencia'].str[:2],
+                'day': 1
+            })
+        )
+        .set_index('DataReferencia')
+        .resample('M').last()
+    )
+    return dfm
+
+
+def get_focus_yearly(column="IPCA", date=None):
+    if date is None:
+        date = last_friday()
+    url = \
+        "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/" + \
+        "odata/ExpectativasMercadoAnuais?$top=100&$format=text/csv" + \
+        "&$filter=Indicador%20eq%20'" + urllib.parse.quote(column) + \
+        "'%20and%20Data%20eq%20'" + date + "'"
+    dfy = (
+        pd.read_csv(url, decimal=",")
+        [['DataReferencia', 'Media', 'Mediana', 'Minimo',
+          'Maximo']]
+        .assign(
+            DataReferencia=lambda x: pd.to_datetime({
+                'year': x['DataReferencia'],
+                'month': 12,
+                'day': 1
+            })
+        )
+        .set_index('DataReferencia')
+        .resample('Y').last()
+    )
+    return dfy
+
+
+def get_focus(historicals, date=None):
+    if date is None:
+        date = last_friday()
+
+    pd.set_option('display.max_rows', None)
+    date = last_friday()
+    pib_q = get_focus_quarterly('PIB Total', date)
+    pib_y = get_focus_yearly('PIB Total', date)
+    ipca_m = get_focus_monthly('IPCA', date)
+    ipca_y = get_focus_yearly('IPCA', date)
+    usd_m = get_focus_monthly('Taxa de câmbio', date)
+    usd_y = get_focus_yearly('Taxa de câmbio', date)
+
+    ipca = (
+        pd.concat([
+            ipca_m/100,
+            (1 + ipca_y[ipca_y.index.isin(ipca_m.index) == False]/100)**(1/12)-1
+        ])
+        .resample('M').last()
+        .fillna(method="backfill")
+    )
+    ipca = (1 + ipca).resample('Q').prod() - 1
+
+    pib = (
+        pd.concat([
+            pib_q/100, pib_y[pib_y.index.isin(pib_q.index) == False]/100
+        ])
+        .resample('Q').last()
+        .fillna(method="backfill")
+    ) * 100
+
+    usd = (
+        pd.concat([
+            usd_m,
+            usd_y[usd_y.index.isin(usd_m.index) == False]
+        ])
+        .resample("M").last()
+        .fillna(method="backfill")
+        .resample("Q").mean()
+    )
+
+    macro = historicals.tail(4)
+
+    ipca_idx = macro['IPCA'].iloc[3] * np.cumprod(1+ipca)
+
+    pib2 = pib.copy()
+    pib2.iloc[:,:] = np.NaN
+    pib2.iloc[:4,:] = (1 + pib.iloc[:4,:]) *  macro[['PIB']].values
+    while pib2.isna().sum().sum() > 0:
+        pib2.iloc[:,:] = np.where(pib2.isna(), pib2.shift(4) * (1 + pib), pib2)
+
+    df = (
+        pib.reset_index().melt("DataReferencia", value_name="PIB")
+        .merge(
+            pib2.reset_index().melt("DataReferencia", value_name="PIBIndex"),
+            how="outer"
+        )
+        .merge(
+            ipca.reset_index().melt("DataReferencia", value_name="IPCAVar"),
+            how="outer"
+        )
+        .merge(
+            ipca_idx.reset_index().melt("DataReferencia", value_name="IPCA"),
+            how="outer"
+        )
+        .merge(
+            usd.reset_index().melt("DataReferencia", value_name="USD"),
+            how="outer"
+        )
+        .rename(columns={'variable': 'scenario', 'DataReferencia': 'DT_FIM_EXERC'})
     )
     return df
