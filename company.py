@@ -318,6 +318,7 @@ def plot_revenue_forecast(forecasts, models):
     ])
     fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
         text=text, align='left')
+    fig.update_layout(showlegend=False)
     return fig
 
 
@@ -350,5 +351,6 @@ def plot_opex_forecast(forecasts):
         facet_col='variable', facet_col_wrap=1, line_group='iteration',
         labels={'DT_FIM_EXERC': '', 'value': '', 'variable': ''})
     fig.update_yaxes(matches=None)
+    fig.update_layout(showlegend=False)
 
     return fig
