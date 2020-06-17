@@ -166,3 +166,25 @@ def get_cvm_all(years, doc_types=['dre', 'bpa', 'bpp'],
             .shift(fill_value=0))
     )
     return df
+
+
+def get_pib():
+    url = "https://sidra.ibge.gov.br/geratabela?format=us.csv&" + \
+        "name=tabela6613.csv&terr=N&rank=-&query=" + \
+        "t/6613/n1/all/v/all/p/all/c11255/90687,90691,90696,90707/" + \
+        "d/v9319%202/l/t,v%2Bc11255,p"
+    df = (
+        pd.read_csv(url, skiprows=5, skipfooter=11,
+            names=['DT_FIM_EXERC', 'PIB_AGRO', 'PIB_IND', 'PIB_SERV', 'PIB'])
+        .assign(
+            DT_FIM_EXERC=lambda x: pd.to_datetime({
+                'year': x['DT_FIM_EXERC'].str[-4:],
+                'month': x['DT_FIM_EXERC'].str[0].astype(int) * 3,
+                'day': 1
+            })
+        )
+        .set_index('DT_FIM_EXERC')
+        .resample('Q').last()
+        .reset_index()
+    )
+    return df
