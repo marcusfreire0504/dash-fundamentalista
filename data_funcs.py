@@ -227,7 +227,7 @@ def bcb_sgs(beg_date, end_date, **kwargs):
 
 def get_usd():
     df = (
-        bcb_sgs('01/01/2010', '31/03/2020', USD=3697)
+        bcb_sgs('01/01/1996', '31/03/2020', USD=3697)
         .resample('Q')
         ['USD']
         .agg(['last', 'mean'])

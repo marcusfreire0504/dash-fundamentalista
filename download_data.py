@@ -8,7 +8,7 @@ macro = (
     .merge(get_ipca())
     .merge(get_usd())
 )
-macro.to_csv('data/macro.csv')
+macro.to_csv('data/macro.csv', index=False)
 
 
 # Financial statements
