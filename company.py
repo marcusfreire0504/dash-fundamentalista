@@ -88,7 +88,8 @@ def layout(ticker):
                                 {'value': '', 'label': 'Nenhum'},
                                 {'value': 'ipca', 'label': 'IPCA'},
                                 {'value': 'usd', 'label': 'USD'}
-                            ]
+                            ],
+                            persistence=ticker
                         ),
                         html.Div([
                             html.Label('Cenário Focus'),
@@ -99,7 +100,8 @@ def layout(ticker):
                                 options=[
                                     {'value': s, 'label': s}
                                     for s in focus['scenario'].unique()
-                                ]
+                                ],
+                                persistence=ticker
                             )
                         ], id="focus_scenario_div", style={"display": "block"}),
                         html.Label('Método'),
@@ -110,27 +112,34 @@ def layout(ticker):
                             options=[
                                 {'value': 'ets', 'label': 'Alisamento exponencial'},
                                 {'value': 'arima', 'label': 'ARIMA'}
-                            ]
+                            ],
+                            persistence=ticker
                         ),
                         html.Div([
                             html.Label('Coef. Autoregressivos (p)'),
                             dcc.Slider(id="arima_p", min=0, max=3, value=2,
-                                marks=arima_marks),
+                                marks=arima_marks,
+                                persistence=ticker),
                             html.Label('Ordem de integração (d)'),
                             dcc.Slider(id="arima_d", min=0, max=3, value=1,
-                                marks=arima_marks),
+                                marks=arima_marks,
+                                persistence=ticker),
                             html.Label('Coef. Média Móvel (q)'),
                             dcc.Slider(id="arima_q", min=0, max=3, value=1,
-                                marks=arima_marks),
+                                marks=arima_marks,
+                                persistence=ticker),
                             html.Label('Coef. AR sazonal (P)'),
                             dcc.Slider(id="arima_P", min=0, max=3, value=1,
-                                marks=arima_marks),
+                                marks=arima_marks,
+                                persistence=ticker),
                             html.Label('Ordem de integração sazonal (D)'),
                             dcc.Slider(id="arima_D", min=0, max=3, value=0,
-                                marks=arima_marks),
+                                marks=arima_marks,
+                                persistence=ticker),
                             html.Label('Coef. Média Móvel sazonal (Q)'),
                             dcc.Slider(id="arima_Q", min=0, max=3, value=1,
-                                marks=arima_marks)
+                                marks=arima_marks,
+                                persistence=ticker)
                         ], id="arima_params_div", style={"display": "none"})
                     ], width=3, className="sidebar"),
                     dbc.Col([
