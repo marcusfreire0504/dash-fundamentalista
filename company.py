@@ -19,7 +19,7 @@ from statsmodels.regression.quantile_regression import QuantReg
 
 from app import app, companies, fin_stmts, colorscheme
 from funcs import grid, calc_kpis, add_quarters
-from data_funcs import get_focus
+from data_funcs import get_focus, get_quotes
 
 simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
 
@@ -44,6 +44,36 @@ def layout(ticker):
     data = calc_kpis(data)
     data = data.merge(macro, on="DT_FIM_EXERC")
     #
+    quotes = pd.read_csv('data/tickers.txt', names=['ticker'])
+    quotes = quotes[quotes['ticker'].str[:4] == ticker]['ticker'].values
+    quotes = get_quotes(quotes)
+    quotes['tipo'] = quotes['ticker'].str[4:]
+    quotes['qtde'] = np.where(
+        quotes['tipo'] == '3', row['QTDE_ON'],
+        row['QTDE_PN'] / np.sum(quotes['tipo'] != '3')
+    )
+    quotes['MarketCap'] = quotes['qtde'] * quotes['cotacao'] / 1000000000
+    mktcap = quotes['MarketCap'].sum()
+    
+    #
+    cards = [
+        dbc.Card(
+            dbc.CardBody([
+                html.H5(quotes['ticker'].iloc[i], className="card-title"),
+                html.H1(f'R$ {quotes["cotacao"].iloc[i]}')
+            ])
+        )
+        for i in range(quotes.shape[0])
+    ]
+    cards.append(
+        dbc.Card(
+            dbc.CardBody([
+                html.H5("Market-cap"),
+                html.H1(f"R$ {round(mktcap, 1)} bi")
+            ])
+        )
+    )
+    #
     return html.Div([
         dcc.Store(id='stmts_store', data=data.to_dict('records')),
         dcc.Store(id='rev_forecast_store', data={}),
@@ -51,6 +81,7 @@ def layout(ticker):
         html.H2(company_name),
         html.Ol(sectors, className='breadcrumb',
             style={'background': 'none'}),
+        dbc.CardGroup(cards),
         dbc.Tabs([
             dbc.Tab([
                 grid([

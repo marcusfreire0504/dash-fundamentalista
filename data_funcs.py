@@ -9,6 +9,7 @@ import urllib.parse
 import urllib.request as ur
 from bs4 import BeautifulSoup
 from zipfile import ZipFile
+import xml.etree.ElementTree as ET
 
 
 
@@ -168,6 +169,18 @@ def get_cvm_all(years, doc_types=['dre', 'bpa', 'bpp'],
             (df.groupby(['CD_CVM', 'CD_CONTA', 'DT_INI_EXERC'])['VL_CONTA_YTD']
             .shift(fill_value=0))
     )
+    return df
+
+
+def get_quotes(tickers):
+    url = 'http://bvmf.bmfbovespa.com.br/cotacoes2000/' + \
+        'FormConsultaCotacoes.asp?strListaCodigos=' + '|'.join(tickers)
+    page = requests.get(url)
+    xml = ET.fromstring(page.text)
+    df = pd.DataFrame([p.attrib for p in xml.findall('Papel')])
+    df = df[['Codigo', 'Data', 'Ultimo']]
+    df.columns = ['ticker', 'data', 'cotacao']
+    df['cotacao'] = pd.to_numeric(df['cotacao'].str.replace(',','.'))
     return df
 
 
