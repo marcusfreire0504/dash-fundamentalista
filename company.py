@@ -24,12 +24,12 @@ from data_funcs import get_focus
 simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
 
 macro = pd.read_csv("data/macro.csv")
+macro['USD'] = macro['USD_AVG']
 focus = get_focus(macro)
 
 
 def layout(ticker):
     arima_marks = {i: str(i) for i in range(4)}
-    print(arima_marks)
     row = companies[companies['BTICKER'].str[:4] == ticker]
     cvm_id = row['CD_CVM'].iloc[0]
     company_name = row['NM_PREGAO'].iloc[0]
@@ -42,6 +42,7 @@ def layout(ticker):
     data = data.reset_index()
     data = data[1:]
     data = calc_kpis(data)
+    data = data.merge(macro, on="DT_FIM_EXERC")
     #
     return html.Div([
         dcc.Store(id='stmts_store', data=data.to_dict('records')),
@@ -78,6 +79,30 @@ def layout(ticker):
             dbc.Tab([
                 dbc.Row([
                     dbc.Col([
+                        html.Label('Indexador'),
+                        dbc.RadioItems(
+                            id="forecast_index",
+                            value="ipca",
+                            inline=True,
+                            options=[
+                                {'value': '', 'label': 'Nenhum'},
+                                {'value': 'ipca', 'label': 'IPCA'},
+                                {'value': 'usd', 'label': 'USD'}
+                            ]
+                        ),
+                        html.Div([
+                            html.Label('Cenário Focus'),
+                            dbc.RadioItems(
+                                id="focus_scenario",
+                                value="Mediana",
+                                inline=True,
+                                options=[
+                                    {'value': s, 'label': s}
+                                    for s in focus['scenario'].unique()
+                                ]
+                            )
+                        ], id="focus_scenario_div", style={"display": "block"}),
+                        html.Label('Método'),
                         dbc.RadioItems(
                             id='rev_forecast_method',
                             value='ets',
@@ -189,14 +214,21 @@ def update_overview_plot(data):
 
 
 @app.callback(
-    Output('arima_params_div', 'style'),
-    [Input('rev_forecast_method', 'value')]
+    [Output('arima_params_div', 'style'),
+     Output('focus_scenario_div', 'style')],
+    [Input('rev_forecast_method', 'value'),
+     Input('forecast_index', 'value')]
 )
-def update_arima_params_visible(method):
+def update_arima_params_visible(method, fcast_index):
     if method == "arima":
-        return {"display": "block"}
+        arima_display = 'block'
     else:
-        return {"display": "none"}
+        arima_display = 'none'
+    if fcast_index == '':
+        focus_display = 'none'
+    else:
+        focus_display = 'block'
+    return {"display": arima_display}, {"display": focus_display}
 
 
 @app.callback(
@@ -204,6 +236,8 @@ def update_arima_params_visible(method):
      Output('models_store', 'data')],
     [Input('stmts_store', 'data'),
      Input('rev_forecast_method', 'value'),
+     Input('forecast_index', 'value'),
+     Input('focus_scenario', 'value'),
      Input('arima_p', 'value'),
      Input('arima_d', 'value'),
      Input('arima_q', 'value'),
@@ -211,19 +245,28 @@ def update_arima_params_visible(method):
      Input('arima_D', 'value'),
      Input('arima_Q', 'value')]
 )
-def update_revenue_forecast(historicals, method, p, d, q, P, D, Q):
+def update_revenue_forecast(historicals, method, fcast_index, focus_scenario,
+                            p, d, q, P, D, Q):
     historicals = pd.DataFrame(historicals)
     historicals['DT_FIM_EXERC'] = pd.to_datetime(historicals['DT_FIM_EXERC'])
     models = {}
 
     # Revenue time series model
-    data = historicals.set_index('DT_FIM_EXERC').asfreq('Q')[['Revenue']]
+    data = historicals.set_index('DT_FIM_EXERC').asfreq('Q')
+    y = data['Revenue']
+    # Transform
+    if fcast_index != '':
+        idx = data[fcast_index.upper()]
+        y = y / idx * idx.iloc[-1]
+    y = np.log(y)
+    
+    # Create forecast model
     if method == 'ets':
         rev_model = ExponentialSmoothing(
-            np.log(data['Revenue']), trend=True, damped_trend=True, seasonal=4)
+            y, trend=True, damped_trend=True, seasonal=4)
     elif method == 'arima':
         rev_model = SARIMAX(
-            np.log(data['Revenue']),
+            y,
             order=(p, d, q), seasonal_order=(P, D, Q, 4), trend='c')
     else:
         return {}
@@ -241,19 +284,19 @@ def update_revenue_forecast(historicals, method, p, d, q, P, D, Q):
     }
     # Cross validation
     foldsize = 1
-    nfolds = round(historicals.shape[0] / (4 * foldsize)) - 1
+    nfolds = round(y.shape[0] / (4 * foldsize)) - 1
     cv_errors = []
     for fold in range(nfolds, 0, -1):
-        train_subset = historicals.iloc[:-(fold+2)*(4*foldsize)]
-        valid_subset = historicals.iloc[-(fold+2)*(4*foldsize):-(fold+1)*(4*foldsize)]
+        train_subset = y.iloc[:-(fold+2)*(4*foldsize)]
+        valid_subset = y.iloc[-(fold+2)*(4*foldsize):-(fold+1)*(4*foldsize)]
         if train_subset.shape[0] < 16:
             continue
         fcasts = (
-            rev_model.clone(np.log(train_subset['Revenue']))
+            rev_model.clone(np.log(train_subset))
             .fit().forecast(valid_subset.shape[0])
         )
         cv_errors = np.append(
-            cv_errors, fcasts - np.log(valid_subset['Revenue'])
+            cv_errors, fcasts - np.log(valid_subset)
         )
     if len(cv_errors) > 4:
         models['revenue']['diag']['CV RMSE'] = np.sqrt(np.mean(
@@ -265,34 +308,44 @@ def update_revenue_forecast(historicals, method, p, d, q, P, D, Q):
 
     # Generate simulated forecasts
     nsim = 100
-    horiz = 5
+    horiz = int(np.sum(focus['scenario'] == focus_scenario))
     forecasts = (
         pd.DataFrame({
-                'Revenue': np.exp(rev_results.forecast(horiz * 4)),
+                'y': rev_results.forecast(horiz),
                 'group': 'forecast', 'variable_1': ''
             })
         .reset_index()
     )
     simulations = (
         rev_results.simulate(
-            4 * horiz, repetitions=nsim, anchor=data.shape[0]
+            horiz, repetitions=nsim, anchor=data.shape[0]
         )
-        .pipe(np.exp)
         .reset_index()
-        .melt('index', value_name='Revenue')
+        .melt('index', value_name='y')
         .drop(columns='variable_0')
         .assign(group='simulation')
     )
+
     simulations = (
         pd.concat([simulations, forecasts])
         .reset_index(drop=True)
         .rename(columns={'variable_1': 'iteration', 'index': 'DT_FIM_EXERC'})
         .pipe(add_quarters)
-        .assign(
-            RevenueGrowth=lambda x: 100 * (x['Revenue'] /
-                x.groupby('iteration')['Revenue'].shift(4) - 1)
-        )
     )
+    simulations['Revenue'] = np.exp(simulations['y'])
+    if fcast_index != '':
+        simulations = simulations.merge(
+            focus[['DT_FIM_EXERC', fcast_index.upper()]]
+            [focus['scenario'] == focus_scenario],
+            on="DT_FIM_EXERC", how="left"
+        )
+        simulations['Revenue'] = simulations['Revenue'] \
+            * simulations[fcast_index.upper()] \
+            / data[fcast_index.upper()].iloc[-1]
+            
+
+    simulations['RevenueGrowth'] = 100 * (simulations['Revenue'] /
+        simulations.groupby('iteration')['Revenue'].shift(4) - 1)
     simulations.loc[simulations['RevenueGrowth'].isna(), 'RevenueGrowth'] = \
         np.reshape(
             100 * (
