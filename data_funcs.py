@@ -361,7 +361,7 @@ def get_focus(historicals, date=None):
             usd_y[usd_y.index.isin(usd_m.index) == False]
         ])
         .resample("M").last()
-        .fillna(method="backfill")
+        .interpolate()
         .resample("Q").mean()
     )
 
