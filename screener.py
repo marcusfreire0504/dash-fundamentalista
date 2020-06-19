@@ -51,46 +51,41 @@ filter_cols = [
 
 layout = html.Div([
     html.H2('Screener'),
-    grid([
-        [
-            html.Div([
-                html.Label("Indicadores"),
-                dcc.Dropdown(
-                    id="screener_variables",
-                    options=[{'label': s, 'value': s} for s in filter_cols],
-                    value=["MarketCap", "EBITMargin", "NetMargin",
-                           "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
-                    multi=True,
-                    persistence=True,
-                    clearable=False
-                )
-            ]),
-            html.Div([
-                html.Label("Ordem"),
-                dcc.Dropdown(
-                    id="screener_order",
-                    options=[{'label': s, 'value': s} for s in filter_cols],
-                    value="MarketCap",
-                    persistence=True
+    dbc.Row([
+        dbc.Col([
+            html.Label("Indicadores"),
+            dcc.Dropdown(
+                id="screener_variables",
+                options=[{'label': s, 'value': s} for s in filter_cols],
+                value=["MarketCap", "EBITMargin", "NetMargin",
+                        "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
+                multi=True,
+                persistence=True,
+                clearable=False
+            )
+        ], width=8),
+        dbc.Col([
+            html.Label("Ordem"),
+            dcc.Dropdown(
+                id="screener_order",
+                options=[{'label': s, 'value': s} for s in filter_cols],
+                value="MarketCap",
+                persistence=True
+            ),
+            dbc.FormGroup([
+                dbc.Checkbox(
+                    id="order_ascending", className="form-check-input",
+                    checked=False, persistence=True
                 ),
-                dbc.FormGroup([
-                    dbc.Checkbox(
-                        id="order_ascending", className="form-check-input",
-                        checked=False, persistence=True
-                    ),
-                    dbc.Label(
-                        'Crescente', html_for="order_ascending",
-                        className="form-check-label"
-                    )
-                ], check=True)
-                
-            ])
-        ],
-        [
-            dcc.Graph(id="screener_plot", style={'height': '80vh'})
-        ]
-    ])
-    
+                dbc.Label(
+                    'Crescente', html_for="order_ascending",
+                    className="form-check-label"
+                )
+            ], check=True)
+
+        ])
+    ]),
+    dcc.Graph(id="screener_plot", style={'height': '80vh'})
 ])
 
 
