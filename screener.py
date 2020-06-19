@@ -102,7 +102,8 @@ def update_screener(variables, order, ascending):
     fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
     fig.update_xaxes(matches=None)
     fig.update_yaxes(autorange="reversed")
-    fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+    fig.for_each_annotation(lambda a: a.update(
+        text='<b>' + a.text.split("=")[-1] + "</b>"))
     fig.update_layout(showlegend=False)
     return fig
 
