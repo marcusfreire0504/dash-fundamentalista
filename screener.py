@@ -6,6 +6,8 @@ import dash_bootstrap_components as dbc
 import dash_table as dt
 from dash.dependencies import Input, Output, State
 
+import plotly.express as px
+
 from app import app, companies, fin_stmts
 from funcs import grid, calc_kpis
 
@@ -34,29 +36,69 @@ screener = companies.merge(
 ).sort_values('Revenue', ascending=False)
 
 
-visible_cols = [
-    'BTICKER', 'SETOR', 'Revenue', 'EBIT', 'NetIncome',
-    'EBITMargin', 'NetMargin', 'ROIC', 'ROE', 'NetDebtToEBIT'
+filter_cols = [
+    "Revenue", "EBIT", "NetIncome", "OperatingCashFlow",
+    "EBITMargin", "NetMargin",
+    "ROIC", "ROE",
+    "DebtToEquity", "NetDebtToEBIT",
+    "CurrentLiquidity", "GeneralLiquidity", "CashLiquidity",
 ]
-screener_table = dt.DataTable(
-    id='screener_table',
-    data=screener.to_dict('records'),
-    columns=[{"name": i, "id": i} for i in screener.columns],
-    hidden_columns=[i for i in screener.columns if i not in visible_cols],
-    selected_rows=[0],
-    style_as_list_view=True,
-    style_header={'fontWeight': 'bold'},
-    row_selectable='single',
-    sort_action='native',
-    filter_action='native',
-    page_action='native',
-    page_size=15
-)
 
 
 layout = html.Div([
     html.H2('Screener'),
-    grid([[screener_table]])
-
+    grid([
+        [
+            html.Div([
+                html.Label("Indicadores"),
+                dcc.Dropdown(
+                    id="screener_variables",
+                    options=[{'label': s, 'value': s} for s in filter_cols],
+                    value=["Revenue", "EBITMargin", "NetMargin", "ROIC", "ROE", "NetDebtToEBIT"],
+                    multi=True
+                )
+            ]),
+            html.Div([
+                html.Label("Ordem"),
+                dcc.Dropdown(
+                    id="screener_order",
+                    options=[{'label': s, 'value': s} for s in filter_cols],
+                    value="Revenue"
+                ),
+                dbc.FormGroup([
+                    dbc.Checkbox(
+                        id="order_ascending", className="form-check-input",
+                        checked=False
+                    ),
+                    dbc.Label(
+                        'Crescente', html_for="order_ascending",
+                        className="form-check-label"
+                    )
+                ], check=True)
+                
+            ])
+        ],
+        [
+            dcc.Graph(id="screener_plot", style={'height': '80vh'})
+        ]
+    ])
+    
 ])
 
+
+@app.callback(
+    Output("screener_plot", "figure"),
+    [Input('screener_variables', 'value'),
+     Input('screener_order', 'value'),
+     Input('order_ascending', 'checked')]
+)
+def update_screener(variables, order, ascending):
+    fig = px.bar(
+        screener.sort_values(order, ascending=ascending).iloc[:40],
+        y='BTICKER', x=variables, facet_col='variable',
+        labels={"variable": "", "value": "", "BTICKER": ""}
+    )
+    fig.update_xaxes(matches=None)
+    fig.update_yaxes(autorange="reversed")
+    fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+    return fig
