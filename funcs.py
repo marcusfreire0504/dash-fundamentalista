@@ -41,11 +41,19 @@ def calc_kpis(df, quarterly=True):
 
     if 'MarketCap' in df:
         df['FirmValue'] = df['MarketCap'] + df['NetDebt']
-        df['PE'] = df['MarketCap'] / df['NetIncome']
-        df['PB'] = df['MarketCap'] / df['ShareholderEquity']
-        df['EV2EBIT'] = df['FirmValue'] / df['EBIT']
-        df['EV2AdjEBITDA'] = df['FirmValue'] / df['AdjustedEBITDA']
-        df['EV2FCFF'] = df["FirmValue"] / df["FreeCashFlow"]
+        df['PE'] = np.where(
+            df['NetIncome'] <= 0, np.NaN, df['MarketCap'] / df['NetIncome'])
+        df['PB'] = np.where(
+            df['ShareholderEquity'] <= 0, np.NaN,
+            df['MarketCap'] / df['ShareholderEquity'])
+        df['EV2EBIT'] = np.where(
+            df['EBIT'] <= 0, np.NaN, df['FirmValue'] / df['EBIT'])
+        df['EV2AdjEBITDA'] = np.where(
+            df['AdjustedEBITDA'] <= 0, np.NaN,
+            df['FirmValue'] / df['AdjustedEBITDA'])
+        df['EV2FCFF'] = np.where(
+            df['FreeCashFlow'] <= 0, np.NaN,
+            df['FirmValue'] / df['FreeCashFlow'])
 
     if quarterly:
         df['RevenueGrowth'] = 100 * (df['Revenue'] / df['Revenue'].shift(4) -1)
