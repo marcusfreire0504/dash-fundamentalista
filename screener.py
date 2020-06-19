@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output, State
 
 import plotly.express as px
 
-from app import app, companies, fin_stmts
+from app import app, companies, fin_stmts, colorscheme
 from funcs import grid, calc_kpis
 
 
@@ -102,6 +102,7 @@ def update_screener(variables, order, ascending):
     fig = px.bar(
         screener.sort_values(order, ascending=ascending).iloc[:40],
         y='BTICKER', x=variables, facet_col='variable', text='value',
+        color_discrete_sequence=[colorscheme[0]],
         labels={"variable": "", "value": "", "BTICKER": ""}
     )
     fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
