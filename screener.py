@@ -56,7 +56,8 @@ layout = html.Div([
                     id="screener_variables",
                     options=[{'label': s, 'value': s} for s in filter_cols],
                     value=["Revenue", "EBITMargin", "NetMargin", "ROIC", "ROE", "NetDebtToEBIT"],
-                    multi=True
+                    multi=True,
+                    persistence=True
                 )
             ]),
             html.Div([
@@ -64,12 +65,13 @@ layout = html.Div([
                 dcc.Dropdown(
                     id="screener_order",
                     options=[{'label': s, 'value': s} for s in filter_cols],
-                    value="Revenue"
+                    value="Revenue",
+                    persistence=True
                 ),
                 dbc.FormGroup([
                     dbc.Checkbox(
                         id="order_ascending", className="form-check-input",
-                        checked=False
+                        checked=False, persistence=True
                     ),
                     dbc.Label(
                         'Crescente', html_for="order_ascending",
