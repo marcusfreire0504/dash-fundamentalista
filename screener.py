@@ -86,19 +86,28 @@ layout = html.Div([
 
         ])
     ]),
-    dcc.Graph(id="screener_plot", style={'height': '80vh'})
+    dbc.Tabs([
+        dbc.Tab([
+            dcc.Graph(id="screener_plot", style={'height': '80vh'})
+        ], label="Barras"),
+        dbc.Tab([
+            dcc.Graph(id="screener_scatter", style={'height': '80vh'})
+        ], label="Dispersão")
+    ])
 ])
 
 
 @app.callback(
-    Output("screener_plot", "figure"),
+    [Output("screener_plot", "figure"),
+     Output("screener_scatter", "figure")],
     [Input('screener_variables', 'value'),
      Input('screener_order', 'value'),
      Input('order_ascending', 'checked')]
 )
 def update_screener(variables, order, ascending):
+    df = screener.sort_values(order, ascending=ascending).iloc[:40]
     fig = px.bar(
-        screener.sort_values(order, ascending=ascending).iloc[:40],
+        df,
         y='BTICKER', x=variables, facet_col='variable', text='value',
         color_discrete_sequence=[colorscheme[0]],
         labels={"variable": "", "value": "", "BTICKER": ""}
@@ -109,7 +118,18 @@ def update_screener(variables, order, ascending):
     fig.for_each_annotation(lambda a: a.update(
         text='<b>' + a.text.split("=")[-1] + "</b>"))
     fig.update_layout(showlegend=False)
-    return fig
+
+    scatter = px.scatter(
+        df,
+        size=variables[0],
+        x=variables[1],
+        y=variables[2],
+        text="BTICKER",
+        color="SETOR"
+    )
+    scatter.update_traces(textposition='top center')
+
+    return fig, scatter
 
 
 
