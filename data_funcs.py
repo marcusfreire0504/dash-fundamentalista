@@ -184,6 +184,23 @@ def get_quotes(tickers):
     return df
 
 
+def get_mktcap():
+    url = "http://www.b3.com.br/pt_br/market-data-e-indices/" + \
+        "servicos-de-dados/market-data/consultas/mercado-a-vista/" + \
+            "valor-de-mercado-das-empresas-listadas/bolsa-de-valores/"
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, 'html.parser')
+    url = soup.find("a", string="Histórico diário").get('href')
+    url = "http://www.b3.com.br/" + url.replace('../', '')
+    df = (
+        pd.read_excel(url, skiprows=7, skipfooter=5)
+        .dropna(axis=1, how="all")
+        .rename(columns={"Empresa": "NM_PREGAO", "R$ (Mil)": "MarketCap"})
+        [["NM_PREGAO", "MarketCap"]]
+    )
+    return df
+
+
 def get_pib():
     url = "https://sidra.ibge.gov.br/geratabela?format=us.csv&" + \
         "name=tabela6613.csv&terr=N&rank=-&query=" + \
