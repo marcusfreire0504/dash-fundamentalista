@@ -13,9 +13,10 @@ def add_quarters(df):
 
 
 def calc_kpis(df, quarterly=True):
-    df.sort_values('DT_FIM_EXERC', inplace=True)
-    if quarterly:
-        df = add_quarters(df)
+    if 'DT_FIM_EXERC' in df.columns:
+        df.sort_values('DT_FIM_EXERC', inplace=True)
+        if quarterly:
+            df = add_quarters(df)
 
     df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
