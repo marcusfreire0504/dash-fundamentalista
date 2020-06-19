@@ -21,7 +21,7 @@ def calc_kpis(df, quarterly=True):
         df['EBIT'] = np.where(
             df['SEGMENTO'] == 'Bancos', df['EBT'], df['EBIT']
         )
-
+    df['FreeCashFlow'] = df['OperatingCashFlow'] + df['InvestingCashFlow']
     df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
         df['StakeholderEquity'] - df['MinorityInterests'].fillna(0)
