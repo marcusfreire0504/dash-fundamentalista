@@ -111,7 +111,6 @@ def update_screener(variables, order, ascending):
     [State("url", "pathname")]
 )
 def display_click_data(clickData, url):
-    print(clickData)
     if url is None:
         return None
     else:
