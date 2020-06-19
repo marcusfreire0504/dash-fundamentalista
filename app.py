@@ -31,7 +31,11 @@ companies = companies.merge(get_mktcap(), on="NM_PREGAO", how="inner")
 #
 app = dash.Dash(
     __name__,
-    external_stylesheets=[dbc.themes.BOOTSTRAP]
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    meta_tags=[{
+        'name': 'viewport',
+        'content': "width=device-width, initial-scale=1, shrink-to-fit=no"
+    }]
 )
 server = app.server
 app.title = 'Análise Fundamentalista'
