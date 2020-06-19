@@ -102,3 +102,19 @@ def update_screener(variables, order, ascending):
     fig.update_yaxes(autorange="reversed")
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
     return fig
+
+
+
+@app.callback(
+    Output('url', 'pathname'),
+    [Input('screener_plot', 'clickData')],
+    [State("url", "pathname")]
+)
+def display_click_data(clickData, url):
+    print(clickData)
+    if url is None:
+        return None
+    else:
+        ticker = clickData['points'][0]['y']
+        return '/' + ticker
+    return url
