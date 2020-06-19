@@ -43,7 +43,7 @@ filter_cols = [
     "OperatingCashFlow", "FreeCashFlow",
     "GrossMargin", "EBITMargin", "NetMargin",
     "ROIC", "ROE",
-    "PE", "EV2EBIT",
+    "PE", "EV2EBIT", "PB",
     "DebtToEquity", "NetDebtToEBIT",
     "CurrentLiquidity", "GeneralLiquidity", "CashLiquidity",
 ]

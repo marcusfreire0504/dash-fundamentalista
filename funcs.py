@@ -42,6 +42,7 @@ def calc_kpis(df, quarterly=True):
     if 'MarketCap' in df:
         df['FirmValue'] = df['MarketCap'] + df['NetDebt']
         df['PE'] = df['MarketCap'] / df['NetIncome']
+        df['PB'] = df['MarketCap'] / df['ShareholderEquity']
         df['EV2EBIT'] = df['FirmValue'] / df['EBIT']
         df['EV2AdjEBITDA'] = df['FirmValue'] / df['AdjustedEBITDA']
         df['EV2FCFF'] = df["FirmValue"] / df["FreeCashFlow"]
