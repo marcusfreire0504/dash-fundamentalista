@@ -61,7 +61,8 @@ layout = html.Div([
                     value=["MarketCap", "EBITMargin", "NetMargin",
                            "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
                     multi=True,
-                    persistence=True
+                    persistence=True,
+                    clearable=False
                 )
             ]),
             html.Div([
