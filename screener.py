@@ -37,6 +37,7 @@ screener = companies.merge(
 
 
 filter_cols = [
+    "MarketCap",
     "Revenue", "GrossProfit", "EBIT", "EBT", "NetIncome",
     "OperatingCashFlow", "FreeCashFlow",
     "GrossMargin", "EBITMargin", "NetMargin",
@@ -55,7 +56,8 @@ layout = html.Div([
                 dcc.Dropdown(
                     id="screener_variables",
                     options=[{'label': s, 'value': s} for s in filter_cols],
-                    value=["Revenue", "EBITMargin", "NetMargin", "ROIC", "ROE", "NetDebtToEBIT"],
+                    value=["MarketCap", "Revenue", "EBITMargin", "NetMargin",
+                           "ROIC", "ROE", "NetDebtToEBIT"],
                     multi=True,
                     persistence=True
                 )
@@ -65,7 +67,7 @@ layout = html.Div([
                 dcc.Dropdown(
                     id="screener_order",
                     options=[{'label': s, 'value': s} for s in filter_cols],
-                    value="Revenue",
+                    value="MarketCap",
                     persistence=True
                 ),
                 dbc.FormGroup([

@@ -6,6 +6,8 @@ import dash_bootstrap_components as dbc
 import plotly.io as pio
 import plotly.graph_objects as go
 
+from data_funcs import get_mktcap
+
 colorscheme = ["#E69F00", "#56B4E9", "#009E73", "#F0E442", 
                "#0072B2", "#D55E00", "#CC79A7", "#999999"]
 pio.templates["custom"] = go.layout.Template(
@@ -24,7 +26,7 @@ plot_style = {'height': '80vh'}
 fin_stmts = pd.read_csv('data/fin_stmts_wide.csv')
 companies = pd.read_csv('data/companies.csv')
 companies = companies[companies['CD_CVM'].isin(fin_stmts['CD_CVM'])]
-
+companies = companies.merge(get_mktcap(), on="NM_PREGAO", how="inner")
 
 #
 app = dash.Dash(
