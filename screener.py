@@ -105,7 +105,7 @@ layout = html.Div([
      Input('order_ascending', 'checked')]
 )
 def update_screener(variables, order, ascending):
-    df = screener.sort_values(order, ascending=ascending).iloc[:40]
+    df = screener.sort_values(order, ascending=ascending).head(40)
     fig = px.bar(
         df,
         y='BTICKER', x=variables, facet_col='variable', text='value',
