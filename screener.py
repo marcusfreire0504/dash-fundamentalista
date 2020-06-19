@@ -70,6 +70,7 @@ layout = html.Div([
                 id="screener_order",
                 options=[{'label': s, 'value': s} for s in filter_cols],
                 value="MarketCap",
+                clearable=False,
                 persistence=True
             ),
             dbc.FormGroup([
