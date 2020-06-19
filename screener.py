@@ -31,14 +31,14 @@ screener = companies.merge(
         for s in fin_stmts.columns[2:]
     })
     .reset_index()
-    .pipe(calc_kpis, False),
+    ,
     on="CD_CVM", how='inner'
-).sort_values('Revenue', ascending=False)
+).sort_values('Revenue', ascending=False).pipe(calc_kpis, False)
 
 
 filter_cols = [
-    "Revenue", "EBIT", "NetIncome", "OperatingCashFlow",
-    "EBITMargin", "NetMargin",
+    "Revenue", "GrossProfit", "EBIT", "EBT", "NetIncome", "OperatingCashFlow",
+    "GrossmMargin", "EBITMargin", "NetMargin",
     "ROIC", "ROE",
     "DebtToEquity", "NetDebtToEBIT",
     "CurrentLiquidity", "GeneralLiquidity", "CashLiquidity",
@@ -95,9 +95,10 @@ layout = html.Div([
 def update_screener(variables, order, ascending):
     fig = px.bar(
         screener.sort_values(order, ascending=ascending).iloc[:40],
-        y='BTICKER', x=variables, facet_col='variable',
+        y='BTICKER', x=variables, facet_col='variable', text='value',
         labels={"variable": "", "value": "", "BTICKER": ""}
     )
+    fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
     fig.update_xaxes(matches=None)
     fig.update_yaxes(autorange="reversed")
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
