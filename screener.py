@@ -39,7 +39,7 @@ screener = companies.merge(
 filter_cols = [
     "Revenue", "GrossProfit", "EBIT", "EBT", "NetIncome",
     "OperatingCashFlow", "FreeCashFlow",
-    "GrossmMargin", "EBITMargin", "NetMargin",
+    "GrossMargin", "EBITMargin", "NetMargin",
     "ROIC", "ROE",
     "DebtToEquity", "NetDebtToEBIT",
     "CurrentLiquidity", "GeneralLiquidity", "CashLiquidity",
