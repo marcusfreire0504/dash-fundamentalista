@@ -5,6 +5,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import dash_table as dt
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 
 import plotly.express as px
 
@@ -121,8 +122,8 @@ def update_screener(variables, order, ascending):
     [State("url", "pathname")]
 )
 def display_click_data(clickData, url):
-    if url is None:
-        return None
+    if clickData is None:
+        raise PreventUpdate
     else:
         ticker = clickData['points'][0]['y']
         return '/' + ticker
