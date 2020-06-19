@@ -128,6 +128,7 @@ def update_screener(variables, order, ascending):
         color="SETOR"
     )
     scatter.update_traces(textposition='top center')
+    scatter.update_layout(legend=dict(orientation='v'))
 
     return fig, scatter
 
