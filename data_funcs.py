@@ -196,7 +196,10 @@ def get_mktcap():
         pd.read_excel(url, skiprows=7, skipfooter=5)
         .dropna(axis=1, how="all")
         .rename(columns={"Empresa": "NM_PREGAO", "R$ (Mil)": "MarketCap"})
-        .assign(MarketCap=lambda x: x['MarketCap'] / 1000)
+        .assign(
+            MarketCap=lambda x: x['MarketCap'] / 1000,
+            NM_PREGAO=lambda x: x['NM_PREGAO'].str.strip()
+        )
         [["NM_PREGAO", "MarketCap"]]
     )
     return df
