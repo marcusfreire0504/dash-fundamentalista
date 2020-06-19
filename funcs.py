@@ -39,6 +39,13 @@ def calc_kpis(df, quarterly=True):
         (df['CurrentLiabilities'] + df['LongTermLiabilities'])
     df['CashLiquidity'] = df['Cash'] / df['CurrentLiabilities']
 
+    if 'MarketCap' in df:
+        df['FirmValue'] = df['MarketCap'] + df['NetDebt']
+        df['PE'] = df['MarketCap'] / df['NetIncome']
+        df['EV2EBIT'] = df['FirmValue'] / df['EBIT']
+        df['EV2AdjEBITDA'] = df['FirmValue'] / df['AdjustedEBITDA']
+        df['EV2FCFF'] = df["FirmValue"] / df["FreeCashFlow"]
+
     if quarterly:
         df['RevenueGrowth'] = 100 * (df['Revenue'] / df['Revenue'].shift(4) -1)
         df['LTM_NetIncome'] = df['NetIncome'].rolling(4).sum()

@@ -37,11 +37,12 @@ screener = companies.merge(
 
 
 filter_cols = [
-    "MarketCap",
+    "MarketCap", "NetDebt", "FirmValue",
     "Revenue", "GrossProfit", "EBIT", "EBT", "NetIncome",
     "OperatingCashFlow", "FreeCashFlow",
     "GrossMargin", "EBITMargin", "NetMargin",
     "ROIC", "ROE",
+    "PE", "EV2EBIT",
     "DebtToEquity", "NetDebtToEBIT",
     "CurrentLiquidity", "GeneralLiquidity", "CashLiquidity",
 ]
@@ -56,8 +57,8 @@ layout = html.Div([
                 dcc.Dropdown(
                     id="screener_variables",
                     options=[{'label': s, 'value': s} for s in filter_cols],
-                    value=["MarketCap", "Revenue", "EBITMargin", "NetMargin",
-                           "ROIC", "ROE", "NetDebtToEBIT"],
+                    value=["MarketCap", "EBITMargin", "NetMargin",
+                           "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
                     multi=True,
                     persistence=True
                 )
