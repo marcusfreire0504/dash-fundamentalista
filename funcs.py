@@ -17,6 +17,10 @@ def calc_kpis(df, quarterly=True):
         df.sort_values('DT_FIM_EXERC', inplace=True)
         if quarterly:
             df = add_quarters(df)
+    if 'SEGMENTO' in df.columns:
+        df['EBIT'] = np.where(
+            df['SEGMENTO'] == 'Bancos', df['EBT'], df['EBIT']
+        )
 
     df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
