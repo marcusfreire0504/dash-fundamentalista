@@ -24,7 +24,16 @@ navbar = dbc.NavbarSimple(
 app.layout = html.Div([
     dcc.Location('url', refresh=False),
     navbar,
-    html.Div(id='page_content', className='container-fluid')
+    html.Div(id='page_content', className='container-fluid'),
+    html.Footer([
+        html.Div([
+            'Este aplicativo tem objetivo exclusivamente educacional e ' + \
+            'todos os dados possuem caráter informativo. Não nos ' + \
+            'responsabilizamos pelas decisões e caminhos tomados tomados ' + \
+            'pelo usuário a partir da análise das informações aqui ' + \
+            'disponibilizadas.'
+        ], className='container')
+    ], className='footer text-muted')
 ])
 
 
