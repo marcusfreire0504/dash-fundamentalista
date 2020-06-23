@@ -122,7 +122,7 @@ def layout(ticker):
                             persistence=ticker
                         ),
                         html.Div([
-                            html.Label('Cenário Focus'),
+                            html.Label('Cenário Indexador (Focus)'),
                             dbc.RadioItems(
                                 id="focus_scenario",
                                 value="Mediana",
