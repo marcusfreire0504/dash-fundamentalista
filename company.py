@@ -114,7 +114,6 @@ def layout(ticker):
                         dbc.RadioItems(
                             id="forecast_index",
                             value="ipca",
-                            inline=True,
                             options=[
                                 {'value': '', 'label': 'Nenhum'},
                                 {'value': 'ipca', 'label': 'IPCA'},
@@ -127,7 +126,6 @@ def layout(ticker):
                             dbc.RadioItems(
                                 id="focus_scenario",
                                 value="Mediana",
-                                inline=True,
                                 options=[
                                     {'value': s, 'label': s}
                                     for s in focus['scenario'].unique()
@@ -139,7 +137,6 @@ def layout(ticker):
                         dbc.RadioItems(
                             id='rev_forecast_method',
                             value='ets',
-                            inline=True,
                             options=[
                                 {'value': 'ets', 'label': 'Alisamento exponencial'},
                                 {'value': 'arima', 'label': 'ARIMA'}
@@ -172,18 +169,12 @@ def layout(ticker):
                                 marks=arima_marks,
                                 persistence=ticker)
                         ], id="arima_params_div", style={"display": "none"})
-                    ], width=3, className="sidebar"),
+                    ], width=2, className="sidebar"),
                     dbc.Col([
                         spinner_graph("rev_forecast_plot", style={'height': '80vh'})
-                    ], width=9)
+                    ], width=10)
                 ])
-            ], label="Receita"),
-            dbc.Tab([
-                grid([[
-                    spinner_graph(id='opex_scatter', style={'height': '80vh'}),
-                    spinner_graph(id='opex_forecast_plot', style={'height': '80vh'})
-                ]])
-            ], label='OPEX')
+            ], label="Previsão"),
         ])
     ])
 
@@ -448,50 +439,16 @@ def plot_revenue_forecast(forecasts, models):
     model = models['revenue']
     df = pd.DataFrame(forecasts)
     fig = px.line(df,
-        x='DT_FIM_EXERC', y=['Revenue', 'RevenueGrowth'],
+        x='DT_FIM_EXERC', y=['Revenue', 'EBIT', 'RevenueGrowth', 'EBITMargin'],
         line_group='iteration', color='group',
-        facet_col='variable', facet_col_wrap=1,
+        facet_col='variable', facet_col_wrap=2,
         color_discrete_sequence=simulation_scheme,
         labels={'DT_FIM_EXERC': '', 'value': '', 'variable': ''})
-    fig.update_yaxes(matches=None)
+    fig.update_yaxes(matches=None, showticklabels=False)
     text = "<br>".join([
         f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
     ])
     fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
         text=text, align='left')
     fig.update_layout(showlegend=False)
-    return fig
-
-
-@app.callback(
-    Output('opex_scatter', 'figure'),
-    [Input('stmts_store', 'data'),
-     Input('models_store', 'data')]
-)
-def plot_opex_scatter(data, models):
-    df = pd.DataFrame(data)
-    model = models['opex']
-    fig = px.scatter(
-        df, x='Revenue', y='Opex', color='Quarter')
-    text = "<br>".join([
-        f"<b>{k}:</b> {round(v, 4)}" for k, v in model['diag'].items()
-    ])
-    fig.add_annotation(x=0, y=1, xref='paper', yref='paper', showarrow=False,
-        text=text, align='left')
-    return fig
-
-
-@app.callback(
-    Output('opex_forecast_plot', 'figure'),
-    [Input('rev_forecast_store', 'data')]
-)
-def plot_opex_forecast(forecasts):
-    df = pd.DataFrame(forecasts)
-    fig = px.line(df, x='DT_FIM_EXERC', y=['Opex', 'EBIT', 'EBITMargin'],
-        color='group', color_discrete_sequence=simulation_scheme,
-        facet_col='variable', facet_col_wrap=1, line_group='iteration',
-        labels={'DT_FIM_EXERC': '', 'value': '', 'variable': ''})
-    fig.update_yaxes(matches=None)
-    fig.update_layout(showlegend=False)
-
     return fig
