@@ -10,7 +10,7 @@ from dash.exceptions import PreventUpdate
 import plotly.express as px
 
 from app import app, companies, fin_stmts, colorscheme
-from funcs import grid, calc_kpis
+from funcs import grid, calc_kpis, spinner_graph
 
 
 accounts = pd.read_csv('accounts.csv')
@@ -88,10 +88,10 @@ layout = html.Div([
     ]),
     dbc.Tabs([
         dbc.Tab([
-            dcc.Graph(id="screener_plot", style={'height': '80vh'})
+            spinner_graph(id="screener_plot", style={'height': '80vh'})
         ], label="Barras"),
         dbc.Tab([
-            dcc.Graph(id="screener_scatter", style={'height': '80vh'})
+            spinner_graph(id="screener_scatter", style={'height': '80vh'})
         ], label="Dispersão")
     ])
 ])

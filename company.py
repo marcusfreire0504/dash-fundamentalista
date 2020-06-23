@@ -18,7 +18,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.regression.quantile_regression import QuantReg
 
 from app import app, companies, fin_stmts, colorscheme
-from funcs import grid, calc_kpis, add_quarters
+from funcs import grid, calc_kpis, add_quarters, spinner_graph
 from data_funcs import get_focus, get_quotes
 
 simulation_scheme = [colorscheme[0], 'rgba(180,180,180,0.2)', '#0f0f0f']
@@ -86,24 +86,24 @@ def layout(ticker):
             dbc.Tab([
                 grid([
                     [
-                        dcc.Graph(id='ov_revenue_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_profit_plot', style={'height': '40vh'})
+                        spinner_graph(id='ov_revenue_plot', style={'height': '40vh'}),
+                        spinner_graph(id='ov_profit_plot', style={'height': '40vh'})
                     ],
                     [
-                        dcc.Graph(id='ov_margins_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_returns_plot', style={'height': '40vh'})
+                        spinner_graph(id='ov_margins_plot', style={'height': '40vh'}),
+                        spinner_graph(id='ov_returns_plot', style={'height': '40vh'})
                     ]
                 ])
             ], label="Visão Geral"),
             dbc.Tab([
                 grid([
                     [
-                        dcc.Graph(id='workingk_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='liquid_plot', style={'height': '40vh'}),
+                        spinner_graph(id='workingk_plot', style={'height': '40vh'}),
+                        spinner_graph(id='liquid_plot', style={'height': '40vh'}),
                     ],
                     [
-                        dcc.Graph(id='ov_debt_plot', style={'height': '40vh'}),
-                        dcc.Graph(id='ov_debt2_plot', style={'height': '40vh'})
+                        spinner_graph(id='ov_debt_plot', style={'height': '40vh'}),
+                        spinner_graph(id='ov_debt2_plot', style={'height': '40vh'})
                     ]
                 ])
             ], label="Capital"),
@@ -174,14 +174,14 @@ def layout(ticker):
                         ], id="arima_params_div", style={"display": "none"})
                     ], width=3, className="sidebar"),
                     dbc.Col([
-                        dcc.Graph("rev_forecast_plot", style={'height': '80vh'})
+                        spinner_graph("rev_forecast_plot", style={'height': '80vh'})
                     ], width=9)
                 ])
             ], label="Receita"),
             dbc.Tab([
                 grid([[
-                    dcc.Graph(id='opex_scatter', style={'height': '80vh'}),
-                    dcc.Graph(id='opex_forecast_plot', style={'height': '80vh'})
+                    spinner_graph(id='opex_scatter', style={'height': '80vh'}),
+                    spinner_graph(id='opex_forecast_plot', style={'height': '80vh'})
                 ]])
             ], label='OPEX')
         ])
