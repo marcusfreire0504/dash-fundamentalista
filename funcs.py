@@ -22,10 +22,12 @@ def calc_kpis(df, quarterly=True):
         df.sort_values('DT_FIM_EXERC', inplace=True)
         if quarterly:
             df = add_quarters(df)
+    df['EBITDA'] = df['EBIT'] - df['DepreciationAmortization']
     if 'SEGMENTO' in df.columns:
         df['EBIT'] = np.where(
             df['SEGMENTO'] == 'Bancos', df['EBT'], df['EBIT']
         )
+        df['EBITDA'] = df['EBIT']
     df['FreeCashFlow'] = df['OperatingCashFlow'] + df['InvestingCashFlow']
     df['Opex'] = df['Revenue'] - df['EBIT']
     df['ShareholderEquity'] = \
@@ -34,6 +36,7 @@ def calc_kpis(df, quarterly=True):
     df['InvestedCapital'] = df['ShareholderEquity'] + df['Debt'].fillna(0)
     df['GrossMargin'] = 100 * df['GrossProfit'] / df['Revenue']
     df['EBITMargin'] = 100 * df['EBIT'] / df['Revenue']
+    df['EBITDAMargin'] = 100 * df['EBITDA'] / df['Revenue']
     df['NetMargin'] = 100 * df['NetIncome'] / df['Revenue']
     df['DebtToEquity'] = np.where(df['ShareholderEquity'] < 0, np.NaN,
                                   df['Debt'] / df['ShareholderEquity'])
@@ -53,6 +56,8 @@ def calc_kpis(df, quarterly=True):
             df['MarketCap'] / df['ShareholderEquity'])
         df['EV2EBIT'] = np.where(
             df['EBIT'] <= 0, np.NaN, df['FirmValue'] / df['EBIT'])
+        df['EV2EBITDA'] = np.where(
+            df['EBITDA'] <= 0, np.NaN, df['FirmValue'] / df['EBITDA'])
         df['EV2AdjEBITDA'] = np.where(
             df['AdjustedEBITDA'] <= 0, np.NaN,
             df['FirmValue'] / df['AdjustedEBITDA'])
