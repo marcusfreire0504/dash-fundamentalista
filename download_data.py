@@ -19,6 +19,7 @@ companies.to_csv('data/companies.csv', index=False)
 
 fin_stmts = get_cvm_all(
     range(2010, 2021),
+    doc_types=['dre', 'bpa', 'bpp', 'dva'],
     accounts=accounts['CD_CONTA'].unique(),
     companies=companies['CD_CVM'].unique())
 fin_stmts.to_csv('data/fin_stmts_long.csv', index=False)
