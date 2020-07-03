@@ -12,9 +12,18 @@ colorscheme = ["#E69F00", "#56B4E9", "#009E73", "#F0E442",
                "#0072B2", "#D55E00", "#CC79A7", "#999999"]
 pio.templates["custom"] = go.layout.Template(
     layout=go.Layout(
-        margin=dict(l=50, r=20, t=40, b=40),
-        legend=dict(orientation='h'),
-        colorway=colorscheme
+        # Small margins
+        margin=dict(l=50, r=20, t=60, b=40),
+        # Horizontal legend on top-left
+        legend=dict(orientation='h', x=0, y=1.05),
+        # Title position on top-left
+        title={'y': 0.97, 'x': 0, 'xanchor': 'left', 'yanchor': 'top'},
+        # Bigger title
+        titlefont={'size': 20},
+        # Custom color scheme 
+        colorway=colorscheme,
+        #
+        hovermode='x'
     )
 )
 pio.templates.default = 'custom'
