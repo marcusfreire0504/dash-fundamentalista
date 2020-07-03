@@ -10,21 +10,11 @@ import company
 
 server = app.server
 
-#
-navbar = dbc.NavbarSimple(
-    children=[],
-    brand=app.title,
-    brand_href="/",
-    color='dark',
-    dark=True
-)
-
 
 # LAYOUT
 app.layout = html.Div([
     dcc.Location('url', refresh=False),
-    navbar,
-    html.Div(id='page_content', className='container-fluid'),
+    html.Div(id='page_content'),
     html.Footer([
         html.Div([
             'Este aplicativo tem objetivo exclusivamente educacional e ' + \

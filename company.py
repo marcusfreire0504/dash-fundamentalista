@@ -57,125 +57,128 @@ def layout(ticker):
     
     #
     cards = [
-        dbc.Card(
-            dbc.CardBody([
-                html.H5(quotes['ticker'].iloc[i], className="card-title"),
-                html.H1(f'R$ {quotes["cotacao"].iloc[i]}')
-            ])
-        )
+        dbc.NavItem(dbc.NavLink(
+            f'{quotes["ticker"].iloc[i]} R$ {quotes["cotacao"].iloc[i]}'
+        ))
         for i in range(quotes.shape[0])
     ]
     cards.append(
-        dbc.Card(
-            dbc.CardBody([
-                html.H5("Market-cap"),
-                html.H1(f"R$ {round(mktcap, 1)} bi")
-            ])
+        dbc.NavItem(
+            dbc.NavLink(f"Mktcap R$ {round(mktcap, 1)} bi")
         )
     )
     #
     return html.Div([
-        dcc.Store(id='stmts_store', data=data.to_dict('records')),
-        dcc.Store(id='rev_forecast_store', data={}),
-        dcc.Store(id='models_store', data={}),
-        html.H2(company_name),
-        html.Ol(sectors, className='breadcrumb',
-            style={'background': 'none'}),
-        dbc.CardGroup(cards),
-        dbc.Tabs([
-            dbc.Tab([
-                grid([
-                    [
-                        spinner_graph(id='ov_revenue_plot', style={'height': '40vh'}),
-                        spinner_graph(id='ov_profit_plot', style={'height': '40vh'})
-                    ],
-                    [
-                        spinner_graph(id='ov_margins_plot', style={'height': '40vh'}),
-                        spinner_graph(id='ov_returns_plot', style={'height': '40vh'})
-                    ]
-                ])
-            ], label="Visão Geral"),
-            dbc.Tab([
-                grid([
-                    [
-                        spinner_graph(id='workingk_plot', style={'height': '40vh'}),
-                        spinner_graph(id='liquid_plot', style={'height': '40vh'}),
-                    ],
-                    [
-                        spinner_graph(id='ov_debt_plot', style={'height': '40vh'}),
-                        spinner_graph(id='ov_debt2_plot', style={'height': '40vh'})
-                    ]
-                ])
-            ], label="Capital"),
-            dbc.Tab([
-                dbc.Row([
-                    dbc.Col([
-                        html.Label('Indexador'),
-                        dbc.RadioItems(
-                            id="forecast_index",
-                            value="ipca",
-                            options=[
-                                {'value': '', 'label': 'Nenhum'},
-                                {'value': 'ipca', 'label': 'IPCA'},
-                                {'value': 'usd', 'label': 'USD'}
-                            ],
-                            persistence=ticker
-                        ),
-                        html.Div([
-                            html.Label('Cenário Indexador (Focus)'),
+        dbc.NavbarSimple(
+            children=cards,
+            brand=app.title,
+            brand_href="/",
+            color='dark',
+            dark=True,
+            fluid=True
+        ),
+        html.Div([
+            dcc.Store(id='stmts_store', data=data.to_dict('records')),
+            dcc.Store(id='rev_forecast_store', data={}),
+            dcc.Store(id='models_store', data={}),
+            html.H2(company_name),
+            html.Ol(sectors, className='breadcrumb',
+                style={'background': 'none'}),
+            dbc.Tabs([
+                dbc.Tab([
+                    grid([
+                        [
+                            spinner_graph(id='ov_revenue_plot', style={'height': '40vh'}),
+                            spinner_graph(id='ov_profit_plot', style={'height': '40vh'})
+                        ],
+                        [
+                            spinner_graph(id='ov_margins_plot', style={'height': '40vh'}),
+                            spinner_graph(id='ov_returns_plot', style={'height': '40vh'})
+                        ]
+                    ])
+                ], label="Visão Geral"),
+                dbc.Tab([
+                    grid([
+                        [
+                            spinner_graph(id='workingk_plot', style={'height': '40vh'}),
+                            spinner_graph(id='liquid_plot', style={'height': '40vh'}),
+                        ],
+                        [
+                            spinner_graph(id='ov_debt_plot', style={'height': '40vh'}),
+                            spinner_graph(id='ov_debt2_plot', style={'height': '40vh'})
+                        ]
+                    ])
+                ], label="Capital"),
+                dbc.Tab([
+                    dbc.Row([
+                        dbc.Col([
+                            html.Label('Indexador'),
                             dbc.RadioItems(
-                                id="focus_scenario",
-                                value="Mediana",
+                                id="forecast_index",
+                                value="ipca",
                                 options=[
-                                    {'value': s, 'label': s}
-                                    for s in focus['scenario'].unique()
+                                    {'value': '', 'label': 'Nenhum'},
+                                    {'value': 'ipca', 'label': 'IPCA'},
+                                    {'value': 'usd', 'label': 'USD'}
                                 ],
                                 persistence=ticker
-                            )
-                        ], id="focus_scenario_div", style={"display": "block"}),
-                        html.Label('Método'),
-                        dbc.RadioItems(
-                            id='rev_forecast_method',
-                            value='ets',
-                            options=[
-                                {'value': 'ets', 'label': 'Alisamento exponencial'},
-                                {'value': 'arima', 'label': 'ARIMA'}
-                            ],
-                            persistence=ticker
-                        ),
-                        html.Div([
-                            html.Label('Coef. Autoregressivos (p)'),
-                            dcc.Slider(id="arima_p", min=0, max=3, value=2,
-                                marks=arima_marks,
-                                persistence=ticker),
-                            html.Label('Ordem de integração (d)'),
-                            dcc.Slider(id="arima_d", min=0, max=3, value=1,
-                                marks=arima_marks,
-                                persistence=ticker),
-                            html.Label('Coef. Média Móvel (q)'),
-                            dcc.Slider(id="arima_q", min=0, max=3, value=1,
-                                marks=arima_marks,
-                                persistence=ticker),
-                            html.Label('Coef. AR sazonal (P)'),
-                            dcc.Slider(id="arima_P", min=0, max=3, value=1,
-                                marks=arima_marks,
-                                persistence=ticker),
-                            html.Label('Ordem de integração sazonal (D)'),
-                            dcc.Slider(id="arima_D", min=0, max=3, value=0,
-                                marks=arima_marks,
-                                persistence=ticker),
-                            html.Label('Coef. Média Móvel sazonal (Q)'),
-                            dcc.Slider(id="arima_Q", min=0, max=3, value=1,
-                                marks=arima_marks,
-                                persistence=ticker)
-                        ], id="arima_params_div", style={"display": "none"})
-                    ], width=2, className="sidebar"),
-                    dbc.Col([
-                        spinner_graph("rev_forecast_plot", style={'height': '80vh'})
-                    ], width=10)
-                ])
-            ], label="Previsão"),
-        ])
+                            ),
+                            html.Div([
+                                html.Label('Cenário Indexador (Focus)'),
+                                dbc.RadioItems(
+                                    id="focus_scenario",
+                                    value="Mediana",
+                                    options=[
+                                        {'value': s, 'label': s}
+                                        for s in focus['scenario'].unique()
+                                    ],
+                                    persistence=ticker
+                                )
+                            ], id="focus_scenario_div", style={"display": "block"}),
+                            html.Label('Método'),
+                            dbc.RadioItems(
+                                id='rev_forecast_method',
+                                value='ets',
+                                options=[
+                                    {'value': 'ets', 'label': 'Alisamento exponencial'},
+                                    {'value': 'arima', 'label': 'ARIMA'}
+                                ],
+                                persistence=ticker
+                            ),
+                            html.Div([
+                                html.Label('Coef. Autoregressivos (p)'),
+                                dcc.Slider(id="arima_p", min=0, max=3, value=2,
+                                    marks=arima_marks,
+                                    persistence=ticker),
+                                html.Label('Ordem de integração (d)'),
+                                dcc.Slider(id="arima_d", min=0, max=3, value=1,
+                                    marks=arima_marks,
+                                    persistence=ticker),
+                                html.Label('Coef. Média Móvel (q)'),
+                                dcc.Slider(id="arima_q", min=0, max=3, value=1,
+                                    marks=arima_marks,
+                                    persistence=ticker),
+                                html.Label('Coef. AR sazonal (P)'),
+                                dcc.Slider(id="arima_P", min=0, max=3, value=1,
+                                    marks=arima_marks,
+                                    persistence=ticker),
+                                html.Label('Ordem de integração sazonal (D)'),
+                                dcc.Slider(id="arima_D", min=0, max=3, value=0,
+                                    marks=arima_marks,
+                                    persistence=ticker),
+                                html.Label('Coef. Média Móvel sazonal (Q)'),
+                                dcc.Slider(id="arima_Q", min=0, max=3, value=1,
+                                    marks=arima_marks,
+                                    persistence=ticker)
+                            ], id="arima_params_div", style={"display": "none"})
+                        ], width=2, className="sidebar"),
+                        dbc.Col([
+                            spinner_graph("rev_forecast_plot", style={'height': '80vh'})
+                        ], width=10)
+                    ])
+                ], label="Previsão"),
+            ])
+        ], className='container-fluid'),
     ])
 
 

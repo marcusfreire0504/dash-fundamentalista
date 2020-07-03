@@ -50,50 +50,60 @@ filter_cols = [
 
 
 layout = html.Div([
-    html.H2('Screener'),
-    dbc.Row([
-        dbc.Col([
-            html.Label("Indicadores"),
-            dcc.Dropdown(
-                id="screener_variables",
-                options=[{'label': s, 'value': s} for s in filter_cols],
-                value=["MarketCap", "EBITMargin", "NetMargin",
-                        "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
-                multi=True,
-                persistence=True,
-                clearable=False
-            )
-        ], width=8),
-        dbc.Col([
-            html.Label("Ordem"),
-            dcc.Dropdown(
-                id="screener_order",
-                options=[{'label': s, 'value': s} for s in filter_cols],
-                value="MarketCap",
-                clearable=False,
-                persistence=True
-            ),
-            dbc.FormGroup([
-                dbc.Checkbox(
-                    id="order_ascending", className="form-check-input",
-                    checked=False, persistence=True
-                ),
-                dbc.Label(
-                    'Crescente', html_for="order_ascending",
-                    className="form-check-label"
+    dbc.NavbarSimple(
+        children=[],
+        brand=app.title,
+        brand_href="/",
+        color='dark',
+        dark=True,
+        fluid=True
+    ),
+    html.Div([
+        html.H2('Screener'),
+        dbc.Row([
+            dbc.Col([
+                html.Label("Indicadores"),
+                dcc.Dropdown(
+                    id="screener_variables",
+                    options=[{'label': s, 'value': s} for s in filter_cols],
+                    value=["MarketCap", "EBITMargin", "NetMargin",
+                            "ROIC", "ROE", "NetDebtToEBIT", "EV2EBIT", "PE"],
+                    multi=True,
+                    persistence=True,
+                    clearable=False
                 )
-            ], check=True)
+            ], width=8),
+            dbc.Col([
+                html.Label("Ordem"),
+                dcc.Dropdown(
+                    id="screener_order",
+                    options=[{'label': s, 'value': s} for s in filter_cols],
+                    value="MarketCap",
+                    clearable=False,
+                    persistence=True
+                ),
+                dbc.FormGroup([
+                    dbc.Checkbox(
+                        id="order_ascending", className="form-check-input",
+                        checked=False, persistence=True
+                    ),
+                    dbc.Label(
+                        'Crescente', html_for="order_ascending",
+                        className="form-check-label"
+                    )
+                ], check=True)
 
+            ])
+        ]),
+        dbc.Tabs([
+            dbc.Tab([
+                spinner_graph(id="screener_plot", style={'height': '80vh'})
+            ], label="Barras"),
+            dbc.Tab([
+                spinner_graph(id="screener_scatter", style={'height': '80vh'})
+            ], label="Dispersão")
         ])
-    ]),
-    dbc.Tabs([
-        dbc.Tab([
-            spinner_graph(id="screener_plot", style={'height': '80vh'})
-        ], label="Barras"),
-        dbc.Tab([
-            spinner_graph(id="screener_scatter", style={'height': '80vh'})
-        ], label="Dispersão")
-    ])
+    ], className='container-fluid'),
 ])
 
 
